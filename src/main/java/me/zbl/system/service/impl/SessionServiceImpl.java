@@ -2,10 +2,6 @@ package me.zbl.system.service.impl;
 
 import me.zbl.system.domain.UserDO;
 import me.zbl.system.domain.UserOnline;
-import me.zbl.system.domain.UserToken;
-import me.zbl.system.service.SessionService;
-import me.zbl.system.domain.UserDO;
-import me.zbl.system.domain.UserOnline;
 import me.zbl.system.service.SessionService;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
@@ -14,7 +10,6 @@ import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

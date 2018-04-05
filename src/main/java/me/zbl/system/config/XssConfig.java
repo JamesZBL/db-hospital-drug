@@ -1,6 +1,5 @@
 package me.zbl.system.config;
 
-import me.zbl.system.filter.XssFilter;
 import com.google.common.collect.Maps;
 import me.zbl.system.filter.XssFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

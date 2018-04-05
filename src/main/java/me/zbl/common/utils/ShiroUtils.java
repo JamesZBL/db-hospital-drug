@@ -1,17 +1,12 @@
 package me.zbl.common.utils;
 
-import me.zbl.system.domain.UserToken;
 import me.zbl.system.domain.UserDO;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.Subject;
-
-import me.zbl.system.domain.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;

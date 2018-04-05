@@ -1,10 +1,8 @@
 package me.zbl.common.controller;
 
-import me.zbl.system.domain.UserToken;
-import me.zbl.system.domain.UserDO;
-import org.springframework.stereotype.Controller;
 import me.zbl.common.utils.ShiroUtils;
 import me.zbl.system.domain.UserDO;
+import org.springframework.stereotype.Controller;
 
 @Controller
 public class BaseController {

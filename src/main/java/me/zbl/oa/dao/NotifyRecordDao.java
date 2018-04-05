@@ -1,12 +1,10 @@
 package me.zbl.oa.dao;
 
 import me.zbl.oa.domain.NotifyRecordDO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
-
-import me.zbl.oa.domain.NotifyRecordDO;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 通知通告发送记录

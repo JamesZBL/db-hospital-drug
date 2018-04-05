@@ -1,7 +1,6 @@
 package me.zbl.oa.service;
 
 import me.zbl.oa.domain.NotifyRecordDO;
-import me.zbl.oa.domain.NotifyRecordDO;
 
 import java.util.List;
 import java.util.Map;

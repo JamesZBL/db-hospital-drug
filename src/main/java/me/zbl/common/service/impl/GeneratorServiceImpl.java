@@ -1,18 +1,16 @@
 package me.zbl.common.service.impl;
 
-import java.io.ByteArrayOutputStream;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.ZipOutputStream;
-
+import me.zbl.common.dao.GeneratorMapper;
 import me.zbl.common.service.GeneratorService;
+import me.zbl.common.utils.GenUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import me.zbl.common.dao.GeneratorMapper;
-import me.zbl.common.service.GeneratorService;
-import me.zbl.common.utils.GenUtils;
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.ZipOutputStream;
 
 
 @Service

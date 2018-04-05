@@ -1,17 +1,15 @@
 package me.zbl.system.service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import me.zbl.system.vo.UserVO;
-import me.zbl.system.domain.UserDO;
-import org.springframework.stereotype.Service;
-
 import me.zbl.common.domain.Tree;
 import me.zbl.system.domain.DeptDO;
 import me.zbl.system.domain.UserDO;
+import me.zbl.system.vo.UserVO;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public interface UserService {

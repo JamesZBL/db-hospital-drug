@@ -2,7 +2,6 @@ package me.zbl.oa.service;
 
 import me.zbl.common.utils.PageUtils;
 import me.zbl.oa.domain.NotifyDO;
-import me.zbl.oa.domain.NotifyDO;
 
 import java.util.List;
 import java.util.Map;

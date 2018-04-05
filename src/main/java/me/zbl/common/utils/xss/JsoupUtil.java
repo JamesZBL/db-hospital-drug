@@ -1,8 +1,5 @@
 package me.zbl.common.utils.xss;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.safety.Whitelist;
@@ -35,8 +32,8 @@ public class JsoupUtil {
 	public static String clean(String content) {
 		return Jsoup.clean(content, "", whitelist, outputSettings);
 	}
-	
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+
+	public static void main(String[] args) {
 		String text = "<a href=\"http://www.baidu.com/a\" onclick=\"alert(1);\">sss</a><script>alert(0);</script>sss";
 		System.out.println(clean(text));
 	}

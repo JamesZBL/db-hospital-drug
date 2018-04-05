@@ -1,22 +1,17 @@
 package me.zbl.activity.service.impl;
 
 import me.zbl.activity.config.ActivitiConstant;
-import me.zbl.common.utils.StringUtils;
-import me.zbl.activity.config.ActivitiConstant;
 import me.zbl.activity.dao.SalaryDao;
-import org.activiti.engine.TaskService;
+import me.zbl.activity.domain.SalaryDO;
+import me.zbl.activity.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import me.zbl.activity.dao.SalaryDao;
-import me.zbl.activity.domain.SalaryDO;
-import me.zbl.activity.service.SalaryService;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Service

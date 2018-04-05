@@ -1,7 +1,9 @@
 package me.zbl.common.service.impl;
 
+import me.zbl.common.dao.DictDao;
+import me.zbl.common.domain.DictDO;
+import me.zbl.common.service.DictService;
 import me.zbl.common.utils.StringUtils;
-import me.zbl.system.domain.UserDO;
 import me.zbl.system.domain.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import me.zbl.common.dao.DictDao;
-import me.zbl.common.domain.DictDO;
-import me.zbl.common.service.DictService;
 
 
 @Service

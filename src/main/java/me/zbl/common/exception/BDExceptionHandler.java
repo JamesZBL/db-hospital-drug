@@ -3,25 +3,19 @@ package me.zbl.common.exception;
 import me.zbl.common.config.Constant;
 import me.zbl.common.domain.LogDO;
 import me.zbl.common.service.LogService;
-import me.zbl.common.utils.ExceptionUtils;
 import me.zbl.common.utils.HttpServletUtils;
 import me.zbl.common.utils.R;
 import me.zbl.common.utils.ShiroUtils;
-import me.zbl.system.domain.UserDO;
-import me.zbl.common.service.LogService;
 import me.zbl.system.domain.UserDO;
 import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**

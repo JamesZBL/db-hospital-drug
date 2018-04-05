@@ -2,7 +2,6 @@ package me.zbl.common.service;
 
 import me.zbl.common.domain.DictDO;
 import me.zbl.system.domain.UserDO;
-import me.zbl.system.domain.UserDO;
 
 import java.util.List;
 import java.util.Map;

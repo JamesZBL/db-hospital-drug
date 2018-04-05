@@ -1,6 +1,3 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package me.zbl.common.utils;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -314,10 +311,7 @@ public class TimeUtils {
         if (getClass() != obj.getClass())
             return false;
         final TimeUtils other = (TimeUtils) obj;
-        if (!Arrays.equals(fields, other.fields)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(fields, other.fields);
     }
     
 }

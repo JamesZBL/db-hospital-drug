@@ -1,8 +1,5 @@
 package me.zbl.common.config;
 
-import java.io.IOException;
-import java.util.Properties;
-
 import me.zbl.common.quartz.factory.JobFactory;
 import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
-import me.zbl.common.quartz.factory.JobFactory;
+import java.io.IOException;
+import java.util.Properties;
 
 @Configuration
 public class QuartzConfigration {

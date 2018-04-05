@@ -1,7 +1,6 @@
 package me.zbl.system.vo;
 
 import me.zbl.system.domain.UserDO;
-import me.zbl.system.domain.UserDO;
 
 /**
  * @author 郑保乐

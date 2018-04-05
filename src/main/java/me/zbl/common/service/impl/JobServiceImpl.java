@@ -7,8 +7,6 @@ import me.zbl.common.domain.TaskDO;
 import me.zbl.common.quartz.utils.QuartzManager;
 import me.zbl.common.service.JobService;
 import me.zbl.common.utils.ScheduleJobUtils;
-import me.zbl.common.quartz.utils.QuartzManager;
-import me.zbl.common.service.JobService;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,7 +77,7 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public void initSchedule() throws SchedulerException {
+	public void initSchedule() {
 		// 这里获取任务信息数据
 		List<TaskDO> jobList = taskScheduleJobMapper.list(new HashMap<String, Object>(16));
 		for (TaskDO scheduleJob : jobList) {

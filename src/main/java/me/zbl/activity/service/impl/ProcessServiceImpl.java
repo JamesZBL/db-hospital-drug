@@ -1,8 +1,8 @@
 package me.zbl.activity.service.impl;
 
-import me.zbl.activity.service.ProcessService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import me.zbl.activity.service.ProcessService;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
@@ -24,59 +24,60 @@ import java.io.InputStreamReader;
  */
 @Service
 public class ProcessServiceImpl implements ProcessService {
-    @Autowired
-    RepositoryService repositoryService;
-    @Autowired
-    RuntimeService runtimeService;
 
-    @Override
-    public Model convertToModel(String procDefId) throws Exception {
+  @Autowired
+  RepositoryService repositoryService;
+  @Autowired
+  RuntimeService runtimeService;
 
-        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(procDefId).singleResult();
-        InputStream bpmnStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(),
-                processDefinition.getResourceName());
-        XMLInputFactory xif = XMLInputFactory.newInstance();
-        InputStreamReader in = new InputStreamReader(bpmnStream, "UTF-8");
-        XMLStreamReader xtr = xif.createXMLStreamReader(in);
-        BpmnModel bpmnModel = new BpmnXMLConverter().convertToBpmnModel(xtr);
+  @Override
+  public Model convertToModel(String procDefId) throws Exception {
 
-        BpmnJsonConverter converter = new BpmnJsonConverter();
-        ObjectNode modelNode = converter.convertToJson(bpmnModel);
-        org.activiti.engine.repository.Model modelData = repositoryService.newModel();
-        modelData.setKey(processDefinition.getKey());
-        modelData.setName(processDefinition.getResourceName());
-        modelData.setCategory(processDefinition.getCategory());//.getDeploymentId());
-        modelData.setDeploymentId(processDefinition.getDeploymentId());
-        modelData.setVersion(Integer.parseInt(String.valueOf(repositoryService.createModelQuery().modelKey(modelData.getKey()).count() + 1)));
+    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(procDefId).singleResult();
+    InputStream bpmnStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(),
+            processDefinition.getResourceName());
+    XMLInputFactory xif = XMLInputFactory.newInstance();
+    InputStreamReader in = new InputStreamReader(bpmnStream, "UTF-8");
+    XMLStreamReader xtr = xif.createXMLStreamReader(in);
+    BpmnModel bpmnModel = new BpmnXMLConverter().convertToBpmnModel(xtr);
 
-        ObjectNode modelObjectNode = new ObjectMapper().createObjectNode();
-        modelObjectNode.put(ModelDataJsonConstants.MODEL_NAME, processDefinition.getName());
-        modelObjectNode.put(ModelDataJsonConstants.MODEL_REVISION, modelData.getVersion());
-        modelObjectNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, processDefinition.getDescription());
-        modelData.setMetaInfo(modelObjectNode.toString());
+    BpmnJsonConverter converter = new BpmnJsonConverter();
+    ObjectNode modelNode = converter.convertToJson(bpmnModel);
+    org.activiti.engine.repository.Model modelData = repositoryService.newModel();
+    modelData.setKey(processDefinition.getKey());
+    modelData.setName(processDefinition.getResourceName());
+    modelData.setCategory(processDefinition.getCategory());//.getDeploymentId());
+    modelData.setDeploymentId(processDefinition.getDeploymentId());
+    modelData.setVersion(Integer.parseInt(String.valueOf(repositoryService.createModelQuery().modelKey(modelData.getKey()).count() + 1)));
 
-        repositoryService.saveModel(modelData);
+    ObjectNode modelObjectNode = new ObjectMapper().createObjectNode();
+    modelObjectNode.put(ModelDataJsonConstants.MODEL_NAME, processDefinition.getName());
+    modelObjectNode.put(ModelDataJsonConstants.MODEL_REVISION, modelData.getVersion());
+    modelObjectNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, processDefinition.getDescription());
+    modelData.setMetaInfo(modelObjectNode.toString());
 
-        repositoryService.addModelEditorSource(modelData.getId(), modelNode.toString().getBytes("utf-8"));
+    repositoryService.saveModel(modelData);
 
-        return modelData;
+    repositoryService.addModelEditorSource(modelData.getId(), modelNode.toString().getBytes("utf-8"));
+
+    return modelData;
+  }
+
+  @Override
+  public InputStream resourceRead(String id, String resType) {
+
+
+    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(id).singleResult();
+
+
+    String resourceName = "";
+    if (resType.equals("image")) {
+      resourceName = processDefinition.getDiagramResourceName();
+    } else if (resType.equals("xml")) {
+      resourceName = processDefinition.getResourceName();
     }
 
-    @Override
-    public InputStream resourceRead(String id, String resType) throws Exception {
-
-
-        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(id).singleResult();
-
-
-        String resourceName = "";
-        if (resType.equals("image")) {
-            resourceName = processDefinition.getDiagramResourceName();
-        } else if (resType.equals("xml")) {
-            resourceName = processDefinition.getResourceName();
-        }
-
-        InputStream resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), resourceName);
-        return resourceAsStream;
-    }
+    InputStream resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), resourceName);
+    return resourceAsStream;
+  }
 }

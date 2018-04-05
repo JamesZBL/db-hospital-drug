@@ -11,15 +11,12 @@ import me.zbl.oa.domain.NotifyDO;
 import me.zbl.oa.domain.NotifyRecordDO;
 import me.zbl.oa.service.NotifyRecordService;
 import me.zbl.oa.service.NotifyService;
-import me.zbl.oa.domain.NotifyDO;
-import me.zbl.oa.domain.NotifyRecordDO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;

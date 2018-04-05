@@ -2,34 +2,35 @@ package me.zbl.activity.domain;
 
 
 /**
+ *
  */
 public class Variable {
 
-    private String keys;
-    private String values;
-    private String types;
+  private String keys;
+  private String values;
+  private String types;
 
-    public String getKeys() {
-        return keys;
-    }
+  public String getKeys() {
+    return keys;
+  }
 
-    public void setKeys(String keys) {
-        this.keys = keys;
-    }
+  public void setKeys(String keys) {
+    this.keys = keys;
+  }
 
-    public String getValues() {
-        return values;
-    }
+  public String getValues() {
+    return values;
+  }
 
-    public void setValues(String values) {
-        this.values = values;
-    }
+  public void setValues(String values) {
+    this.values = values;
+  }
 
-    public String getTypes() {
-        return types;
-    }
+  public String getTypes() {
+    return types;
+  }
 
-    public void setTypes(String types) {
-        this.types = types;
-    }
+  public void setTypes(String types) {
+    this.types = types;
+  }
 }

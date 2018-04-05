@@ -1,12 +1,10 @@
 package me.zbl.common.dao;
 
 import me.zbl.common.domain.DictDO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
-
-import me.zbl.common.domain.DictDO;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 字典表

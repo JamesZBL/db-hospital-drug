@@ -1,7 +1,6 @@
 package me.zbl.common.utils;
 
 import me.zbl.common.domain.Tree;
-import me.zbl.common.domain.Tree;
 
 import java.util.ArrayList;
 import java.util.HashMap;
