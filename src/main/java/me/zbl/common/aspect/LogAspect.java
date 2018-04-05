@@ -1,18 +1,10 @@
 package me.zbl.common.aspect;
 
-import java.lang.reflect.Method;
-import java.util.Date;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
-import javax.servlet.http.HttpServletRequest;
-
-import me.zbl.common.service.LogService;
-import me.zbl.system.domain.UserToken;
 import me.zbl.common.annotation.Log;
 import me.zbl.common.domain.LogDO;
 import me.zbl.common.service.LogService;
+import me.zbl.common.utils.HttpContextUtils;
+import me.zbl.common.utils.IPUtils;
 import me.zbl.common.utils.JSONUtils;
 import me.zbl.common.utils.ShiroUtils;
 import me.zbl.system.domain.UserDO;
@@ -24,17 +16,11 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import me.zbl.common.annotation.Log;
-import me.zbl.common.dao.LogDao;
-import me.zbl.common.domain.LogDO;
-import me.zbl.common.utils.HttpContextUtils;
-import me.zbl.common.utils.IPUtils;
-import me.zbl.common.utils.JSONUtils;
-import me.zbl.common.utils.ShiroUtils;
-import me.zbl.system.domain.UserDO;
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
+import java.util.Date;
 
 @Aspect
 @Component
