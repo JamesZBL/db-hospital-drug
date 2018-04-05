@@ -16,47 +16,47 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class MainsiteErrorController implements ErrorController {
-    private Logger logger = LoggerFactory.getLogger(getClass());
-    private static final String ERROR_PATH = "/error";
 
-    @Autowired
-    ErrorAttributes errorAttributes;
+  private static final String ERROR_PATH = "/error";
+  @Autowired
+  ErrorAttributes errorAttributes;
+  private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @RequestMapping(
-            value = {ERROR_PATH},
-            produces = {"text/html"}
-    )
-    public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
-        int code = response.getStatus();
-        if (404 == code) {
-            return new ModelAndView("error/404");
-        } else if (403 == code) {
-            return new ModelAndView("error/403");
-        } else if (401 == code) {
-            return new ModelAndView("login");
-        } else {
-            return new ModelAndView("error/500");
-        }
-
+  @RequestMapping(
+          value = {ERROR_PATH},
+          produces = {"text/html"}
+  )
+  public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
+    int code = response.getStatus();
+    if (404 == code) {
+      return new ModelAndView("error/404");
+    } else if (403 == code) {
+      return new ModelAndView("error/403");
+    } else if (401 == code) {
+      return new ModelAndView("login");
+    } else {
+      return new ModelAndView("error/500");
     }
 
-    @RequestMapping(value = ERROR_PATH)
-    public R handleError(HttpServletRequest request, HttpServletResponse response) {
-        response.setStatus(200);
-        int code = response.getStatus();
-        if (404 == code) {
-            return R.error(404, "未找到资源");
-        } else if (403 == code) {
-            return R.error(403, "没有访问权限");
-        } else if (401 == code) {
-            return R.error(403, "登录过期");
-        } else {
-            return R.error(500, "服务器错误");
-        }
-    }
+  }
 
-    @Override
-    public String getErrorPath() {
-        return ERROR_PATH;
+  @RequestMapping(value = ERROR_PATH)
+  public R handleError(HttpServletRequest request, HttpServletResponse response) {
+    response.setStatus(200);
+    int code = response.getStatus();
+    if (404 == code) {
+      return R.error(404, "未找到资源");
+    } else if (403 == code) {
+      return R.error(403, "没有访问权限");
+    } else if (401 == code) {
+      return R.error(403, "登录过期");
+    } else {
+      return R.error(500, "服务器错误");
     }
+  }
+
+  @Override
+  public String getErrorPath() {
+    return ERROR_PATH;
+  }
 }

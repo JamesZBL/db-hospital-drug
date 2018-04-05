@@ -5,8 +5,6 @@ import me.zbl.blog.service.ContentService;
 import me.zbl.common.utils.DateUtils;
 import me.zbl.common.utils.PageUtils;
 import me.zbl.common.utils.Query;
-import me.zbl.blog.domain.ContentDO;
-import me.zbl.blog.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,40 +20,42 @@ import java.util.Map;
 @RequestMapping("/blog")
 @Controller
 public class BlogController {
-	@Autowired
-    ContentService bContentService;
 
-	@GetMapping()
-	String blog() {
-		return "blog/index/main";
-	}
+  @Autowired
+  ContentService bContentService;
 
-	@ResponseBody
-	@GetMapping("/open/list")
-	public PageUtils opentList(@RequestParam Map<String, Object> params) {
-		Query query = new Query(params);
-		List<ContentDO> bContentList = bContentService.list(query);
-		int total = bContentService.count(query);
-		PageUtils pageUtils = new PageUtils(bContentList, total);
-		return pageUtils;
-	}
+  @GetMapping()
+  String blog() {
+    return "blog/index/main";
+  }
 
-	@GetMapping("/open/post/{cid}")
-	String post(@PathVariable("cid") Long cid, Model model) {
-		ContentDO bContentDO = bContentService.get(cid);
-		model.addAttribute("bContent", bContentDO);
-		model.addAttribute("gtmModified", DateUtils.format(bContentDO.getGtmModified()));
-		return "blog/index/post";
-	}
-	@GetMapping("/open/page/{categories}")
-	String about(@PathVariable("categories") String categories, Model model) {
-		Map<String, Object> map = new HashMap<>(16);
-		map.put("categories", categories);
-		ContentDO bContentDO =null;
-		if(bContentService.list(map).size()>0){
-			 bContentDO = bContentService.list(map).get(0);
-		}
-		model.addAttribute("bContent", bContentDO);
-		return "blog/index/post";
-	}
+  @ResponseBody
+  @GetMapping("/open/list")
+  public PageUtils opentList(@RequestParam Map<String, Object> params) {
+    Query query = new Query(params);
+    List<ContentDO> bContentList = bContentService.list(query);
+    int total = bContentService.count(query);
+    PageUtils pageUtils = new PageUtils(bContentList, total);
+    return pageUtils;
+  }
+
+  @GetMapping("/open/post/{cid}")
+  String post(@PathVariable("cid") Long cid, Model model) {
+    ContentDO bContentDO = bContentService.get(cid);
+    model.addAttribute("bContent", bContentDO);
+    model.addAttribute("gtmModified", DateUtils.format(bContentDO.getGtmModified()));
+    return "blog/index/post";
+  }
+
+  @GetMapping("/open/page/{categories}")
+  String about(@PathVariable("categories") String categories, Model model) {
+    Map<String, Object> map = new HashMap<>(16);
+    map.put("categories", categories);
+    ContentDO bContentDO = null;
+    if (bContentService.list(map).size() > 0) {
+      bContentDO = bContentService.list(map).get(0);
+    }
+    model.addAttribute("bContent", bContentDO);
+    return "blog/index/post";
+  }
 }

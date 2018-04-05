@@ -7,11 +7,12 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class WebSocketController {
-	@Autowired
-	SimpMessagingTemplate template;
 
-	@Autowired
-    SessionService sessionService;
+  @Autowired
+  SimpMessagingTemplate template;
+
+  @Autowired
+  SessionService sessionService;
 
 	/*@Autowired
 	WelcomeTask welcomeTask;
@@ -38,10 +39,10 @@ public class WebSocketController {
 		}
 		return R.ok();
 	}*/
-//    @ResponseBody
-//    @GetMapping("/chat")
-//    public String  handleChat(Principal principal, String msg) {
-//        template.convertAndSendToUser(sessionService.listPrincipal().get(0).toString(), "/queue/notifications", principal.getName() + "给您发来了消息：" + msg);
-//        return sessionService.listPrincipal().get(0).toString();
-//    }
+  //    @ResponseBody
+  //    @GetMapping("/chat")
+  //    public String  handleChat(Principal principal, String msg) {
+  //        template.convertAndSendToUser(sessionService.listPrincipal().get(0).toString(), "/queue/notifications", principal.getName() + "给您发来了消息：" + msg);
+  //        return sessionService.listPrincipal().get(0).toString();
+  //    }
 }

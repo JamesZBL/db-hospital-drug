@@ -7,50 +7,51 @@ import java.io.Serializable;
  * @version V1.0
  */
 public class UserToken implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private Long userId;
-    private String username;
-    private String name;
-    private String password;
-    private Long deptId;
 
-    public Long getUserId() {
-        return userId;
-    }
+  private static final long serialVersionUID = 1L;
+  private Long userId;
+  private String username;
+  private String name;
+  private String password;
+  private Long deptId;
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+  public Long getUserId() {
+    return userId;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public void setUserId(Long userId) {
+    this.userId = userId;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public Long getDeptId() {
-        return deptId;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
-    }
+  public Long getDeptId() {
+    return deptId;
+  }
+
+  public void setDeptId(Long deptId) {
+    this.deptId = deptId;
+  }
 }

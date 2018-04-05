@@ -12,26 +12,30 @@ import java.util.Collection;
 import java.util.List;
 
 public class ShiroUtils {
-    @Autowired
-    private static SessionDAO sessionDAO;
 
-    public static Subject getSubjct() {
-        return SecurityUtils.getSubject();
-    }
-    public static UserDO getUser() {
-        Object object = getSubjct().getPrincipal();
-        return (UserDO)object;
-    }
-    public static Long getUserId() {
-        return getUser().getUserId();
-    }
-    public static void logout() {
-        getSubjct().logout();
-    }
+  @Autowired
+  private static SessionDAO sessionDAO;
 
-    public static List<Principal> getPrinciples() {
-        List<Principal> principals = null;
-        Collection<Session> sessions = sessionDAO.getActiveSessions();
-        return principals;
-    }
+  public static Subject getSubjct() {
+    return SecurityUtils.getSubject();
+  }
+
+  public static UserDO getUser() {
+    Object object = getSubjct().getPrincipal();
+    return (UserDO) object;
+  }
+
+  public static Long getUserId() {
+    return getUser().getUserId();
+  }
+
+  public static void logout() {
+    getSubjct().logout();
+  }
+
+  public static List<Principal> getPrinciples() {
+    List<Principal> principals = null;
+    Collection<Session> sessions = sessionDAO.getActiveSessions();
+    return principals;
+  }
 }

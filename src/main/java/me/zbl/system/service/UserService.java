@@ -13,41 +13,48 @@ import java.util.Set;
 
 @Service
 public interface UserService {
-	UserDO get(Long id);
 
-	List<UserDO> list(Map<String, Object> map);
+  UserDO get(Long id);
 
-	int count(Map<String, Object> map);
+  List<UserDO> list(Map<String, Object> map);
 
-	int save(UserDO user);
+  int count(Map<String, Object> map);
 
-	int update(UserDO user);
+  int save(UserDO user);
 
-	int remove(Long userId);
+  int update(UserDO user);
 
-	int batchremove(Long[] userIds);
+  int remove(Long userId);
 
-	boolean exit(Map<String, Object> params);
+  int batchremove(Long[] userIds);
 
-	Set<String> listRoles(Long userId);
+  boolean exit(Map<String, Object> params);
 
-	int resetPwd(UserVO userVO,UserDO userDO) throws Exception;
-	int adminResetPwd(UserVO userVO) throws Exception;
-	Tree<DeptDO> getTree();
+  Set<String> listRoles(Long userId);
 
-	/**
-	 * 更新个人信息
-	 * @param userDO
-	 * @return
-	 */
-	int updatePersonal(UserDO userDO);
+  int resetPwd(UserVO userVO, UserDO userDO) throws Exception;
 
-	/**
-	 * 更新个人图片
-	 * @param file 图片
-	 * @param avatar_data 裁剪信息
-	 * @param userId 用户ID
-	 * @throws Exception
-	 */
-    Map<String, Object> updatePersonalImg(MultipartFile file, String avatar_data, Long userId) throws Exception;
+  int adminResetPwd(UserVO userVO) throws Exception;
+
+  Tree<DeptDO> getTree();
+
+  /**
+   * 更新个人信息
+   *
+   * @param userDO
+   *
+   * @return
+   */
+  int updatePersonal(UserDO userDO);
+
+  /**
+   * 更新个人图片
+   *
+   * @param file        图片
+   * @param avatar_data 裁剪信息
+   * @param userId      用户ID
+   *
+   * @throws Exception
+   */
+  Map<String, Object> updatePersonalImg(MultipartFile file, String avatar_data, Long userId) throws Exception;
 }

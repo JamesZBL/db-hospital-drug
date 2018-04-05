@@ -1,33 +1,33 @@
 package me.zbl.system.service;
 
+import me.zbl.common.domain.Tree;
+import me.zbl.system.domain.MenuDO;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.stereotype.Service;
-
-import me.zbl.common.domain.Tree;
-import me.zbl.system.domain.MenuDO;
-
 @Service
 public interface MenuService {
-	Tree<MenuDO> getSysMenuTree(Long id);
 
-	List<Tree<MenuDO>> listMenuTree(Long id);
+  Tree<MenuDO> getSysMenuTree(Long id);
 
-	Tree<MenuDO> getTree();
+  List<Tree<MenuDO>> listMenuTree(Long id);
 
-	Tree<MenuDO> getTree(Long id);
+  Tree<MenuDO> getTree();
 
-	List<MenuDO> list(Map<String, Object> params);
+  Tree<MenuDO> getTree(Long id);
 
-	int remove(Long id);
+  List<MenuDO> list(Map<String, Object> params);
 
-	int save(MenuDO menu);
+  int remove(Long id);
 
-	int update(MenuDO menu);
+  int save(MenuDO menu);
 
-	MenuDO get(Long id);
+  int update(MenuDO menu);
 
-	Set<String> listPerms(Long userId);
+  MenuDO get(Long id);
+
+  Set<String> listPerms(Long userId);
 }

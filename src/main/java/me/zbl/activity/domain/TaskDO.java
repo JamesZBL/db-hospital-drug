@@ -6,42 +6,43 @@ import java.util.Map;
  * @author 郑保乐
  */
 public class TaskDO {
-    private  String taskId;
-    private String taskComment;
-    private String taskPass;
-    private Map<String,Object> vars;
 
-    public String getTaskId() {
-        return taskId;
-    }
+  private String taskId;
+  private String taskComment;
+  private String taskPass;
+  private Map<String, Object> vars;
 
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
-    }
+  public String getTaskId() {
+    return taskId;
+  }
 
-    public String getTaskComment() {
-        return taskComment;
-    }
+  public void setTaskId(String taskId) {
+    this.taskId = taskId;
+  }
 
-    public void setTaskComment(String taskComment) {
-        this.taskComment = taskComment;
-    }
+  public String getTaskComment() {
+    return taskComment;
+  }
 
-    public String getTaskPass() {
-        return taskPass;
-    }
+  public void setTaskComment(String taskComment) {
+    this.taskComment = taskComment;
+  }
 
-    public void setTaskPass(String taskPass) {
-        this.taskPass = taskPass;
-    }
+  public String getTaskPass() {
+    return taskPass;
+  }
 
-    public Map<String, Object> getVars() {
-        return vars;
-    }
+  public void setTaskPass(String taskPass) {
+    this.taskPass = taskPass;
+  }
 
-    public void setVars(Map<String, Object> vars) {
-        this.vars = vars;
-    }
+  public Map<String, Object> getVars() {
+    return vars;
+  }
+
+  public void setVars(Map<String, Object> vars) {
+    this.vars = vars;
+  }
 
 
 }

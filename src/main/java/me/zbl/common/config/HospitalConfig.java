@@ -4,16 +4,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix="hospital")
+@ConfigurationProperties(prefix = "hospital")
 public class HospitalConfig {
-	//上传路径
-	private String uploadPath;
 
-	public String getUploadPath() {
-		return uploadPath;
-	}
+  //上传路径
+  private String uploadPath;
 
-	public void setUploadPath(String uploadPath) {
-		this.uploadPath = uploadPath;
-	}
+  public String getUploadPath() {
+    return uploadPath;
+  }
+
+  public void setUploadPath(String uploadPath) {
+    this.uploadPath = uploadPath;
+  }
 }

@@ -14,39 +14,40 @@ import java.util.Map;
 @RequestMapping("/common/log")
 @Controller
 public class LogController {
-	@Autowired
-	LogService logService;
-	String prefix = "common/log";
 
-	@GetMapping()
-	String log() {
-		return prefix + "/log";
-	}
+  @Autowired
+  LogService logService;
+  String prefix = "common/log";
 
-	@ResponseBody
-	@GetMapping("/list")
-	PageDO<LogDO> list(@RequestParam Map<String, Object> params) {
-		Query query = new Query(params);
-		PageDO<LogDO> page = logService.queryList(query);
-		return page;
-	}
-	
-	@ResponseBody
-	@PostMapping("/remove")
-	R remove(Long id) {
-		if (logService.remove(id)>0) {
-			return R.ok();
-		}
-		return R.error();
-	}
+  @GetMapping()
+  String log() {
+    return prefix + "/log";
+  }
 
-	@ResponseBody
-	@PostMapping("/batchRemove")
-	R batchRemove(@RequestParam("ids[]") Long[] ids) {
-		int r = logService.batchRemove(ids);
-		if (r > 0) {
-			return R.ok();
-		}
-		return R.error();
-	}
+  @ResponseBody
+  @GetMapping("/list")
+  PageDO<LogDO> list(@RequestParam Map<String, Object> params) {
+    Query query = new Query(params);
+    PageDO<LogDO> page = logService.queryList(query);
+    return page;
+  }
+
+  @ResponseBody
+  @PostMapping("/remove")
+  R remove(Long id) {
+    if (logService.remove(id) > 0) {
+      return R.ok();
+    }
+    return R.error();
+  }
+
+  @ResponseBody
+  @PostMapping("/batchRemove")
+  R batchRemove(@RequestParam("ids[]") Long[] ids) {
+    int r = logService.batchRemove(ids);
+    if (r > 0) {
+      return R.ok();
+    }
+    return R.error();
+  }
 }

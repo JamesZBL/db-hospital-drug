@@ -7,11 +7,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Component
 class WebConfigurer extends WebMvcConfigurerAdapter {
-	@Autowired
-	HospitalConfig hospitalConfig;
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/files/**").addResourceLocations("file:///"+ hospitalConfig.getUploadPath());
-	}
+
+  @Autowired
+  HospitalConfig hospitalConfig;
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/files/**").addResourceLocations("file:///" + hospitalConfig.getUploadPath());
+  }
 
 }

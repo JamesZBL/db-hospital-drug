@@ -18,38 +18,39 @@ import java.util.List;
 @RequestMapping("/sys/online")
 @Controller
 public class SessionController {
-	@Autowired
-	SessionService sessionService;
 
-	@GetMapping()
-	public String online() {
-		return "system/online/online";
-	}
+  @Autowired
+  SessionService sessionService;
 
-	@ResponseBody
-	@RequestMapping("/list")
-	public List<UserOnline> list() {
-		return sessionService.list();
-	}
+  @GetMapping()
+  public String online() {
+    return "system/online/online";
+  }
 
-	@ResponseBody
-	@RequestMapping("/forceLogout/{sessionId}")
-	public R forceLogout(@PathVariable("sessionId") String sessionId, RedirectAttributes redirectAttributes) {
-		try {
-			sessionService.forceLogout(sessionId);
-			return R.ok();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return R.error();
-		}
+  @ResponseBody
+  @RequestMapping("/list")
+  public List<UserOnline> list() {
+    return sessionService.list();
+  }
 
-	}
+  @ResponseBody
+  @RequestMapping("/forceLogout/{sessionId}")
+  public R forceLogout(@PathVariable("sessionId") String sessionId, RedirectAttributes redirectAttributes) {
+    try {
+      sessionService.forceLogout(sessionId);
+      return R.ok();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return R.error();
+    }
 
-	@ResponseBody
-	@RequestMapping("/sessionList")
-	public Collection<Session> sessionList() {
-		return sessionService.sessionList();
-	}
+  }
+
+  @ResponseBody
+  @RequestMapping("/sessionList")
+  public Collection<Session> sessionList() {
+    return sessionService.sessionList();
+  }
 
 
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * 字典表
- * 
+ *
  * @author 郑保乐
  * @email 18333298410@163.com
  * @date 2017-10-03 15:45:42
@@ -16,19 +16,19 @@ import java.util.Map;
 @Mapper
 public interface DictDao {
 
-	DictDO get(Long id);
+  DictDO get(Long id);
 
-	List<DictDO> list(Map<String, Object> map);
+  List<DictDO> list(Map<String, Object> map);
 
-	int count(Map<String, Object> map);
+  int count(Map<String, Object> map);
 
-	int save(DictDO dict);
+  int save(DictDO dict);
 
-	int update(DictDO dict);
+  int update(DictDO dict);
 
-	int remove(Long id);
+  int remove(Long id);
 
-	int batchRemove(Long[] ids);
+  int batchRemove(Long[] ids);
 
-	List<DictDO> listType();
+  List<DictDO> listType();
 }

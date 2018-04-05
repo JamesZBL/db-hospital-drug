@@ -10,11 +10,12 @@ import java.util.List;
 
 @Service
 public interface SessionService {
-	List<UserOnline> list();
 
-	List<UserDO> listOnlineUser();
+  List<UserOnline> list();
 
-	Collection<Session> sessionList();
-	
-	boolean forceLogout(String sessionId);
+  List<UserDO> listOnlineUser();
+
+  Collection<Session> sessionList();
+
+  boolean forceLogout(String sessionId);
 }

@@ -15,57 +15,59 @@ import java.util.Map;
 
 @Service
 public class FileServiceImpl implements FileService {
-	@Autowired
-	private FileDao sysFileMapper;
 
-	@Autowired
-	private HospitalConfig hospitalConfig;
-	@Override
-	public FileDO get(Long id){
-		return sysFileMapper.get(id);
-	}
-	
-	@Override
-	public List<FileDO> list(Map<String, Object> map){
-		return sysFileMapper.list(map);
-	}
-	
-	@Override
-	public int count(Map<String, Object> map){
-		return sysFileMapper.count(map);
-	}
-	
-	@Override
-	public int save(FileDO sysFile){
-		return sysFileMapper.save(sysFile);
-	}
-	
-	@Override
-	public int update(FileDO sysFile){
-		return sysFileMapper.update(sysFile);
-	}
-	
-	@Override
-	public int remove(Long id){
-		return sysFileMapper.remove(id);
-	}
-	
-	@Override
-	public int batchRemove(Long[] ids){
-		return sysFileMapper.batchRemove(ids);
-	}
+  @Autowired
+  private FileDao sysFileMapper;
 
-    @Override
-    public Boolean isExist(String url) {
-		Boolean isExist = false;
-		if (!StringUtils.isEmpty(url)) {
-			String filePath = url.replace("/files/", "");
-			filePath = hospitalConfig.getUploadPath() + filePath;
-			File file = new File(filePath);
-			if (file.exists()) {
-				isExist = true;
-			}
-		}
-		return isExist;
-	}
-	}
+  @Autowired
+  private HospitalConfig hospitalConfig;
+
+  @Override
+  public FileDO get(Long id) {
+    return sysFileMapper.get(id);
+  }
+
+  @Override
+  public List<FileDO> list(Map<String, Object> map) {
+    return sysFileMapper.list(map);
+  }
+
+  @Override
+  public int count(Map<String, Object> map) {
+    return sysFileMapper.count(map);
+  }
+
+  @Override
+  public int save(FileDO sysFile) {
+    return sysFileMapper.save(sysFile);
+  }
+
+  @Override
+  public int update(FileDO sysFile) {
+    return sysFileMapper.update(sysFile);
+  }
+
+  @Override
+  public int remove(Long id) {
+    return sysFileMapper.remove(id);
+  }
+
+  @Override
+  public int batchRemove(Long[] ids) {
+    return sysFileMapper.batchRemove(ids);
+  }
+
+  @Override
+  public Boolean isExist(String url) {
+    Boolean isExist = false;
+    if (!StringUtils.isEmpty(url)) {
+      String filePath = url.replace("/files/", "");
+      filePath = hospitalConfig.getUploadPath() + filePath;
+      File file = new File(filePath);
+      if (file.exists()) {
+        isExist = true;
+      }
+    }
+    return isExist;
+  }
+}

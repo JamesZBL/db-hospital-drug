@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * 通知通告
- * 
+ *
  * @author 郑保乐
  * @email 18333298410@163.com
  * @date 2017-10-05 17:11:16
@@ -17,23 +17,23 @@ import java.util.Map;
 @Mapper
 public interface NotifyDao {
 
-	NotifyDO get(Long id);
+  NotifyDO get(Long id);
 
-	List<NotifyDO> list(Map<String, Object> map);
+  List<NotifyDO> list(Map<String, Object> map);
 
-	int count(Map<String, Object> map);
+  int count(Map<String, Object> map);
 
-	int save(NotifyDO notify);
+  int save(NotifyDO notify);
 
-	int update(NotifyDO notify);
+  int update(NotifyDO notify);
 
-	int remove(Long id);
+  int remove(Long id);
 
-	int batchRemove(Long[] ids);
+  int batchRemove(Long[] ids);
 
-	List<NotifyDO> listByIds(Long[] ids);
+  List<NotifyDO> listByIds(Long[] ids);
 
-	int countDTO(Map<String, Object> map);
+  int countDTO(Map<String, Object> map);
 
-	List<NotifyDTO> listDTO(Map<String, Object> map);
+  List<NotifyDTO> listDTO(Map<String, Object> map);
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("me.zbl.*.dao")
 @SpringBootApplication
 public class HospitalApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(HospitalApplication.class, args);
     }

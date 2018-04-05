@@ -5,99 +5,100 @@ import org.activiti.engine.task.Task;
 /**
 
  */
-public class TaskVO  {
+public class TaskVO {
 
-    public TaskVO(Task task){
+  private String id;
+  private String name;
+  private String key;
+  private String description;
+  private String formKey;
+  private String assignee;
+  private String processId;
+  private String processDefinitionId;
+  private String executionId;
 
-        this.setId(task.getId());
-        this.setKey(task.getTaskDefinitionKey());
-        this.setName(task.getName());
-        this.setDescription(task.getDescription());
-        this.setAssignee(task.getAssignee());
-        this.setFormKey(task.getFormKey());
-        this.setProcessId(task.getProcessInstanceId());
-        this.setProcessDefinitionId(task.getProcessDefinitionId());
-        this.setExecutionId(task.getExecutionId());
-    }
-    private  String id;
-    private String name;
-    private String key;
-    private String description;
-    private  String formKey;
-    private  String assignee;
-    private String processId;
-    private String processDefinitionId;
-    private String executionId;
+  public TaskVO(Task task) {
 
-    public String getId() {
-        return id;
-    }
+    this.setId(task.getId());
+    this.setKey(task.getTaskDefinitionKey());
+    this.setName(task.getName());
+    this.setDescription(task.getDescription());
+    this.setAssignee(task.getAssignee());
+    this.setFormKey(task.getFormKey());
+    this.setProcessId(task.getProcessInstanceId());
+    this.setProcessDefinitionId(task.getProcessDefinitionId());
+    this.setExecutionId(task.getExecutionId());
+  }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public String getKey() {
-        return key;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
+  public String getKey() {
+    return key;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setKey(String key) {
+    this.key = key;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public String getFormKey() {
-        return formKey;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setFormKey(String formKey) {
-        this.formKey = formKey;
-    }
+  public String getFormKey() {
+    return formKey;
+  }
 
-    public String getAssignee() {
-        return assignee;
-    }
+  public void setFormKey(String formKey) {
+    this.formKey = formKey;
+  }
 
-    public void setAssignee(String assignee) {
-        this.assignee = assignee;
-    }
+  public String getAssignee() {
+    return assignee;
+  }
 
-    public String getProcessId() {
-        return processId;
-    }
+  public void setAssignee(String assignee) {
+    this.assignee = assignee;
+  }
 
-    public void setProcessId(String processId) {
-        this.processId = processId;
-    }
+  public String getProcessId() {
+    return processId;
+  }
 
-    public String getProcessDefinitionId() {
-        return processDefinitionId;
-    }
+  public void setProcessId(String processId) {
+    this.processId = processId;
+  }
 
-    public void setProcessDefinitionId(String processDefinitionId) {
-        this.processDefinitionId = processDefinitionId;
-    }
+  public String getProcessDefinitionId() {
+    return processDefinitionId;
+  }
 
-    public String getExecutionId() {
-        return executionId;
-    }
+  public void setProcessDefinitionId(String processDefinitionId) {
+    this.processDefinitionId = processDefinitionId;
+  }
 
-    public void setExecutionId(String executionId) {
-        this.executionId = executionId;
-    }
+  public String getExecutionId() {
+    return executionId;
+  }
+
+  public void setExecutionId(String executionId) {
+    this.executionId = executionId;
+  }
 }
