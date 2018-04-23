@@ -22,7 +22,7 @@ JDK：1.8
 # 开始
 
 - 使用 Git 将仓库 develop 分支克隆到本地，项目 url 为 https://你的用户名:密码@gitee.com/jameszbl/HospitalDrugSys.git
-- 安装 JDK, Git, MySQL 
+- 安装 JDK, Git for Windows
 - 打开 IntelliJ IDEA，open existing project 导入项目
 - 等待 build 完成
 - 运行 me.zbl.HospitalApplication
