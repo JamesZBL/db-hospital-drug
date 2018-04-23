@@ -21,7 +21,7 @@ JDK：1.8
 
 # 开始
 
-- 使用 Git 将仓库 develop 分支克隆到本地
+- 使用 Git 将仓库 develop 分支克隆到本地，项目 url 为 https://你的用户名:密码@gitee.com/jameszbl/HospitalDrugSys.git
 - 安装 JDK, Git, MySQL 
 - 打开 IntelliJ IDEA，open existing project 导入项目
 - 运行 me.zbl.HospitalApplication
@@ -30,9 +30,11 @@ JDK：1.8
 
 # 开发
 
-- 本地新建分支并命名为自己的名字，切换到新建分支
-- 一切修改都要在自己新建的分支上进行！！！修改后提交并推送到码云仓库
-- 代码编写并测试无误后，到码云上提交 pull request，源分支为自己的分支，目标分支为 develop
+- 本地新建分支并命名为自己的名字
+- 切换到新建分支
+- 重要！重要！重要：一切修改都要在自己新建的分支上进行！！！
+- 确认修改代码并测试无误后，提交并推送自己的分支到码云仓库
+- 到码云上提交 pull request，源分支为自己的分支，目标分支为 develop，注明实现了哪些功能
 
 ![数据库](screenshot/db.png)
 
