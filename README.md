@@ -1,5 +1,10 @@
 项目线上地址：http://hospital.letec.top
 
+# 截图
+
+![用户登录](screenshot/login.png)
+
+![后台主页](screenshot/user_man.png)
 
 # 环境
 
