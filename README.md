@@ -17,13 +17,13 @@ JDK：1.8
 
 构建工具：Maven
 
-版本管理：Git（推荐 GUI 工具：Tortoise Git）
+版本管理：Git
 
 # 开始
 
 - 使用 Git 将仓库 develop 分支克隆到本地，项目 url 为 https://你的用户名:密码@gitee.com/jameszbl/HospitalDrugSys.git
 - 安装 JDK, Git for Windows
-- 打开 IntelliJ IDEA，open existing project 导入项目
+- 打开 IntelliJ IDEA，安装码云插件，拉取代码，教程见 http://git.mydoc.io/?t=153739
 - 等待 build 完成
 - 运行 me.zbl.HospitalApplication
 - 浏览器访问 http://localhost:8086
@@ -36,6 +36,7 @@ JDK：1.8
 - 重要！重要！重要：一切修改都要在自己新建的分支上进行！！！
 - 确认修改代码并测试无误后，提交并推送自己的分支到码云仓库
 - 到码云上提交 pull request，源分支为自己的分支，目标分支为 develop，注明实现了哪些功能
+- 码云插件使用教程见 教程见 http://git.mydoc.io/?t=153739
 
 ![数据库](screenshot/db.png)
 
