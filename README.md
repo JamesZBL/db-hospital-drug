@@ -21,7 +21,7 @@ JDK：1.8
 
 # 开始
 
-- 使用 Git 将仓库 develop 分支克隆到本地，项目 url 为 https://你的用户名:密码@gitee.com/jameszbl/HospitalDrugSys.git
+- 使用 Git 将仓库 develop 分支克隆到本地，项目 url 为 https://你的用户名:密码@gitee.com/zbl1996/HospitalDrugSys.git
 - 安装 JDK, Git for Windows
 - 打开 IntelliJ IDEA，安装码云插件，拉取代码，教程见 http://git.mydoc.io/?t=153739
 - 等待 build 完成
