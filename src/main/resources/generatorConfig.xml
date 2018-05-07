@@ -33,7 +33,7 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="MIXEDMAPPER" targetPackage="me.zbl.app.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="me.zbl.app.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
