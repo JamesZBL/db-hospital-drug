@@ -3,7 +3,7 @@ package me.zbl.blog.controller;
 import me.zbl.blog.domain.ContentDO;
 import me.zbl.blog.service.ContentService;
 import me.zbl.common.utils.DateUtils;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,12 +31,12 @@ public class BlogController {
 
   @ResponseBody
   @GetMapping("/open/list")
-  public PageUtils opentList(@RequestParam Map<String, Object> params) {
+  public PageWrapper opentList(@RequestParam Map<String, Object> params) {
     Query query = new Query(params);
     List<ContentDO> bContentList = bContentService.list(query);
     int total = bContentService.count(query);
-    PageUtils pageUtils = new PageUtils(bContentList, total);
-    return pageUtils;
+    PageWrapper pageWrapper = new PageWrapper(bContentList, total);
+    return pageWrapper;
   }
 
   @GetMapping("/open/post/{cid}")

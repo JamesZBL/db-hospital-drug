@@ -1,5 +1,7 @@
 package me.zbl.app.dao;
 
+import me.zbl.app.domain.DrugInDO;
+import me.zbl.app.domain.DrugInFormDO;
 import me.zbl.app.domain.Inventory;
 
 import java.util.List;
@@ -7,9 +9,13 @@ import java.util.Map;
 
 public interface InventoryMapper {
 
-  List<Inventory> list(Map<String, Object> param);
+  String drugInSave(DrugInFormDO drugInFormDO);
+
+  List<DrugInDO> list(Map<String, Object> param);
 
   int deleteByPrimaryKey(String id);
+
+  int count();
 
   int insert(Inventory record);
 

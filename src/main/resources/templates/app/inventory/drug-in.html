@@ -11,20 +11,20 @@
 						<div class="columns pull-left">
 							<button shiro:hasPermission="oa:notify:add" type="button"
 								class="btn  btn-primary" onclick="add()">
-								<i class="fa fa-plus" aria-hidden="true"></i>添加
+								<i class="fa fa-plus" aria-hidden="true"></i> 入库登记
 							</button>
-							<button shiro:hasPermission="oa:notify:batchRemove" type="button"
-								class="btn  btn-danger" onclick="batchRemove()">
-								<i class="fa fa-trash" aria-hidden="true"></i>删除
-							</button>
+							<!--<button shiro:hasPermission="oa:notify:batchRemove" type="button"-->
+								<!--class="btn  btn-danger" onclick="batchRemove()">-->
+								<!--<i class="fa fa-trash" aria-hidden="true"></i>删除-->
+							<!--</button>-->
 						</div>
-						<div class="columns pull-right">
-							<button class="btn btn-success" onclick="reLoad()">查询</button>
-						</div>
-						<div class="columns pull-right col-md-2 nopadding">
-							<input id="searchName" type="text" class="form-control"
-								placeholder="">
-						</div>
+						<!--<div class="columns pull-right">-->
+							<!--<button class="btn btn-success" onclick="reLoad()">查询</button>-->
+						<!--</div>-->
+						<!--<div class="columns pull-right col-md-2 nopadding">-->
+							<!--<input id="searchName" type="text" class="form-control"-->
+								<!--placeholder="">-->
+						<!--</div>-->
 					</div>
 					<table id="exampleTable" data-mobile-responsive="true">
 					</table>
@@ -56,6 +56,6 @@
 		</script>
 	</div>
 	<div th:include="include :: footer"></div>
-	<script type="text/javascript" src="/js/appjs/oa/notify/notify.js"></script>
+	<script type="text/javascript" src="/js/appjs/app/drugin/drugin.js"></script>
 </body>
 </html>

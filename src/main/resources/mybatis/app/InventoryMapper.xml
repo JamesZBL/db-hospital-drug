@@ -1,310 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="me.zbl.app.dao.InventoryMapper">
-  <resultMap id="BaseResultMap" type="me.zbl.app.domain.Inventory">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
-    <result column="consumer_id" jdbcType="VARCHAR" property="consumerId" />
-    <result column="drug_id" jdbcType="VARCHAR" property="drugId" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="ammount" jdbcType="DECIMAL" property="ammount" />
-    <result column="comment" jdbcType="VARCHAR" property="comment" />
-    <result column="manager" jdbcType="VARCHAR" property="manager" />
-    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, supplier_id, consumer_id, drug_id, type, quantity, ammount, comment, manager, 
-    gmt_created, gmt_modified
-  </sql>
+    <resultMap id="BaseResultMap" type="me.zbl.app.domain.Inventory">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="consumer_id" jdbcType="VARCHAR" property="consumerId"/>
+        <result column="drug_id" jdbcType="VARCHAR" property="drugId"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+        <result column="ammount" jdbcType="DECIMAL" property="ammount"/>
+        <result column="comment" jdbcType="VARCHAR" property="comment"/>
+        <result column="manager" jdbcType="VARCHAR" property="manager"/>
+        <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+    </resultMap>
+    <resultMap id="DrugInResultMap" type="me.zbl.app.domain.DrugInDO">
+        <result column="drugName" jdbcType="VARCHAR" property="drugName"/>
+        <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="specification" jdbcType="VARCHAR" property="specification"/>
+        <result column="ammount" jdbcType="DECIMAL" property="ammount"/>
+        <result column="supplierName" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, consumer_id, drug_id, type, quantity, ammount, comment, manager,
+        gmt_created, gmt_modified
+    </sql>
 
-  <!--list-->
-  <select id="list" parameterType="java.util.Map" resultType="java.util.List">
-    select
-    <include refid="Base_Column_List" />
-    from app_inventory_record
-    <choose>
-      <when test="sort != null and sort.trim() != ''">
-        order by ${sort} ${order}
-      </when>
-      <otherwise>
-        order by gmt_created desc
-      </otherwise>
-    </choose>
-    <if test="offset != null and limit != null">
-      limit ${offset}, ${limit}
-    </if>
-  </select>
+    <!-- count -->
+    <select id="count" resultType="int">
+        select count(*) from app_inventory_record
+    </select>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from app_inventory_record
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from app_inventory_record
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="me.zbl.app.domain.Inventory">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
-    insert into app_inventory_record (id, supplier_id, consumer_id, 
-      drug_id, type, quantity, 
-      ammount, comment, manager, 
-      gmt_created, gmt_modified)
-    values (#{id,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{consumerId,jdbcType=VARCHAR}, 
-      #{drugId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, 
-      #{ammount,jdbcType=DECIMAL}, #{comment,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR}, 
-      #{gmtCreated,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="me.zbl.app.domain.Inventory">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
-    insert into app_inventory_record
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      id,
-      <if test="supplierId != null">
-        supplier_id,
-      </if>
-      <if test="consumerId != null">
-        consumer_id,
-      </if>
-      <if test="drugId != null">
-        drug_id,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="quantity != null">
-        quantity,
-      </if>
-      <if test="ammount != null">
-        ammount,
-      </if>
-      <if test="comment != null">
-        comment,
-      </if>
-      <if test="manager != null">
-        manager,
-      </if>
-      <if test="gmtCreated != null">
-        gmt_created,
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      #{id,jdbcType=VARCHAR},
-      <if test="supplierId != null">
-        #{supplierId,jdbcType=VARCHAR},
-      </if>
-      <if test="consumerId != null">
-        #{consumerId,jdbcType=VARCHAR},
-      </if>
-      <if test="drugId != null">
-        #{drugId,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="quantity != null">
-        #{quantity,jdbcType=INTEGER},
-      </if>
-      <if test="ammount != null">
-        #{ammount,jdbcType=DECIMAL},
-      </if>
-      <if test="comment != null">
-        #{comment,jdbcType=VARCHAR},
-      </if>
-      <if test="manager != null">
-        #{manager,jdbcType=VARCHAR},
-      </if>
-      <if test="gmtCreated != null">
-        #{gmtCreated,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="me.zbl.app.domain.Inventory">
-    update app_inventory_record
-    <set>
-      <if test="supplierId != null">
-        supplier_id = #{supplierId,jdbcType=VARCHAR},
-      </if>
-      <if test="consumerId != null">
-        consumer_id = #{consumerId,jdbcType=VARCHAR},
-      </if>
-      <if test="drugId != null">
+    <!--list-->
+    <select id="list" parameterType="java.util.Map" resultMap="DrugInResultMap">
+        select
+        d.`name` as drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
+        from app_inventory_record i,app_drug d,app_supplier s
+        where
+        i.drug_id = d.id and d.supplier_id = s.id
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by gmt_created desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit ${offset}, ${limit}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from app_inventory_record
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from app_inventory_record
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <!-- drugInSave -->
+    <insert id="drugInSave" parameterType="me.zbl.app.domain.DrugInFormDO">
+        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into app_inventory_record (id,
+        drug_id, type, quantity,
+        ammount, comment, manager)
+        values (#{id,jdbcType=VARCHAR},  #{drugId,jdbcType=VARCHAR},
+        '1', #{quantity,jdbcType=INTEGER}, #{ammount,jdbcType=INTEGER},
+        '进货入库', #{manager,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insert" parameterType="me.zbl.app.domain.Inventory">
+        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into app_inventory_record (id, consumer_id,
+        drug_id, type, quantity,
+        ammount, comment, manager,
+        gmt_created, gmt_modified)
+        values (#{id,jdbcType=VARCHAR}, #{consumerId,jdbcType=VARCHAR},
+        #{drugId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER},
+        #{ammount,jdbcType=DECIMAL}, #{comment,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR},
+        #{gmtCreated,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="me.zbl.app.domain.Inventory">
+        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into app_inventory_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="consumerId != null">
+                consumer_id,
+            </if>
+            <if test="drugId != null">
+                drug_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="quantity != null">
+                quantity,
+            </if>
+            <if test="ammount != null">
+                ammount,
+            </if>
+            <if test="comment != null">
+                comment,
+            </if>
+            <if test="manager != null">
+                manager,
+            </if>
+            <if test="gmtCreated != null">
+                gmt_created,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id,jdbcType=VARCHAR},
+            <if test="supplierId != null">
+                #{supplierId,jdbcType=VARCHAR},
+            </if>
+            <if test="consumerId != null">
+                #{consumerId,jdbcType=VARCHAR},
+            </if>
+            <if test="drugId != null">
+                #{drugId,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="ammount != null">
+                #{ammount,jdbcType=DECIMAL},
+            </if>
+            <if test="comment != null">
+                #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="manager != null">
+                #{manager,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreated != null">
+                #{gmtCreated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="me.zbl.app.domain.Inventory">
+        update app_inventory_record
+        <set>
+            <if test="consumerId != null">
+                consumer_id = #{consumerId,jdbcType=VARCHAR},
+            </if>
+            <if test="drugId != null">
+                drug_id = #{drugId,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="ammount != null">
+                ammount = #{ammount,jdbcType=DECIMAL},
+            </if>
+            <if test="comment != null">
+                comment = #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="manager != null">
+                manager = #{manager,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreated != null">
+                gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="me.zbl.app.domain.Inventory">
+        update app_inventory_record
+        set consumer_id = #{consumerId,jdbcType=VARCHAR},
         drug_id = #{drugId,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="quantity != null">
         quantity = #{quantity,jdbcType=INTEGER},
-      </if>
-      <if test="ammount != null">
         ammount = #{ammount,jdbcType=DECIMAL},
-      </if>
-      <if test="comment != null">
         comment = #{comment,jdbcType=VARCHAR},
-      </if>
-      <if test="manager != null">
         manager = #{manager,jdbcType=VARCHAR},
-      </if>
-      <if test="gmtCreated != null">
         gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="me.zbl.app.domain.Inventory">
-    update app_inventory_record
-    set supplier_id = #{supplierId,jdbcType=VARCHAR},
-      consumer_id = #{consumerId,jdbcType=VARCHAR},
-      drug_id = #{drugId,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      quantity = #{quantity,jdbcType=INTEGER},
-      ammount = #{ammount,jdbcType=DECIMAL},
-      comment = #{comment,jdbcType=VARCHAR},
-      manager = #{manager,jdbcType=VARCHAR},
-      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <resultMap id="BaseResultMap" type="me.zbl.app.domain.Inventory">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
-    <result column="consumer_id" jdbcType="VARCHAR" property="consumerId" />
-    <result column="drug_id" jdbcType="VARCHAR" property="drugId" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="ammount" jdbcType="DECIMAL" property="ammount" />
-    <result column="comment" jdbcType="VARCHAR" property="comment" />
-    <result column="manager" jdbcType="VARCHAR" property="manager" />
-    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, supplier_id, consumer_id, drug_id, type, quantity, ammount, comment, manager, 
-    gmt_created, gmt_modified
-  </sql>
-  <insert id="insertSelective" parameterType="me.zbl.app.domain.Inventory">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
-    insert into app_inventory_record
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      id,
-      <if test="supplierId != null">
-        supplier_id,
-      </if>
-      <if test="consumerId != null">
-        consumer_id,
-      </if>
-      <if test="drugId != null">
-        drug_id,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="quantity != null">
-        quantity,
-      </if>
-      <if test="ammount != null">
-        ammount,
-      </if>
-      <if test="comment != null">
-        comment,
-      </if>
-      <if test="manager != null">
-        manager,
-      </if>
-      <if test="gmtCreated != null">
-        gmt_created,
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      #{id,jdbcType=VARCHAR},
-      <if test="supplierId != null">
-        #{supplierId,jdbcType=VARCHAR},
-      </if>
-      <if test="consumerId != null">
-        #{consumerId,jdbcType=VARCHAR},
-      </if>
-      <if test="drugId != null">
-        #{drugId,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="quantity != null">
-        #{quantity,jdbcType=INTEGER},
-      </if>
-      <if test="ammount != null">
-        #{ammount,jdbcType=DECIMAL},
-      </if>
-      <if test="comment != null">
-        #{comment,jdbcType=VARCHAR},
-      </if>
-      <if test="manager != null">
-        #{manager,jdbcType=VARCHAR},
-      </if>
-      <if test="gmtCreated != null">
-        #{gmtCreated,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="me.zbl.app.domain.Inventory">
-    update app_inventory_record
-    <set>
-      <if test="supplierId != null">
-        supplier_id = #{supplierId,jdbcType=VARCHAR},
-      </if>
-      <if test="consumerId != null">
-        consumer_id = #{consumerId,jdbcType=VARCHAR},
-      </if>
-      <if test="drugId != null">
-        drug_id = #{drugId,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="quantity != null">
-        quantity = #{quantity,jdbcType=INTEGER},
-      </if>
-      <if test="ammount != null">
-        ammount = #{ammount,jdbcType=DECIMAL},
-      </if>
-      <if test="comment != null">
-        comment = #{comment,jdbcType=VARCHAR},
-      </if>
-      <if test="manager != null">
-        manager = #{manager,jdbcType=VARCHAR},
-      </if>
-      <if test="gmtCreated != null">
-        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
 </mapper>

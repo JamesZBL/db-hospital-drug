@@ -3,7 +3,7 @@ package me.zbl.activity.controller;
 import me.zbl.activity.service.ActTaskService;
 import me.zbl.activity.vo.ProcessVO;
 import me.zbl.activity.vo.TaskVO;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import org.activiti.engine.FormService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
@@ -44,7 +44,7 @@ public class TaskController {
   }
 
   @GetMapping("/gotoList")
-  PageUtils list(int offset, int limit) {
+  PageWrapper list(int offset, int limit) {
     List<ProcessDefinition> processDefinitions = repositoryService.createProcessDefinitionQuery()
             .listPage(offset, limit);
     int count = (int) repositoryService.createProcessDefinitionQuery().count();
@@ -53,8 +53,8 @@ public class TaskController {
       list.add(new ProcessVO(processDefinition));
     }
 
-    PageUtils pageUtils = new PageUtils(list, count);
-    return pageUtils;
+    PageWrapper pageWrapper = new PageWrapper(list, count);
+    return pageWrapper;
   }
 
   @GetMapping("/form/{procDefId}")

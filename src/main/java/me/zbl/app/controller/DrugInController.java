@@ -16,8 +16,21 @@
  */
 package me.zbl.app.controller;
 
+import me.zbl.app.domain.DrugInDO;
+import me.zbl.app.domain.DrugInFormDO;
+import me.zbl.app.service.DrugInService;
+import me.zbl.common.utils.PageWrapper;
+import me.zbl.common.utils.Query;
+import me.zbl.common.utils.R;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 药品入库
@@ -29,11 +42,42 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DrugInController {
 
+  @Autowired
+  private DrugInService service;
+
   /**
    * 药品入库页面
    */
   @GetMapping("/inventory/drugin")
   public String drugInPage() {
     return "app/inventory/drug-in";
+  }
+
+  /**
+   * 药品入库登记
+   */
+  @GetMapping("/inventory/add")
+  public String drugInAddPage() {
+    return "app/inventory/add";
+  }
+
+  /**
+   * 入库记录页面
+   *
+   * @param params 查询参数
+   */
+  @ResponseBody
+  @GetMapping("/inventory/list")
+  public PageWrapper list(@RequestParam Map<String, Object> params) {
+    Query query = new Query(params);
+    List<DrugInDO> list = service.list(query);
+    return new PageWrapper(list, service.count());
+  }
+
+  @ResponseBody
+  @PostMapping("/inventory/drugin/save")
+  public R save(DrugInFormDO params){
+    service.dugInSave(params);
+    return R.ok();
   }
 }

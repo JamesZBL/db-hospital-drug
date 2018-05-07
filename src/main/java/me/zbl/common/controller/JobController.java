@@ -3,7 +3,7 @@ package me.zbl.common.controller;
 import me.zbl.common.config.Constant;
 import me.zbl.common.domain.TaskDO;
 import me.zbl.common.service.JobService;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +33,13 @@ public class JobController extends BaseController {
 
   @ResponseBody
   @GetMapping("/list")
-  public PageUtils list(@RequestParam Map<String, Object> params) {
+  public PageWrapper list(@RequestParam Map<String, Object> params) {
     // 查询列表数据
     Query query = new Query(params);
     List<TaskDO> taskScheduleJobList = taskScheduleJobService.list(query);
     int total = taskScheduleJobService.count(query);
-    PageUtils pageUtils = new PageUtils(taskScheduleJobList, total);
-    return pageUtils;
+    PageWrapper pageWrapper = new PageWrapper(taskScheduleJobList, total);
+    return pageWrapper;
   }
 
   @GetMapping("/add")

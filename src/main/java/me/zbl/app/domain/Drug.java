@@ -19,6 +19,8 @@ public class Drug {
 
     private String supplierId;
 
+    private String specification;
+
     public String getId() {
         return id;
     }
@@ -81,5 +83,13 @@ public class Drug {
 
     public void setSupplierId(String supplierId) {
         this.supplierId = supplierId == null ? null : supplierId.trim();
+    }
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification == null ? null : specification.trim();
     }
 }

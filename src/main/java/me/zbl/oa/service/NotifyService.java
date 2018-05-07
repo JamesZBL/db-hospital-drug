@@ -1,6 +1,6 @@
 package me.zbl.oa.service;
 
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.oa.domain.NotifyDO;
 
 import java.util.List;
@@ -31,5 +31,5 @@ public interface NotifyService {
 
   //	Map<String, Object> message(Long userId);
 
-  PageUtils selfList(Map<String, Object> map);
+  PageWrapper selfList(Map<String, Object> map);
 }

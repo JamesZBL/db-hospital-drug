@@ -4,7 +4,7 @@ import me.zbl.blog.domain.ContentDO;
 import me.zbl.blog.service.ContentService;
 import me.zbl.common.config.Constant;
 import me.zbl.common.controller.BaseController;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -40,12 +40,12 @@ public class ContentController extends BaseController {
   @ResponseBody
   @GetMapping("/list")
   @RequiresPermissions("blog:bContent:bContent")
-  public PageUtils list(@RequestParam Map<String, Object> params) {
+  public PageWrapper list(@RequestParam Map<String, Object> params) {
     Query query = new Query(params);
     List<ContentDO> bContentList = bContentService.list(query);
     int total = bContentService.count(query);
-    PageUtils pageUtils = new PageUtils(bContentList, total);
-    return pageUtils;
+    PageWrapper pageWrapper = new PageWrapper(bContentList, total);
+    return pageWrapper;
   }
 
   @GetMapping("/add")

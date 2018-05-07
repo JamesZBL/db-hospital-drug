@@ -4,7 +4,7 @@ import me.zbl.activity.service.ProcessService;
 import me.zbl.activity.vo.ProcessVO;
 import me.zbl.common.config.Constant;
 import me.zbl.common.controller.BaseController;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.R;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.RepositoryService;
@@ -46,7 +46,7 @@ public class ProcessController extends BaseController {
   }
 
   @GetMapping("list")
-  PageUtils list(int offset, int limit) {
+  PageWrapper list(int offset, int limit) {
     List<ProcessDefinition> processDefinitions = repositoryService.createProcessDefinitionQuery()
             .listPage(offset, limit);
     int count = (int) repositoryService.createProcessDefinitionQuery().count();
@@ -54,8 +54,8 @@ public class ProcessController extends BaseController {
     for (ProcessDefinition processDefinition : processDefinitions) {
       list.add(new ProcessVO(processDefinition));
     }
-    PageUtils pageUtils = new PageUtils(list, count);
-    return pageUtils;
+    PageWrapper pageWrapper = new PageWrapper(list, count);
+    return pageWrapper;
   }
 
   @GetMapping("/add")

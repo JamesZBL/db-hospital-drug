@@ -6,8 +6,6 @@ import java.util.Date;
 public class Inventory {
     private String id;
 
-    private String supplierId;
-
     private String consumerId;
 
     private String drugId;
@@ -32,14 +30,6 @@ public class Inventory {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
-    }
-
-    public String getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId == null ? null : supplierId.trim();
     }
 
     public String getConsumerId() {
