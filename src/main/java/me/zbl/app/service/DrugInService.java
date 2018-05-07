@@ -35,5 +35,5 @@ public interface DrugInService {
 
   int count();
 
-  String dugInSave(DrugInFormDO drugInFormDO);
+  int dugInSave(DrugInFormDO drugInFormDO);
 }

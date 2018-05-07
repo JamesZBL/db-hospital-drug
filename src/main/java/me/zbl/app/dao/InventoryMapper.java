@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface InventoryMapper {
 
-  String drugInSave(DrugInFormDO drugInFormDO);
+  int drugInSave(DrugInFormDO drugInFormDO);
 
   List<DrugInDO> list(Map<String, Object> param);
 

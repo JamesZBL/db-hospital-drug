@@ -50,7 +50,7 @@ public class DrugInServiceImpl implements DrugInService {
   }
 
   @Override
-  public String dugInSave(DrugInFormDO drugInFormDO) {
+  public int dugInSave(DrugInFormDO drugInFormDO) {
     return mapper.drugInSave(drugInFormDO);
   }
 }
