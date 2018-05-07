@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zbl.app.dao.InventoryMapper">
+  <resultMap id="BaseResultMap" type="me.zbl.app.domain.Inventory">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+    <result column="consumer_id" jdbcType="VARCHAR" property="consumerId" />
+    <result column="drug_id" jdbcType="VARCHAR" property="drugId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="ammount" jdbcType="DECIMAL" property="ammount" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="manager" jdbcType="VARCHAR" property="manager" />
+    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, supplier_id, consumer_id, drug_id, type, quantity, ammount, comment, manager, 
+    gmt_created, gmt_modified
+  </sql>
+  <insert id="insertSelective" parameterType="me.zbl.app.domain.Inventory">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into app_inventory_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="consumerId != null">
+        consumer_id,
+      </if>
+      <if test="drugId != null">
+        drug_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="ammount != null">
+        ammount,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="manager != null">
+        manager,
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=VARCHAR},
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="consumerId != null">
+        #{consumerId,jdbcType=VARCHAR},
+      </if>
+      <if test="drugId != null">
+        #{drugId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="ammount != null">
+        #{ammount,jdbcType=DECIMAL},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null">
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.zbl.app.domain.Inventory">
+    update app_inventory_record
+    <set>
+      <if test="supplierId != null">
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="consumerId != null">
+        consumer_id = #{consumerId,jdbcType=VARCHAR},
+      </if>
+      <if test="drugId != null">
+        drug_id = #{drugId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="ammount != null">
+        ammount = #{ammount,jdbcType=DECIMAL},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

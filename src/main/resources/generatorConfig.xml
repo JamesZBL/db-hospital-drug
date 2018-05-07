@@ -7,7 +7,7 @@
     <!--<classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />-->
 
     <!--<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">-->
-        <!--SELECT REPLACE(UUID(),'-','') AS ID FROM DUAL-->
+    <!--SELECT REPLACE(UUID(),'-','') AS ID FROM DUAL-->
     <!--</selectKey>-->
 
     <context id="MySQLTables" targetRuntime="MyBatis3">
@@ -15,7 +15,7 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/lenos"
+                        connectionURL="jdbc:mysql://47.93.187.44:3306/hospital-drug"
                         userId="root"
                         password="root">
         </jdbcConnection>
@@ -24,22 +24,47 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.len.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="me.zbl.app.domain" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mybatis/app" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.len.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="me.zbl.app.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="blog_art" domainObjectName="BlogArticle" modelType="conditional" enableSelectByExample="false"
+        <!-- 药品表 -->
+        <table tableName="app_drug" domainObjectName="Drug" modelType="conditional" enableSelectByExample="false"
                enableCountByExample="false" enableDeleteByExample="false" enableUpdateByExample="false">
-            <generatedKey column="ID" sqlStatement="MySQL" identity="true"/>
+            <generatedKey column="ID" sqlStatement="select replace(uuid(),'-','') from dual" type="pre"/>
+        </table>
+
+        <!-- 顾客表 -->
+        <table tableName="app_consumer" domainObjectName="Consumer" modelType="conditional" enableSelectByExample="false"
+               enableCountByExample="false" enableDeleteByExample="false" enableUpdateByExample="false">
+            <generatedKey column="ID" sqlStatement="select replace(uuid(),'-','') from dual" type="pre"/>
+        </table>
+
+        <!-- 过期时间记录表 -->
+        <table tableName="app_expire" domainObjectName="Expire" modelType="conditional" enableSelectByExample="false"
+               enableCountByExample="false" enableDeleteByExample="false" enableUpdateByExample="false">
+            <generatedKey column="ID" sqlStatement="select replace(uuid(),'-','') from dual" type="pre"/>
+        </table>
+
+        <!-- 仓储记录表 -->
+        <table tableName="app_inventory_record" domainObjectName="Inventory" modelType="conditional" enableSelectByExample="false"
+               enableCountByExample="false" enableDeleteByExample="false" enableUpdateByExample="false">
+            <generatedKey column="ID" sqlStatement="select replace(uuid(),'-','') from dual" type="pre"/>
+        </table>
+
+        <!-- 供应商表 -->
+        <table tableName="app_supplier" domainObjectName="Supplier" modelType="conditional" enableSelectByExample="false"
+               enableCountByExample="false" enableDeleteByExample="false" enableUpdateByExample="false">
+            <generatedKey column="ID" sqlStatement="select replace(uuid(),'-','') from dual" type="pre"/>
         </table>
 
     </context>

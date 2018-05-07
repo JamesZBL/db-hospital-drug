@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zbl.app.dao.DrugMapper">
+  <resultMap id="BaseResultMap" type="me.zbl.app.domain.Drug">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="invalid" jdbcType="VARCHAR" property="invalid" />
+    <result column="quality_guarantee_period" jdbcType="INTEGER" property="qualityGuaranteePeriod" />
+    <result column="lower_limit" jdbcType="INTEGER" property="lowerLimit" />
+    <result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, quantity, price, invalid, quality_guarantee_period, lower_limit, supplier_id
+  </sql>
+  <insert id="insertSelective" parameterType="me.zbl.app.domain.Drug">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into app_drug
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="name != null">
+        name,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="invalid != null">
+        invalid,
+      </if>
+      <if test="qualityGuaranteePeriod != null">
+        quality_guarantee_period,
+      </if>
+      <if test="lowerLimit != null">
+        lower_limit,
+      </if>
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="invalid != null">
+        #{invalid,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityGuaranteePeriod != null">
+        #{qualityGuaranteePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lowerLimit != null">
+        #{lowerLimit,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.zbl.app.domain.Drug">
+    update app_drug
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="invalid != null">
+        invalid = #{invalid,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityGuaranteePeriod != null">
+        quality_guarantee_period = #{qualityGuaranteePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lowerLimit != null">
+        lower_limit = #{lowerLimit,jdbcType=INTEGER},
+      </if>
+      <if test="supplierId != null">
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
