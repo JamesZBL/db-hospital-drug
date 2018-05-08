@@ -57,7 +57,7 @@ function load() {
                     },
                     {
                         field: 'quantity',
-                        title: '入库数量'
+                        title: '出库数量'
                     },
                     {
                         field: 'quantityNow',
@@ -108,7 +108,7 @@ function load() {
                     },
                     {
                         field: 'gmtCreated',
-                        title: '入库时间'
+                        title: '出库时间'
                     }
                     // {
                     // 	title : '操作',
