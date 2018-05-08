@@ -2,9 +2,11 @@ package me.zbl.app.dao;
 
 import me.zbl.app.domain.Drug;
 
+import java.util.Map;
+
 public interface DrugMapper {
 
-  int increaseAndDecreaseQuantity(int quantity);
+  int increaseAndDecreaseQuantity(Map<String, Object> params);
 
   int deleteByPrimaryKey(String id);
 

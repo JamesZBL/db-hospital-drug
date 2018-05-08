@@ -16,14 +16,16 @@
  */
 package me.zbl.app.controller;
 
-import me.zbl.app.domain.DrugInDO;
 import me.zbl.app.domain.DrugOutDO;
+import me.zbl.app.domain.DrugOutFormDO;
 import me.zbl.app.service.DrugOutService;
 import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
+import me.zbl.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,16 +49,16 @@ public class DrugOutController {
    * 药品出库页面
    */
   @GetMapping("/inventory/drugout")
-  public String drugInPage() {
-    return "app/inventory/drug-out";
+  public String drugOutPage() {
+    return "app/inventory/drug-out/drug-out";
   }
 
   /**
    * 药品出库登记
    */
   @GetMapping("/inventory/out")
-  public String drugInAddPage() {
-    return "app/inventory/out";
+  public String drugOutAddPage() {
+    return "app/inventory/drug-out/out";
   }
 
   /**
@@ -70,5 +72,12 @@ public class DrugOutController {
     Query query = new Query(params);
     List<DrugOutDO> list = service.list(query);
     return new PageWrapper(list, service.count());
+  }
+
+  @ResponseBody
+  @PostMapping("/inventory/drugout/save")
+  public R save(DrugOutFormDO params){
+    service.drugOutSave(params);
+    return R.ok();
   }
 }

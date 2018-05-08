@@ -16,12 +16,15 @@
  */
 package me.zbl.app.service.impl;
 
+import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.dao.InventoryMapper;
 import me.zbl.app.domain.DrugOutDO;
+import me.zbl.app.domain.DrugOutFormDO;
 import me.zbl.app.service.DrugOutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,15 +39,29 @@ import java.util.Map;
 public class DrugOutServiceImpl implements DrugOutService {
 
   @Autowired
-  InventoryMapper mapper;
+  private DrugMapper drugMapper;
+
+  @Autowired
+  private InventoryMapper inventoryMapper;
 
   @Override
   public List<DrugOutDO> list(Map<String, Object> params) {
-    return mapper.outList(params);
+    return inventoryMapper.outList(params);
   }
 
   @Override
   public int count() {
-    return mapper.countOut();
+    return inventoryMapper.countOut();
+  }
+
+  @Override
+  public int drugOutSave(DrugOutFormDO drugOutFormDO) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("drugId", drugOutFormDO.getDrugId());
+    params.put("quantity", 0 - drugOutFormDO.getQuantity());
+    // 更新药品的库存
+    drugMapper.increaseAndDecreaseQuantity(params);
+    // 保存仓储变动记录
+    return inventoryMapper.drugOutSave(drugOutFormDO);
   }
 }

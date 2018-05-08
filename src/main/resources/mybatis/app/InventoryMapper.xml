@@ -120,6 +120,19 @@
         '进货入库', #{manager,jdbcType=VARCHAR})
     </insert>
 
+    <!-- drugOutSave -->
+    <insert id="drugOutSave" parameterType="me.zbl.app.domain.DrugOutFormDO">
+        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into app_inventory_record (id,
+        drug_id, type, quantity,
+        ammount, comment, manager)
+        values (#{id,jdbcType=VARCHAR},  #{drugId,jdbcType=VARCHAR},
+        '4', #{quantity,jdbcType=INTEGER}, #{ammount,jdbcType=INTEGER},
+        '退回出库', #{manager,jdbcType=VARCHAR})
+    </insert>
+
     <insert id="insert" parameterType="me.zbl.app.domain.Inventory">
         <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
             select replace(uuid(),'-','') from dual

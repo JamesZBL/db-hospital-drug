@@ -50,7 +50,7 @@ public class DrugInController {
    */
   @GetMapping("/inventory/drugin")
   public String drugInPage() {
-    return "app/inventory/drug-in";
+    return "app/inventory/drug-in/drug-in";
   }
 
   /**
@@ -58,7 +58,7 @@ public class DrugInController {
    */
   @GetMapping("/inventory/add")
   public String drugInAddPage() {
-    return "app/inventory/add";
+    return "app/inventory/drug-in/add";
   }
 
   /**

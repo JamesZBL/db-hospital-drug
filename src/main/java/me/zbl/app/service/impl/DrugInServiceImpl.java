@@ -24,6 +24,7 @@ import me.zbl.app.service.DrugInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,8 +56,11 @@ public class DrugInServiceImpl implements DrugInService {
 
   @Override
   public int drugInSave(DrugInFormDO drugInFormDO) {
+    Map<String,Object> params = new HashMap<>();
+    params.put("drugId", drugInFormDO.getDrugId());
+    params.put("quantity", drugInFormDO.getQuantity());
     // 更新药品的库存
-    drugMapper.increaseAndDecreaseQuantity(drugInFormDO.getQuantity());
+    drugMapper.increaseAndDecreaseQuantity(params);
     // 保存仓储变动记录
     return inventoryMapper.drugInSave(drugInFormDO);
   }

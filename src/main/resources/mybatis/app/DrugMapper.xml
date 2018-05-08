@@ -95,8 +95,8 @@
   </insert>
 
   <!-- increaseAndDecreaseQuantity -->
-  <update id="increaseAndDecreaseQuantity" parameterType="int">
-    update app_drug set quantity = quantity + #{quantity,jdbcType=INTEGER}
+  <update id="increaseAndDecreaseQuantity" parameterType="java.util.Map">
+    update app_drug set quantity = quantity + #{quantity,jdbcType=INTEGER} where id = #{drugId,jdbcType=VARCHAR}
   </update>
 
   <update id="updateByPrimaryKeySelective" parameterType="me.zbl.app.domain.Drug">

@@ -1,5 +1,5 @@
 $().ready(function() {
-	// validateRule();
+	validateRule();
 });
 
 $.validator.setDefaults({
@@ -33,18 +33,18 @@ function save() {
 
 }
 function validateRule() {
-	// $("#signupForm").validate({
-	// 	rules : {
-	// 		name : {
-	// 			required : true
-	// 		}
-	// 	},
-	// 	messages : {
-	// 		name : {
-	// 			required : icon + "请输入姓名"
-	// 		}
-	// 	}
-	// })
+	$("#signupForm").validate({
+		rules : {
+			drugId : {
+				required : true
+			}
+		},
+		messages : {
+			drugId : {
+				required : "请输入药品编号"
+			}
+		}
+	})
 }
 
 var openUser = function(){

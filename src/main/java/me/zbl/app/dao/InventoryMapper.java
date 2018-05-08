@@ -1,14 +1,13 @@
 package me.zbl.app.dao;
 
-import me.zbl.app.domain.DrugInDO;
-import me.zbl.app.domain.DrugInFormDO;
-import me.zbl.app.domain.DrugOutDO;
-import me.zbl.app.domain.Inventory;
+import me.zbl.app.domain.*;
 
 import java.util.List;
 import java.util.Map;
 
 public interface InventoryMapper {
+
+  int drugOutSave(DrugOutFormDO drugOutFormDO);
 
   int drugInSave(DrugInFormDO drugInFormDO);
 
