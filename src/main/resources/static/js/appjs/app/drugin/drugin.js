@@ -9,8 +9,8 @@ function load() {
             {
                 method: 'get', // 服务器数据的请求方式 get or post
                 url: prefix + "/list", // 服务器数据的加载地址
-                //	showRefresh : true,
-                //	showToggle : true,
+                showRefresh: true,
+                // showToggle : true,
                 //	showColumns : true,
                 iconSize: 'outline',
                 toolbar: '#exampleToolbar',
