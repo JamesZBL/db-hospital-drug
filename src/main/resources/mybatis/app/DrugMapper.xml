@@ -93,6 +93,12 @@
       </if>
     </trim>
   </insert>
+
+  <!-- increaseAndDecreaseQuantity -->
+  <update id="increaseAndDecreaseQuantity" parameterType="int">
+    update app_drug set quantity = quantity + #{quantity,jdbcType=INTEGER}
+  </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="me.zbl.app.domain.Drug">
     update app_drug
     <set>

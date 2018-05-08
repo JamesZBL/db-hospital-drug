@@ -14,6 +14,9 @@
         <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
     </resultMap>
     <resultMap id="DrugInResultMap" type="me.zbl.app.domain.DrugInDO">
+        <result column="manager" jdbcType="VARCHAR" property="manager"/>
+        <result column="quantityNow" jdbcType="INTEGER" property="quantityNow"/>
+        <result column="drugId" jdbcType="VARCHAR" property="drugId"/>
         <result column="drugName" jdbcType="VARCHAR" property="drugName"/>
         <result column="quantity" jdbcType="INTEGER" property="quantity"/>
         <result column="price" jdbcType="DECIMAL" property="price"/>
@@ -35,7 +38,7 @@
     <!--list-->
     <select id="list" parameterType="java.util.Map" resultMap="DrugInResultMap">
         select
-        d.`name` as drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
+        i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
         from app_inventory_record i,app_drug d,app_supplier s
         where
         i.drug_id = d.id and d.supplier_id = s.id

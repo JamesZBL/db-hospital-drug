@@ -16,6 +16,7 @@
  */
 package me.zbl.app.service.impl;
 
+import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.dao.InventoryMapper;
 import me.zbl.app.domain.DrugInDO;
 import me.zbl.app.domain.DrugInFormDO;
@@ -37,21 +38,26 @@ import java.util.Map;
 public class DrugInServiceImpl implements DrugInService {
 
   @Autowired
-  private InventoryMapper mapper;
+  private InventoryMapper inventoryMapper;
+
+  @Autowired
+  private DrugMapper drugMapper;
 
   @Override
   public List<DrugInDO> list(Map<String, Object> params) {
-    return mapper.list(params);
+    return inventoryMapper.list(params);
   }
 
   @Override
   public int count() {
-    return mapper.count();
+    return inventoryMapper.count();
   }
 
   @Override
-  public int dugInSave(DrugInFormDO drugInFormDO) {
-    //todo 更新药品的库存
-    return mapper.drugInSave(drugInFormDO);
+  public int drugInSave(DrugInFormDO drugInFormDO) {
+    // 更新药品的库存
+    drugMapper.increaseAndDecreaseQuantity(drugInFormDO.getQuantity());
+    // 保存仓储变动记录
+    return inventoryMapper.drugInSave(drugInFormDO);
   }
 }

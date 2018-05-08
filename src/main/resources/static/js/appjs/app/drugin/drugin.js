@@ -44,12 +44,8 @@ function load() {
                 // 返回false将会终止请求
                 columns: [
                     {
-                        checkbox: true
-                    },
-                    {
-                        visible: false,
-                        field: 'id',
-                        title: '编号'
+                        field: 'drugId',
+                        title: '药品编号'
                     },
 
                     {
@@ -61,7 +57,11 @@ function load() {
                     },
                     {
                         field: 'quantity',
-                        title: '数量'
+                        title: '入库数量'
+                    },
+                    {
+                        field: 'quantityNow',
+                        title: '实时库存'
                     },
                     {
                         field: 'price',
@@ -90,6 +90,9 @@ function load() {
                     {
                         field: 'supplierName',
                         title: '供应商'
+                    }, {
+                        field: 'manager',
+                        title: '经办人'
                     },
                     {
                         field: 'gmtCreated',

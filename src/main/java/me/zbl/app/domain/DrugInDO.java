@@ -28,6 +28,12 @@ import java.util.Date;
  */
 public class DrugInDO {
 
+  //  经办人
+  private String manager;
+  //  实时库存
+  private int quantityNow;
+  //  药品编号
+  private String drugId;
   //  药品名称
   private String drugName;
   //  单价
@@ -97,5 +103,29 @@ public class DrugInDO {
 
   public void setGmtCreated(Date gmtCreated) {
     this.gmtCreated = gmtCreated;
+  }
+
+  public String getDrugId() {
+    return drugId;
+  }
+
+  public void setDrugId(String drugId) {
+    this.drugId = drugId;
+  }
+
+  public int getQuantityNow() {
+    return quantityNow;
+  }
+
+  public void setQuantityNow(int quantityNow) {
+    this.quantityNow = quantityNow;
+  }
+
+  public String getManager() {
+    return manager;
+  }
+
+  public void setManager(String manager) {
+    this.manager = manager;
   }
 }

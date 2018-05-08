@@ -77,7 +77,7 @@ public class DrugInController {
   @ResponseBody
   @PostMapping("/inventory/drugin/save")
   public R save(DrugInFormDO params){
-    service.dugInSave(params);
+    service.drugInSave(params);
     return R.ok();
   }
 }
