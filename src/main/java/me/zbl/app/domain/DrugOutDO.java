@@ -26,7 +26,7 @@ import java.util.Date;
  * @email 1146556298@qq.com
  * @date 2018-05-07
  */
-public class DrugInDO {
+public class DrugOutDO {
 
   //  类型
   private String type;

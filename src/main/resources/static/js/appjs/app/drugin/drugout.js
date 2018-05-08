@@ -8,7 +8,7 @@ function load() {
         .bootstrapTable(
             {
                 method: 'get', // 服务器数据的请求方式 get or post
-                url: prefix + "/list", // 服务器数据的加载地址
+                url: prefix + "/listout", // 服务器数据的加载地址
                 showRefresh: true,
                 // showToggle : true,
                 //	showColumns : true,
@@ -92,10 +92,10 @@ function load() {
                         title: '类别',
                         formatter: function (value, row, index) {
                             switch (value) {
-                                case '1':
-                                    return '进货入库';
-                                case '2':
-                                    return '顾客退货';
+                                case '3':
+                                    return '销售出库';
+                                case '4':
+                                    return '退回供应商';
                             }
                         }
                     },
@@ -138,7 +138,7 @@ function reLoad() {
 function add() {
     layer.open({
         type: 2,
-        title: '入库登记',
+        title: '出库登记',
         maxmin: true,
         shadeClose: false, // 点击遮罩关闭层
         area: ['500px', '520px'],

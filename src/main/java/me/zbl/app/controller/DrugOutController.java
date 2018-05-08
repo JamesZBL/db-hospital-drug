@@ -17,15 +17,13 @@
 package me.zbl.app.controller;
 
 import me.zbl.app.domain.DrugInDO;
-import me.zbl.app.domain.DrugInFormDO;
-import me.zbl.app.service.DrugInService;
+import me.zbl.app.domain.DrugOutDO;
+import me.zbl.app.service.DrugOutService;
 import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
-import me.zbl.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -33,32 +31,32 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 药品入库
+ * 药品出库
  *
  * @author JamesZBL
  * @email 1146556298@qq.com
- * @date 2018-05-07
+ * @date 2018-05-08
  */
 @Controller
-public class DrugInController {
+public class DrugOutController {
 
   @Autowired
-  private DrugInService service;
+  private DrugOutService service;
 
   /**
-   * 药品入库页面
+   * 药品出库页面
    */
-  @GetMapping("/inventory/drugin")
+  @GetMapping("/inventory/drugout")
   public String drugInPage() {
-    return "app/inventory/drug-in";
+    return "app/inventory/drug-out";
   }
 
   /**
-   * 药品入库登记
+   * 药品出库登记
    */
-  @GetMapping("/inventory/add")
+  @GetMapping("/inventory/out")
   public String drugInAddPage() {
-    return "app/inventory/add";
+    return "app/inventory/out";
   }
 
   /**
@@ -67,17 +65,10 @@ public class DrugInController {
    * @param params 查询参数
    */
   @ResponseBody
-  @GetMapping("/inventory/list")
+  @GetMapping("/inventory/listout")
   public PageWrapper list(@RequestParam Map<String, Object> params) {
     Query query = new Query(params);
-    List<DrugInDO> list = service.list(query);
+    List<DrugOutDO> list = service.list(query);
     return new PageWrapper(list, service.count());
-  }
-
-  @ResponseBody
-  @PostMapping("/inventory/drugin/save")
-  public R save(DrugInFormDO params){
-    service.drugInSave(params);
-    return R.ok();
   }
 }

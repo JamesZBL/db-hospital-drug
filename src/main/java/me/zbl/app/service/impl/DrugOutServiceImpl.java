@@ -16,11 +16,9 @@
  */
 package me.zbl.app.service.impl;
 
-import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.dao.InventoryMapper;
-import me.zbl.app.domain.DrugInDO;
-import me.zbl.app.domain.DrugInFormDO;
-import me.zbl.app.service.DrugInService;
+import me.zbl.app.domain.DrugOutDO;
+import me.zbl.app.service.DrugOutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,36 +26,25 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 药品入库业务实现
+ * 药品出库业务实现
  *
  * @author JamesZBL
  * @email 1146556298@qq.com
- * @date 2018-05-07
+ * @date 2018-05-08
  */
 @Service
-public class DrugInServiceImpl implements DrugInService {
+public class DrugOutServiceImpl implements DrugOutService {
 
   @Autowired
-  private InventoryMapper inventoryMapper;
-
-  @Autowired
-  private DrugMapper drugMapper;
+  InventoryMapper mapper;
 
   @Override
-  public List<DrugInDO> list(Map<String, Object> params) {
-    return inventoryMapper.inList(params);
+  public List<DrugOutDO> list(Map<String, Object> params) {
+    return mapper.outList(params);
   }
 
   @Override
   public int count() {
-    return inventoryMapper.countIn();
-  }
-
-  @Override
-  public int drugInSave(DrugInFormDO drugInFormDO) {
-    // 更新药品的库存
-    drugMapper.increaseAndDecreaseQuantity(drugInFormDO.getQuantity());
-    // 保存仓储变动记录
-    return inventoryMapper.drugInSave(drugInFormDO);
+    return mapper.countOut();
   }
 }

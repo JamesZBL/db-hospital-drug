@@ -14,6 +14,20 @@
         <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
     </resultMap>
     <resultMap id="DrugInResultMap" type="me.zbl.app.domain.DrugInDO">
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="manager" jdbcType="VARCHAR" property="manager"/>
+        <result column="quantityNow" jdbcType="INTEGER" property="quantityNow"/>
+        <result column="drugId" jdbcType="VARCHAR" property="drugId"/>
+        <result column="drugName" jdbcType="VARCHAR" property="drugName"/>
+        <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="specification" jdbcType="VARCHAR" property="specification"/>
+        <result column="ammount" jdbcType="DECIMAL" property="ammount"/>
+        <result column="supplierName" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated"/>
+    </resultMap>
+    <resultMap id="DrugOutResultMap" type="me.zbl.app.domain.DrugOutDO">
+        <result column="type" jdbcType="VARCHAR" property="type"/>
         <result column="manager" jdbcType="VARCHAR" property="manager"/>
         <result column="quantityNow" jdbcType="INTEGER" property="quantityNow"/>
         <result column="drugId" jdbcType="VARCHAR" property="drugId"/>
@@ -30,18 +44,45 @@
         gmt_created, gmt_modified
     </sql>
 
-    <!-- count -->
-    <select id="count" resultType="int">
-        select count(*) from app_inventory_record
+    <!-- countIn -->
+    <select id="countIn" resultType="int">
+        select count(*) from app_inventory_record where type in ('1','2')
     </select>
 
-    <!--list-->
-    <select id="list" parameterType="java.util.Map" resultMap="DrugInResultMap">
+    <!-- countOut -->
+    <select id="countOut" resultType="int">
+        select count(*) from app_inventory_record where type in ('3','4')
+    </select>
+
+    <!--inList-->
+    <select id="inList" parameterType="java.util.Map" resultMap="DrugInResultMap">
         select
-        i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
+        i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
         from app_inventory_record i,app_drug d,app_supplier s
         where
         i.drug_id = d.id and d.supplier_id = s.id
+        and i.type in('1','2')
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by gmt_created desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit ${offset}, ${limit}
+        </if>
+    </select>
+
+    <!--outList-->
+    <select id="outList" parameterType="java.util.Map" resultMap="DrugOutResultMap">
+        select
+        i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
+        from app_inventory_record i,app_drug d,app_supplier s
+        where
+        i.drug_id = d.id and d.supplier_id = s.id
+        and i.type in('3','4')
         <choose>
             <when test="sort != null and sort.trim() != ''">
                 order by ${sort} ${order}
