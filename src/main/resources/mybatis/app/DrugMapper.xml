@@ -27,9 +27,6 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="me.zbl.app.domain.Drug">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
     insert into app_drug (id, name, quantity,
       price, invalid, quality_guarantee_period,
       lower_limit, supplier_id, specification
@@ -40,9 +37,6 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="me.zbl.app.domain.Drug">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
     insert into app_drug
     <trim prefix="(" suffix=")" suffixOverrides=",">
       id,

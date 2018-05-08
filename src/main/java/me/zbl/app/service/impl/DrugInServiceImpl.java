@@ -51,6 +51,7 @@ public class DrugInServiceImpl implements DrugInService {
 
   @Override
   public int dugInSave(DrugInFormDO drugInFormDO) {
+    //todo 更新药品的库存
     return mapper.drugInSave(drugInFormDO);
   }
 }
