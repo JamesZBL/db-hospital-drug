@@ -51,7 +51,7 @@ JDK：1.8
 - 新增数据表以前缀 app_ 开头，避免与其他表表淆
 - act_ 前缀的 25 个表为 druid 运行时自动生成的，可以忽略
 - 系统使用的 ORM 框架为 MyBatis，Web 框架为 Spring Boot
-- - IDEA 旗舰版激活可以使用我的 License Server，地址：http://jetbrains.letec.top， 社区版无需激活
+- IDEA 旗舰版激活可以使用我的 License Server，地址：http://jetbrains.letec.top， 社区版无需激活
 
 
 
