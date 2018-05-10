@@ -16,6 +16,10 @@
  */
 package me.zbl.app.domain;
 
+import org.springframework.data.annotation.Transient;
+
+import java.util.Date;
+
 /**
  * 入库登记表单
  *
@@ -27,6 +31,9 @@ public class DrugInFormDO {
 
   private String id;
 
+  //  生产日期
+  @Transient
+  private Date madeDate;
   //  药品 id
   private String drugId;
   //  入库数量
@@ -74,5 +81,13 @@ public class DrugInFormDO {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public Date getMadeDate() {
+    return madeDate;
+  }
+
+  public void setMadeDate(Date madeDate) {
+    this.madeDate = madeDate;
   }
 }

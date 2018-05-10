@@ -1,5 +1,6 @@
 $().ready(function() {
 	validateRule();
+    initDatePicker();
 });
 
 $.validator.setDefaults({
@@ -34,17 +35,17 @@ function save() {
 }
 function validateRule() {
 	$("#signupForm").validate({
-		rules : {
-			drugId : {
-				required : true
-			}
-		},
-		messages : {
-			drugId : {
-				required : "请输入药品编号"
-			}
-		}
+
 	})
+}
+
+function initDatePicker() {
+    laydate.render({
+        //指定元素
+        elem: '#madeDate',
+		//限定范围
+		max: 0
+    });
 }
 
 var openUser = function(){
@@ -54,9 +55,4 @@ var openUser = function(){
 		area : [ '300px', '450px' ],
 		content:"/sys/user/treeView"
 	})
-}
-
-function loadUser(userIds,userNames){
-	$("#userIds").val(userIds);
-	$("#userNames").val(userNames);
-}
+};

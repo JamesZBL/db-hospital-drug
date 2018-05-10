@@ -36,16 +36,7 @@ function save() {
 
 function validateRule() {
     $("#signupForm").validate({
-        rules: {
-            drugId: {
-                required: true
-            }
-        },
-        messages: {
-            drugId: {
-                required: "请输入药品编号"
-            }
-        }
+
     })
 }
 

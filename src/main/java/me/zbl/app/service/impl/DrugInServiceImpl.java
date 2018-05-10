@@ -24,6 +24,7 @@ import me.zbl.app.service.DrugInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,10 @@ public class DrugInServiceImpl implements DrugInService {
 
   @Override
   public int drugInSave(DrugInFormDO drugInFormDO) {
-    Map<String,Object> params = new HashMap<>();
+    // 生产日期
+    Date madeDate = drugInFormDO.getMadeDate();
+    //todo 计算过期日期
+    Map<String, Object> params = new HashMap<>();
     params.put("drugId", drugInFormDO.getDrugId());
     params.put("quantity", drugInFormDO.getQuantity());
     // 更新药品的库存
