@@ -97,7 +97,7 @@
                                              <!--class=""><i class="fa fa-rss-square"></i>博客</a></li>-->
                     <li class="dropdown"><a class="dropdown-toggle count-info"
                                             data-toggle="dropdown" href="#"> <i class="fa fa-envelope"></i>
-                        <span class="label label-warning">{{total}}</span>通知
+                        <span class="label label-warning">{{total>0?total:""}}</span>通知
                     </a>
                         <ul class="dropdown-menu dropdown-messages">
                             <li v-for="row in rows" class="m-t-xs">

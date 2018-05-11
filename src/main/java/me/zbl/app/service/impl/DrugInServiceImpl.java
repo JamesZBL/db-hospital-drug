@@ -72,6 +72,7 @@ public class DrugInServiceImpl implements DrugInService {
     Expire exp = new Expire();
     exp.setDrugId(drugInFormDO.getDrugId());
     exp.setExpiredDate(expire);
+    // 保存过期提醒记录
     expireMapper.insertSelective(exp);
     // 库存记录
     Map<String, Object> params = new HashMap<>();
