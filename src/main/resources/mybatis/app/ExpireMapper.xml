@@ -15,6 +15,15 @@
     from app_expire
     where id = #{id,jdbcType=VARCHAR}
   </select>
+
+  <!-- select expire on target date -->
+  <select id="selectByDate" parameterType="java.util.Date" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from app_expire
+    where expired_date = DATE_FORMAT(#{date,jdbcType=TIMESTAMP},'%y-%m-%d');
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from app_expire
     where id = #{id,jdbcType=VARCHAR}
