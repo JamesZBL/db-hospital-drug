@@ -24,6 +24,7 @@ import me.zbl.app.domain.DrugOutFormDO;
 import me.zbl.app.service.DrugOutService;
 import me.zbl.oa.domain.NotifyDO;
 import me.zbl.oa.service.NotifyService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,6 +74,9 @@ public class DrugOutServiceImpl implements DrugOutService {
     Drug post = drugMapper.selectByPrimaryKey(drugId);
     if (post.getQuantity() < 0) {
       throw new IllegalArgumentException("库存不足！");
+    }
+    if (StringUtils.isEmpty(drugOutFormDO.getComment())) {
+      drugOutFormDO.setComment("退回供应商出库");
     }
     // 保存仓储变动记录
     return inventoryMapper.drugOutSave(drugOutFormDO);

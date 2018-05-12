@@ -31,6 +31,8 @@ public class DrugOutFormDO {
   private String drugId;
   //  出库数量
   private int quantity;
+  //  原因备注
+  private String comment;
   //  经办人
   private String manager;
   //  总金额
@@ -74,5 +76,13 @@ public class DrugOutFormDO {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public String getComment() {
+    return comment;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 }

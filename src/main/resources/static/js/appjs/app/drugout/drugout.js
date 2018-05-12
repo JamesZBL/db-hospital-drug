@@ -87,17 +87,21 @@ function load() {
                     // 		}
                     // 	}
                     // },
+                    // {
+                    //     field: 'type',
+                    //     title: '类别',
+                    //     formatter: function (value, row, index) {
+                    //         switch (value) {
+                    //             case '3':
+                    //                 return '销售出库';
+                    //             case '4':
+                    //                 return '退回供应商';
+                    //         }
+                    //     }
+                    // },
                     {
-                        field: 'type',
-                        title: '类别',
-                        formatter: function (value, row, index) {
-                            switch (value) {
-                                case '3':
-                                    return '销售出库';
-                                case '4':
-                                    return '退回供应商';
-                            }
-                        }
+                        field: 'comment',
+                        title: '备注'
                     },
                     {
                         field: 'supplierName',
