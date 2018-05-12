@@ -2,9 +2,13 @@ package me.zbl.app.dao;
 
 import me.zbl.app.domain.Drug;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public interface DrugMapper {
+
+  List<Drug> selectByExpireDate(Date date);
 
   int increaseAndDecreaseQuantity(Map<String, Object> params);
 

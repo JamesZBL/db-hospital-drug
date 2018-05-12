@@ -22,6 +22,16 @@
     from app_drug
     where id = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectByExpireDate" parameterType="java.util.Date" resultMap="BaseResultMap">
+    select
+    app_drug.id, name, quantity, price, invalid, quality_guarantee_period, lower_limit, supplier_id,
+    specification
+    from app_drug, app_expire
+    where app_drug.id = app_expire.drug_id and
+    expired_date = DATE_FORMAT(#{date,jdbcType=TIMESTAMP},'%y-%m-%d');
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from app_drug
     where id = #{id,jdbcType=VARCHAR}

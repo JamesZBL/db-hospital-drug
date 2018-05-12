@@ -65,6 +65,12 @@
             <artifactId>mybatis</artifactId>
             <version>3.4.4</version>
         </dependency>
+        <!-- MyBatis 使用 Java8 新的日期时间 API 必需 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-typehandlers-jsr310</artifactId>
+            <version>1.0.2</version>
+        </dependency>
 
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
