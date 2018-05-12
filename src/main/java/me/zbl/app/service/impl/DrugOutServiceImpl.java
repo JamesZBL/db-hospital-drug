@@ -18,11 +18,13 @@ package me.zbl.app.service.impl;
 
 import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.dao.InventoryMapper;
+import me.zbl.app.domain.Drug;
 import me.zbl.app.domain.DrugOutDO;
 import me.zbl.app.domain.DrugOutFormDO;
 import me.zbl.app.service.DrugOutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,13 +56,19 @@ public class DrugOutServiceImpl implements DrugOutService {
     return inventoryMapper.countOut();
   }
 
+  @Transactional
   @Override
   public int drugOutSave(DrugOutFormDO drugOutFormDO) {
     Map<String, Object> params = new HashMap<>();
-    params.put("drugId", drugOutFormDO.getDrugId());
+    String drugId = drugOutFormDO.getDrugId();
+    params.put("drugId", drugId);
     params.put("quantity", 0 - drugOutFormDO.getQuantity());
     // 更新药品的库存
     drugMapper.increaseAndDecreaseQuantity(params);
+    Drug post = drugMapper.selectByPrimaryKey(drugId);
+    if (post.getQuantity() < 0) {
+      throw new IllegalArgumentException("库存不足！");
+    }
     // 保存仓储变动记录
     return inventoryMapper.drugOutSave(drugOutFormDO);
   }
