@@ -32,6 +32,16 @@
     expired_date = DATE_FORMAT(#{date,jdbcType=TIMESTAMP},'%y-%m-%d');
   </select>
 
+  <select id="selectOverLowerLimit" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from app_drug
+    WHERE quantity <![CDATA[
+      <=
+    ]]>
+    lower_limit
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from app_drug
     where id = #{id,jdbcType=VARCHAR}
