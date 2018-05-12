@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zbl.app.dao.ExpireMapper">
+  <resultMap id="BaseResultMap" type="me.zbl.app.domain.Expire">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="drug_id" jdbcType="VARCHAR" property="drugId" />
+    <result column="expired_date" jdbcType="DATE" property="expiredDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, drug_id, expired_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from app_expire
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <!-- select expire on target date -->
+  <select id="selectByDate" parameterType="java.util.Date" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from app_expire
+    where expired_date = DATE_FORMAT(#{date,jdbcType=TIMESTAMP},'%y-%m-%d');
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from app_expire
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="me.zbl.app.domain.Expire">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into app_expire (id, drug_id, expired_date
+      )
+    values (#{id,jdbcType=VARCHAR}, #{drugId,jdbcType=VARCHAR}, #{expiredDate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="me.zbl.app.domain.Expire">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into app_expire
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="drugId != null">
+        drug_id,
+      </if>
+      <if test="expiredDate != null">
+        expired_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=VARCHAR},
+      <if test="drugId != null">
+        #{drugId,jdbcType=VARCHAR},
+      </if>
+      <if test="expiredDate != null">
+        #{expiredDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.zbl.app.domain.Expire">
+    update app_expire
+    <set>
+      <if test="drugId != null">
+        drug_id = #{drugId,jdbcType=VARCHAR},
+      </if>
+      <if test="expiredDate != null">
+        expired_date = #{expiredDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zbl.app.domain.Expire">
+    update app_expire
+    set drug_id = #{drugId,jdbcType=VARCHAR},
+      expired_date = #{expiredDate,jdbcType=DATE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -4,7 +4,7 @@ import me.zbl.common.config.Constant;
 import me.zbl.common.controller.BaseController;
 import me.zbl.common.domain.DictDO;
 import me.zbl.common.service.DictService;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
 import me.zbl.oa.domain.NotifyDO;
@@ -50,13 +50,13 @@ public class NotifyController extends BaseController {
   @ResponseBody
   @GetMapping("/list")
   @RequiresPermissions("oa:notify:notify")
-  public PageUtils list(@RequestParam Map<String, Object> params) {
+  public PageWrapper list(@RequestParam Map<String, Object> params) {
     // 查询列表数据
     Query query = new Query(params);
     List<NotifyDO> notifyList = notifyService.list(query);
     int total = notifyService.count(query);
-    PageUtils pageUtils = new PageUtils(notifyList, total);
-    return pageUtils;
+    PageWrapper pageWrapper = new PageWrapper(notifyList, total);
+    return pageWrapper;
   }
 
   @GetMapping("/add")
@@ -144,7 +144,7 @@ public class NotifyController extends BaseController {
 
   @ResponseBody
   @GetMapping("/message")
-  PageUtils message() {
+  PageWrapper message() {
     Map<String, Object> params = new HashMap<>(16);
     params.put("offset", 0);
     params.put("limit", 3);
@@ -161,7 +161,7 @@ public class NotifyController extends BaseController {
 
   @ResponseBody
   @GetMapping("/selfList")
-  PageUtils selfList(@RequestParam Map<String, Object> params) {
+  PageWrapper selfList(@RequestParam Map<String, Object> params) {
     Query query = new Query(params);
     query.put("userId", getUserId());
 

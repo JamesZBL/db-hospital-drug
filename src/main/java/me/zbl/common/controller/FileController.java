@@ -44,13 +44,13 @@ public class FileController extends BaseController {
   @ResponseBody
   @GetMapping("/list")
   @RequiresPermissions("common:sysFile:sysFile")
-  public PageUtils list(@RequestParam Map<String, Object> params) {
+  public PageWrapper list(@RequestParam Map<String, Object> params) {
     // 查询列表数据
     Query query = new Query(params);
     List<FileDO> sysFileList = sysFileService.list(query);
     int total = sysFileService.count(query);
-    PageUtils pageUtils = new PageUtils(sysFileList, total);
-    return pageUtils;
+    PageWrapper pageWrapper = new PageWrapper(sysFileList, total);
+    return pageWrapper;
   }
 
   @GetMapping("/add")

@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * @author 郑保乐
  */
-public class PageUtils implements Serializable {
+public class PageWrapper implements Serializable {
 
   private static final long serialVersionUID = 1L;
   private int total;
   private List<?> rows;
 
-  public PageUtils(List<?> list, int total) {
+  public PageWrapper(List<?> list, int total) {
     this.rows = list;
     this.total = total;
   }

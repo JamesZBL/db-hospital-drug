@@ -21,13 +21,13 @@ JDK：1.8
 
 # 开始
 
-- 使用 Git 将仓库 develop 分支克隆到本地，项目 url 为 https://你的用户名:密码@gitee.com/jameszbl/HospitalDrugSys.git
+- 使用 Git 将仓库 develop 分支克隆到本地，项目 url 为 https://你的用户名:密码@gitee.com/zbl1996/HospitalDrugSys.git
 - 安装 JDK, Git for Windows
 - 打开 IntelliJ IDEA，安装码云插件，拉取代码，教程见 http://git.mydoc.io/?t=153739
 - 等待 build 完成
 - 运行 me.zbl.HospitalApplication
 - 浏览器访问 http://localhost:8086
-- 系统登录：用户名 admin，密码 123456
+- 药品系统登录：用户名 admin2，密码 123456
 
 # 开发
 
@@ -43,15 +43,15 @@ JDK：1.8
 
 # 其他
 
-- 数据库 IP：47.93.187.44，端口 3306
-- 数据库用户名：dev，密码：19961120，该用户目前权限有：SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, DROP
-- 运行时使用的数据库在服务器上，因此必须在有网络的环境中调试运行
-- IDEA 激活可以使用我的 License Server，地址：http://jetbrains.letec.top
-- 药品管理系统用到的表前缀为：app_，其他前缀的表为项目必须，但系统非必须，无需修改
+- 开发使用远程数据库，因此本地不必安装 MySQL
+- 远程数据库 IP：47.93.187.44，端口 3306
+- 远程数据库 用户名：dev，密码：19961120，该用户目前拥有的权限：SELECT, INSERT, UPDATE
+- 运行时使用的数据库在阿里云服务器上，因此必须在连接外网的环境中调试运行
+- 药品管理系统用到的表前缀为：app_，其他前缀的表为软件必须，无需修改
 - 新增数据表以前缀 app_ 开头，避免与其他表表淆
-- act_ 前缀的 25 个表为 druid 运行时自动生成的，可以忽略，系统框架用得到的表共 20 个
-- 目前服务器上的数据库结构是我的设计，可以使用任意 GUI 工具（推荐使用 Navicat）查看、修改或新建表
-- 系统使用的 ORM 框架为 MyBatis，可以使用 Spring Data JPA
+- act_ 前缀的 25 个表为 druid 运行时自动生成的，可以忽略
+- 系统使用的 ORM 框架为 MyBatis，Web 框架为 Spring Boot
+- IDEA 旗舰版激活可以使用我的 License Server，地址：http://jetbrains.letec.top ， 社区版无需激活
 
 
 

@@ -2,7 +2,7 @@ package me.zbl.oa.service.impl;
 
 import me.zbl.common.service.DictService;
 import me.zbl.common.utils.DateUtils;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.oa.dao.NotifyDao;
 import me.zbl.oa.dao.NotifyRecordDao;
 import me.zbl.oa.domain.NotifyDO;
@@ -118,13 +118,13 @@ public class NotifyServiceImpl implements NotifyService {
 
 
   @Override
-  public PageUtils selfList(Map<String, Object> map) {
+  public PageWrapper selfList(Map<String, Object> map) {
     List<NotifyDTO> rows = notifyDao.listDTO(map);
     for (NotifyDTO notifyDTO : rows) {
       notifyDTO.setBefore(DateUtils.getTimeBefore(notifyDTO.getUpdateDate()));
       notifyDTO.setSender(userDao.get(notifyDTO.getCreateBy()).getName());
     }
-    PageUtils page = new PageUtils(rows, notifyDao.countDTO(map));
+    PageWrapper page = new PageWrapper(rows, notifyDao.countDTO(map));
     return page;
   }
 

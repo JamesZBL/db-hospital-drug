@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import me.zbl.common.config.Constant;
 import me.zbl.common.controller.BaseController;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.R;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -55,11 +55,11 @@ public class ModelController extends BaseController {
   }
 
   @GetMapping("/model/list")
-  PageUtils list(int offset, int limit) {
+  PageWrapper list(int offset, int limit) {
     List<Model> list = repositoryService.createModelQuery().listPage(offset
             , limit);
     int total = (int) repositoryService.createModelQuery().count();
-    PageUtils pageUtil = new PageUtils(list, total);
+    PageWrapper pageUtil = new PageWrapper(list, total);
     return pageUtil;
   }
 

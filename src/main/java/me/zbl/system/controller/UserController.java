@@ -6,7 +6,7 @@ import me.zbl.common.controller.BaseController;
 import me.zbl.common.domain.Tree;
 import me.zbl.common.service.DictService;
 import me.zbl.common.utils.MD5Utils;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
 import me.zbl.system.domain.DeptDO;
@@ -47,12 +47,12 @@ public class UserController extends BaseController {
 
   @GetMapping("/list")
   @ResponseBody
-  PageUtils list(@RequestParam Map<String, Object> params) {
+  PageWrapper list(@RequestParam Map<String, Object> params) {
     // 查询列表数据
     Query query = new Query(params);
     List<UserDO> sysUserList = userService.list(query);
     int total = userService.count(query);
-    PageUtils pageUtil = new PageUtils(sysUserList, total);
+    PageWrapper pageUtil = new PageWrapper(sysUserList, total);
     return pageUtil;
   }
 

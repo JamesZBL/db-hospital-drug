@@ -3,7 +3,7 @@ package me.zbl.common.controller;
 import me.zbl.common.config.Constant;
 import me.zbl.common.domain.DictDO;
 import me.zbl.common.service.DictService;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -40,13 +40,13 @@ public class DictController extends BaseController {
   @ResponseBody
   @GetMapping("/list")
   @RequiresPermissions("common:dict:dict")
-  public PageUtils list(@RequestParam Map<String, Object> params) {
+  public PageWrapper list(@RequestParam Map<String, Object> params) {
     // 查询列表数据
     Query query = new Query(params);
     List<DictDO> dictList = dictService.list(query);
     int total = dictService.count(query);
-    PageUtils pageUtils = new PageUtils(dictList, total);
-    return pageUtils;
+    PageWrapper pageWrapper = new PageWrapper(dictList, total);
+    return pageWrapper;
   }
 
   @GetMapping("/add")

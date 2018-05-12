@@ -5,7 +5,7 @@ import me.zbl.activity.service.SalaryService;
 import me.zbl.activity.utils.ActivitiUtils;
 import me.zbl.common.config.Constant;
 import me.zbl.common.controller.BaseController;
-import me.zbl.common.utils.PageUtils;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
 import me.zbl.common.utils.ShiroUtils;
@@ -42,12 +42,12 @@ public class SalaryController extends BaseController {
 
   @ResponseBody
   @GetMapping("/list")
-  public PageUtils list(@RequestParam Map<String, Object> params) {
+  public PageWrapper list(@RequestParam Map<String, Object> params) {
     Query query = new Query(params);
     List<SalaryDO> salaryList = salaryService.list(query);
     int total = salaryService.count(query);
-    PageUtils pageUtils = new PageUtils(salaryList, total);
-    return pageUtils;
+    PageWrapper pageWrapper = new PageWrapper(salaryList, total);
+    return pageWrapper;
   }
 
   @GetMapping("/form")
