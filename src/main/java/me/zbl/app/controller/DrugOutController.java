@@ -82,12 +82,15 @@ public class DrugOutController {
   @ResponseBody
   @PostMapping("/inventory/drugout/save")
   public R save(DrugOutFormDO params) {
+    //    保存出库记录
     try {
       service.drugOutSave(params);
     } catch (IllegalArgumentException e) {
       e.printStackTrace();
       return R.error(1, e.getMessage());
     }
+    //    检查库存下限
+    service.checkLowerLimit();
     return R.ok();
   }
 }

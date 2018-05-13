@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -75,10 +74,20 @@ public class DrugInController {
     return new PageWrapper(list, service.count());
   }
 
+  /**
+   * 入库记录保存
+   *
+   * @param params 参数
+   */
   @ResponseBody
   @PostMapping("/inventory/drugin/save")
-  public R save(DrugInFormDO params){
-    service.drugInSave(params);
+  public R save(DrugInFormDO params) {
+    try {
+      service.drugInSave(params);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return R.error(1, e.getMessage());
+    }
     return R.ok();
   }
 }

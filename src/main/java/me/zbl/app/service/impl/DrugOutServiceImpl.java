@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 药品出库业务实现
@@ -65,6 +66,8 @@ public class DrugOutServiceImpl implements DrugOutService {
   @Transactional
   @Override
   public int drugOutSave(DrugOutFormDO drugOutFormDO) {
+    Optional.ofNullable(drugMapper.selectByPrimaryKey(drugOutFormDO.getDrugId())).
+            orElseThrow(() -> new IllegalArgumentException("输入的药品编号不存在"));
     Map<String, Object> params = new HashMap<>();
     String drugId = drugOutFormDO.getDrugId();
     params.put("drugId", drugId);
