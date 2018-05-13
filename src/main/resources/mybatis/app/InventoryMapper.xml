@@ -35,6 +35,7 @@
         <result column="quantity" jdbcType="INTEGER" property="quantity"/>
         <result column="price" jdbcType="DECIMAL" property="price"/>
         <result column="specification" jdbcType="VARCHAR" property="specification"/>
+        <result column="comment" jdbcType="VARCHAR" property="comment"/>
         <result column="ammount" jdbcType="DECIMAL" property="ammount"/>
         <result column="supplierName" jdbcType="VARCHAR" property="supplierName"/>
         <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated"/>
@@ -78,7 +79,7 @@
     <!--outList-->
     <select id="outList" parameterType="java.util.Map" resultMap="DrugOutResultMap">
         select
-        i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
+        i.comment, i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
         from app_inventory_record i,app_drug d,app_supplier s
         where
         i.drug_id = d.id and d.supplier_id = s.id
@@ -130,7 +131,7 @@
         ammount, comment, manager)
         values (#{id,jdbcType=VARCHAR},  #{drugId,jdbcType=VARCHAR},
         '4', #{quantity,jdbcType=INTEGER}, #{ammount,jdbcType=INTEGER},
-        '退回出库', #{manager,jdbcType=VARCHAR})
+        #{comment,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insert" parameterType="me.zbl.app.domain.Inventory">

@@ -18,15 +18,21 @@ package me.zbl.app.service.impl;
 
 import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.dao.InventoryMapper;
+import me.zbl.app.domain.Drug;
 import me.zbl.app.domain.DrugOutDO;
 import me.zbl.app.domain.DrugOutFormDO;
 import me.zbl.app.service.DrugOutService;
+import me.zbl.oa.domain.NotifyDO;
+import me.zbl.oa.service.NotifyService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 药品出库业务实现
@@ -44,6 +50,9 @@ public class DrugOutServiceImpl implements DrugOutService {
   @Autowired
   private InventoryMapper inventoryMapper;
 
+  @Autowired
+  private NotifyService notifyService;
+
   @Override
   public List<DrugOutDO> list(Map<String, Object> params) {
     return inventoryMapper.outList(params);
@@ -54,14 +63,49 @@ public class DrugOutServiceImpl implements DrugOutService {
     return inventoryMapper.countOut();
   }
 
+  @Transactional
   @Override
   public int drugOutSave(DrugOutFormDO drugOutFormDO) {
+    Optional.ofNullable(drugMapper.selectByPrimaryKey(drugOutFormDO.getDrugId())).
+            orElseThrow(() -> new IllegalArgumentException("输入的药品编号不存在"));
     Map<String, Object> params = new HashMap<>();
-    params.put("drugId", drugOutFormDO.getDrugId());
+    String drugId = drugOutFormDO.getDrugId();
+    params.put("drugId", drugId);
     params.put("quantity", 0 - drugOutFormDO.getQuantity());
     // 更新药品的库存
     drugMapper.increaseAndDecreaseQuantity(params);
+    Drug post = drugMapper.selectByPrimaryKey(drugId);
+    if (post.getQuantity() < 0) {
+      throw new IllegalArgumentException("库存不足！");
+    }
+    if (StringUtils.isEmpty(drugOutFormDO.getComment())) {
+      drugOutFormDO.setComment("退回供应商出库");
+    }
     // 保存仓储变动记录
     return inventoryMapper.drugOutSave(drugOutFormDO);
+  }
+
+  @Override
+  public void checkLowerLimit() {
+    List<Drug> drugs = drugMapper.selectOverLowerLimit();
+    drugs.forEach(d -> {
+      String title = "有药品的库存低于预定下限值";
+      //      药品编号
+      String drugId = d.getId();
+      //      药名
+      String name = d.getName();
+      //      消息内容
+      String content = "有药品的库存低于预定下限值，请及时进货！药品编号：" + drugId + "，药名：" + name + "";
+
+      NotifyDO notify = new NotifyDO();
+      notify.setTitle(title);
+      notify.setStatus("1");
+      notify.setContent(content);
+      notify.setType("5");
+      notify.setCreateBy((long) 1);
+      notify.setUserIds(new Long[]{(long) 140});
+      //     发送消息
+      notifyService.save(notify);
+    });
   }
 }

@@ -28,6 +28,8 @@ import java.util.Date;
  */
 public class DrugOutDO {
 
+  //  原因备注
+  private String comment;
   //  类型
   private String type;
   //  经办人
@@ -137,5 +139,13 @@ public class DrugOutDO {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public String getComment() {
+    return comment;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 }

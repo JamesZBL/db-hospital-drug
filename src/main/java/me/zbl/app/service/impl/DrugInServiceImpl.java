@@ -27,10 +27,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 药品入库业务实现
@@ -62,7 +59,10 @@ public class DrugInServiceImpl implements DrugInService {
   }
 
   @Override
-  public int drugInSave(DrugInFormDO drugInFormDO) {
+  public int drugInSave(DrugInFormDO drugInFormDO) throws IllegalArgumentException {
+    Optional.ofNullable(drugMapper.selectByPrimaryKey(drugInFormDO.getDrugId()))
+            .orElseThrow(() -> new IllegalArgumentException("输入的药品编号不存在"));
+
     // 生产日期
     Date madeDate = drugInFormDO.getMadeDate();
     // 保质期

@@ -35,5 +35,10 @@ public interface DrugOutService {
 
   int count();
 
-  int drugOutSave(DrugOutFormDO drugOutFormDO);
+  int drugOutSave(DrugOutFormDO drugOutFormDO) throws IllegalArgumentException;
+
+  /**
+   * 检查库存下限
+   */
+  void checkLowerLimit();
 }
