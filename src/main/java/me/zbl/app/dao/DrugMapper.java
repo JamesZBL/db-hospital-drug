@@ -8,6 +8,8 @@ import java.util.Map;
 
 public interface DrugMapper {
 
+  List<Drug> selectOverLowerLimit();
+
   List<Drug> selectByExpireDate(Date date);
 
   int increaseAndDecreaseQuantity(Map<String, Object> params);

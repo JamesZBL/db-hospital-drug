@@ -16,6 +16,7 @@
  */
 package me.zbl.app.task;
 
+import me.zbl.app.service.DrugOutService;
 import me.zbl.app.service.ExpireNotifyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,26 +25,43 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * 药品过期检查定时任务
+ * 定时任务
+ * <p>
+ * 1. 药品过期检查
+ * 2. 药品库存检查
  *
  * @author JamesZBL
  * @email 1146556298@qq.com
  * @date 2018-05-12
  */
 @Component
-public class ExpireCheckTask {
+public class InventoryCheckTask {
 
-  private static final Logger log = LoggerFactory.getLogger(ExpireCheckTask.class);
+  private static final Logger log = LoggerFactory.getLogger(InventoryCheckTask.class);
 
   @Autowired
   private ExpireNotifyService expireNotifyService;
 
+  @Autowired
+  private DrugOutService drugOutService;
+
   /**
+   * 检查药品过期
    * 每天 00:00 执行
    */
   @Scheduled(cron = "0 0 0  * * ?")
-  public void sayHello(){
+  public void checkExpire() {
     expireNotifyService.notifyDrugsExpiredToday();
     log.info("定时任务：发送药品过期提醒");
+  }
+
+  /**
+   * 检查药品库存
+   * 每天 00:00 执行
+   */
+  @Scheduled(cron = "0 0 0  * * ?")
+  public void checkLowerLimit() {
+    drugOutService.checkLowerLimit();
+    log.info("定时任务：发送药品库存提醒");
   }
 }

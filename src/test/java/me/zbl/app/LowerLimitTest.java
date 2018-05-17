@@ -14,31 +14,32 @@
  * limitations under the License.
  *
  */
-package me.zbl.app.service;
+package me.zbl.app;
 
-import me.zbl.app.domain.DrugOutDO;
-import me.zbl.app.domain.DrugOutFormDO;
-
-import java.util.List;
-import java.util.Map;
+import me.zbl.app.service.DrugOutService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * 药品出库业务接口
- *
  * @author JamesZBL
  * @email 1146556298@qq.com
- * @date 2018-05-08
+ * @date 2018-05-12
  */
-public interface DrugOutService {
+@SpringBootTest
+@RunWith(SpringRunner.class)
+public class LowerLimitTest {
 
-  List<DrugOutDO> list(Map<String, Object> params);
-
-  int count();
-
-  int drugOutSave(DrugOutFormDO drugOutFormDO) throws IllegalArgumentException;
+  @Autowired
+  DrugOutService drugOutService;
 
   /**
-   * 检查库存下限
+   * 测试库存下限提醒
    */
-  void checkLowerLimit();
+  @Test
+  public void doTest() {
+    drugOutService.checkLowerLimit();
+  }
 }
