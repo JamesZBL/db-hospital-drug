@@ -2,16 +2,24 @@ package me.zbl.app.dao;
 
 import me.zbl.app.domain.Supplier;
 
+import java.util.List;
+import java.util.Map;
+
 public interface SupplierMapper {
-    int deleteByPrimaryKey(String id);
 
-    int insert(Supplier record);
+  List<Supplier> selectAllSupplier(Map<String, Object> params);
 
-    int insertSelective(Supplier record);
+  int count();
 
-    Supplier selectByPrimaryKey(String id);
+  int deleteByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(Supplier record);
+  int insert(Supplier record);
 
-    int updateByPrimaryKey(Supplier record);
+  int insertSelective(Supplier record);
+
+  Supplier selectByPrimaryKey(String id);
+
+  int updateByPrimaryKeySelective(Supplier record);
+
+  int updateByPrimaryKey(Supplier record);
 }

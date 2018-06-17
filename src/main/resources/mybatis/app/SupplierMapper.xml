@@ -8,6 +8,19 @@
   <sql id="Base_Column_List">
     id, name
   </sql>
+  <!-- selectAllSupplier -->
+  <select id="selectAllSupplier" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from app_supplier
+    <if test="offset != null and limit != null">
+      limit ${offset}, ${limit}
+    </if>
+  </select>
+  <!-- count -->
+  <select id="count" resultType="int">
+    select count(*) from app_supplier
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
