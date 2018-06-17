@@ -48,7 +48,11 @@ public class SupplierServiceImpl implements SupplierService {
 
   @Override
   public int insertSupplier(Supplier supplier) {
-    return 0;
+    Supplier virtual = supplierMapper.selectByPrimaryKey(supplier.getId());
+    if (null != virtual) {
+      throw new IllegalArgumentException("该编号已经存在");
+    }
+    return supplierMapper.insertSelective(supplier);
   }
 
   @Override

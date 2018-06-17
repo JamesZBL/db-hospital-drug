@@ -39,9 +39,9 @@
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="me.zbl.app.domain.Supplier">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
+    <!--<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">-->
+      <!--select replace(uuid(),'-','') from dual-->
+    <!--</selectKey>-->
     insert into app_supplier
     <trim prefix="(" suffix=")" suffixOverrides=",">
       id,

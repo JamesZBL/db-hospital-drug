@@ -20,9 +20,11 @@ import me.zbl.app.domain.Supplier;
 import me.zbl.app.service.SupplierService;
 import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
+import me.zbl.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 供应商数据维护
+ *
  * @author JamesZBL
  * @email 1146556298@qq.com
  * @date 2018-06-17
@@ -49,5 +53,20 @@ public class SupplierController {
     Query query = new Query(params);
     List<Supplier> list = supplierService.selectAllSupplier(query);
     return new PageWrapper(list, supplierService.count());
+  }
+
+  /**
+   * 供应商保存
+   */
+  @PostMapping("/supplier/save")
+  @ResponseBody
+  public R save(Supplier supplier) {
+    try {
+      supplierService.insertSupplier(supplier);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return R.error(1, e.getMessage());
+    }
+    return R.ok();
   }
 }
