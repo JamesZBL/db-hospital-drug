@@ -62,7 +62,7 @@ public class DrugOutController {
   }
 
   /**
-   * 入库记录列表
+   * 出库记录列表
    *
    * @param params 查询参数
    */
