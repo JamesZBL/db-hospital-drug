@@ -16,27 +16,27 @@
  */
 package me.zbl.app.service;
 
-import me.zbl.app.domain.Supplier;
+import me.zbl.app.domain.Consumer;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * 供应商业务接口
+ * 顾客业务接口
  *
  * @author JamesZBL
  * @email 1146556298@qq.com
  * @date 2018-06-17
  */
-public interface SupplierService {
+public interface ConsumerService {
 
-  List<Supplier> selectAllSupplier(Map<String, Object> params);
+  List<Consumer> selectAllConsumer(Map<String, Object> params);
 
   int count();
 
-  int insertSupplier(Supplier supplier);
+  int insertConsumer(Consumer consumer);
 
-  int deleteSupplier(String id);
+  int deleteConsumer(String id);
 
-  int updateSupplier(Supplier id);
+  int updateConsumer(Consumer consumer);
 }

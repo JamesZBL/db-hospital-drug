@@ -16,52 +16,55 @@
  */
 package me.zbl.app.service.impl;
 
-import me.zbl.app.dao.SupplierMapper;
-import me.zbl.app.domain.Supplier;
-import me.zbl.app.service.SupplierService;
+import me.zbl.app.dao.ConsumerMapper;
+import me.zbl.app.domain.Consumer;
+import me.zbl.app.service.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
+ * 顾客业务实现
+ *
  * @author JamesZBL
  * @email 1146556298@qq.com
- * @date 2018-06-17
+ * @date 2018-06-19
  */
 @Service
-public class SupplierServiceImpl implements SupplierService {
+public class ConsumerServiceImpl implements ConsumerService {
 
   @Autowired
-  SupplierMapper supplierMapper;
+  private ConsumerMapper consumerMapper;
 
   @Override
-  public List<Supplier> selectAllSupplier(Map<String, Object> params) {
-    return supplierMapper.selectAllSupplier(params);
+  public List<Consumer> selectAllConsumer(Map<String, Object> params) {
+    return consumerMapper.selectAllConsumer(params);
   }
 
   @Override
   public int count() {
-    return supplierMapper.count();
+    return consumerMapper.count();
   }
 
   @Override
-  public int insertSupplier(Supplier supplier) {
-    Supplier virtual = supplierMapper.selectByPrimaryKey(supplier.getId());
-    if (null != virtual) {
-      throw new IllegalArgumentException("该编号已经存在");
+  public int insertConsumer(Consumer consumer) {
+    Optional<Consumer> find = Optional.ofNullable(consumerMapper.selectConsumerByTel(consumer.getTel()));
+    if (find.isPresent()) {
+      throw new IllegalArgumentException("用户电话号码已存在");
     }
-    return supplierMapper.insertSelective(supplier);
+    return consumerMapper.insertSelective(consumer);
   }
 
   @Override
-  public int deleteSupplier(String id) {
-    return 0;
+  public int deleteConsumer(String id) {
+    return consumerMapper.deleteByPrimaryKey(id);
   }
 
   @Override
-  public int updateSupplier(Supplier supplier) {
-    return supplierMapper.updateByPrimaryKeySelective(supplier);
+  public int updateConsumer(Consumer consumer) {
+    return consumerMapper.updateByPrimaryKeySelective(consumer);
   }
 }
