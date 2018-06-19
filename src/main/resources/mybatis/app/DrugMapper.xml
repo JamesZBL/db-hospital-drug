@@ -12,15 +12,31 @@
     <result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
     <result column="specification" jdbcType="VARCHAR" property="specification" />
   </resultMap>
+
+  <resultMap id="DrugListResultMap" type="me.zbl.app.domain.DrugDO">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="invalid" jdbcType="VARCHAR" property="invalid" />
+    <result column="quality_guarantee_period" jdbcType="INTEGER" property="qualityGuaranteePeriod" />
+    <result column="lower_limit" jdbcType="INTEGER" property="lowerLimit" />
+    <result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+    <result column="specification" jdbcType="VARCHAR" property="specification" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     id, name, quantity, price, invalid, quality_guarantee_period, lower_limit, supplier_id,
     specification
   </sql>
   <!-- selectAllDrug -->
-  <select id="selectAllDrug" parameterType="java.util.Map" resultMap="BaseResultMap">
+  <select id="selectAllDrug" parameterType="java.util.Map" resultMap="DrugListResultMap">
     select
-    <include refid="Base_Column_List"/>
-    from app_drug
+    app_drug.id, app_drug.name, quantity, price, invalid, quality_guarantee_period, lower_limit, supplier_id,
+    specification,
+    s.name as supplier
+    from app_drug join app_supplier s on app_drug.supplier_id = s.id
     <if test="offset != null and limit != null">
       limit ${offset}, ${limit}
     </if>

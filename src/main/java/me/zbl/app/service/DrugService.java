@@ -17,6 +17,7 @@
 package me.zbl.app.service;
 
 import me.zbl.app.domain.Drug;
+import me.zbl.app.domain.DrugDO;
 
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ import java.util.Map;
  */
 public interface DrugService {
 
-  List<Drug> selectAllDrug(Map<String, Object> params);
+  List<DrugDO> selectAllDrug(Map<String, Object> params);
 
   int count();
 

@@ -17,6 +17,7 @@
 package me.zbl.app.controller;
 
 import me.zbl.app.domain.Drug;
+import me.zbl.app.domain.DrugDO;
 import me.zbl.app.service.DrugService;
 import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
@@ -42,11 +43,16 @@ public class DrugController {
   @Autowired
   DrugService drugService;
 
+  @GetMapping("/drug/index")
+  public String index(){
+    return "/app/data-maintenance/drug/index";
+  }
+
   @GetMapping("/drug/list")
   @ResponseBody
   public PageWrapper list(@RequestParam Map<String, Object> params) {
     Query query = new Query(params);
-    List<Drug> drugs = drugService.selectAllDrug(query);
+    List<DrugDO> drugs = drugService.selectAllDrug(query);
     return new PageWrapper(drugs, drugService.count());
   }
 

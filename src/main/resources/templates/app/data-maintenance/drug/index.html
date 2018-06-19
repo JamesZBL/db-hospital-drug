@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:shiro="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
@@ -11,7 +11,7 @@
                     <div class="columns pull-left">
                         <button type="button"
                                 class="btn  btn-primary" onclick="add()">
-                            <i class="fa fa-plus" aria-hidden="true"></i> 入库登记
+                            <i class="fa fa-plus" aria-hidden="true"></i> 添加
                         </button>
                         <!--<button shiro:hasPermission="oa:notify:batchRemove" type="button"-->
                         <!--class="btn  btn-danger" onclick="batchRemove()">-->
@@ -33,6 +33,6 @@
     </div>
 </div>
 <div th:include="include :: footer"></div>
-<script type="text/javascript" src="/js/appjs/app/drugin/drugin.js"></script>
+<script type="text/javascript" src="/js/appjs/app/drug/index.js"></script>
 </body>
 </html>

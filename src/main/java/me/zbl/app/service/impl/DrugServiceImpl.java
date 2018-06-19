@@ -18,6 +18,7 @@ package me.zbl.app.service.impl;
 
 import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.domain.Drug;
+import me.zbl.app.domain.DrugDO;
 import me.zbl.app.service.DrugService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class DrugServiceImpl implements DrugService {
   private DrugMapper drugMapper;
 
   @Override
-  public List<Drug> selectAllDrug(Map<String, Object> params) {
+  public List<DrugDO> selectAllDrug(Map<String, Object> params) {
     return drugMapper.selectAllDrug(params);
   }
 
