@@ -17,14 +17,17 @@
 package me.zbl.app.service.impl;
 
 import me.zbl.app.dao.DrugMapper;
+import me.zbl.app.dao.SupplierMapper;
 import me.zbl.app.domain.Drug;
 import me.zbl.app.domain.DrugDO;
+import me.zbl.app.domain.Supplier;
 import me.zbl.app.service.DrugService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 药品管理业务实现
@@ -39,6 +42,9 @@ public class DrugServiceImpl implements DrugService {
   @Autowired
   private DrugMapper drugMapper;
 
+  @Autowired
+  private SupplierMapper supplierMapper;
+
   @Override
   public List<DrugDO> selectAllDrug(Map<String, Object> params) {
     return drugMapper.selectAllDrug(params);
@@ -51,6 +57,9 @@ public class DrugServiceImpl implements DrugService {
 
   @Override
   public int insertDrug(Drug drug) {
+    Optional<Supplier> supplier = Optional.ofNullable(supplierMapper.
+            selectByPrimaryKey(drug.getSupplierId()));
+    supplier.orElseThrow(() -> new IllegalArgumentException("供应商编号不存在"));
     return drugMapper.insertSelective(drug);
   }
 

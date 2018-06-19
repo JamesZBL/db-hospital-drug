@@ -24,10 +24,7 @@ import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -44,8 +41,25 @@ public class DrugController {
   DrugService drugService;
 
   @GetMapping("/drug/index")
-  public String index(){
+  public String index() {
     return "/app/data-maintenance/drug/index";
+  }
+
+  @GetMapping("/drug/add")
+  public String add() {
+    return "/app/data-maintenance/drug/add";
+  }
+
+  @DeleteMapping("/drug/remove/{id}")
+  @ResponseBody
+  public R remove(@PathVariable("id") String id) {
+    try {
+      drugService.deleteDrug(id);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return R.error(1, e.getMessage());
+    }
+    return R.ok();
   }
 
   @GetMapping("/drug/list")
