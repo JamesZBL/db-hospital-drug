@@ -31,6 +31,8 @@ import java.util.Map;
  */
 public interface DrugService {
 
+  Drug selectDrugByPrimaryKey(String id);
+
   List<DrugDO> selectAllDrug(Map<String, Object> params);
 
   int count();

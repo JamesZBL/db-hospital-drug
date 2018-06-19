@@ -24,6 +24,7 @@ import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,6 +49,13 @@ public class DrugController {
   @GetMapping("/drug/add")
   public String add() {
     return "/app/data-maintenance/drug/add";
+  }
+
+  @GetMapping("/drug/edit/{id}")
+  public String edit(@PathVariable("id") String id, Model model) {
+    Drug find = drugService.selectDrugByPrimaryKey(id);
+    model.addAttribute("drug", find);
+    return "/app/data-maintenance/drug/edit";
   }
 
   @DeleteMapping("/drug/remove/{id}")
@@ -75,6 +83,18 @@ public class DrugController {
   public R save(Drug drug) {
     try {
       drugService.insertDrug(drug);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return R.error(1, e.getMessage());
+    }
+    return R.ok();
+  }
+
+  @PutMapping("/drug/save")
+  @ResponseBody
+  public R saveEdit(Drug drug) {
+    try {
+      drugService.updateDrug(drug);
     } catch (Exception e) {
       e.printStackTrace();
       return R.error(1, e.getMessage());

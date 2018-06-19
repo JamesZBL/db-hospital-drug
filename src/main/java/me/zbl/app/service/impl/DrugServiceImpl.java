@@ -46,6 +46,11 @@ public class DrugServiceImpl implements DrugService {
   private SupplierMapper supplierMapper;
 
   @Override
+  public Drug selectDrugByPrimaryKey(String id) {
+    return drugMapper.selectByPrimaryKey(id);
+  }
+
+  @Override
   public List<DrugDO> selectAllDrug(Map<String, Object> params) {
     return drugMapper.selectAllDrug(params);
   }
