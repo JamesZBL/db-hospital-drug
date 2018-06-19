@@ -16,6 +16,20 @@
     id, name, quantity, price, invalid, quality_guarantee_period, lower_limit, supplier_id,
     specification
   </sql>
+  <!-- selectAllDrug -->
+  <select id="selectAllDrug" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from app_drug
+    <if test="offset != null and limit != null">
+      limit ${offset}, ${limit}
+    </if>
+  </select>
+  <!-- count -->
+  <select id="count" resultType="int">
+    select count(*)
+    from app_drug
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
