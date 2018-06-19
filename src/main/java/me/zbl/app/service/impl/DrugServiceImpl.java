@@ -57,6 +57,10 @@ public class DrugServiceImpl implements DrugService {
 
   @Override
   public int insertDrug(Drug drug) {
+    Drug find = drugMapper.selectByPrimaryKey(drug.getId());
+    if (null != find) {
+      throw new IllegalArgumentException("药品编号已经存在");
+    }
     Optional<Supplier> supplier = Optional.ofNullable(supplierMapper.
             selectByPrimaryKey(drug.getSupplierId()));
     supplier.orElseThrow(() -> new IllegalArgumentException("供应商编号不存在"));
