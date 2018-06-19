@@ -20,7 +20,7 @@
     <select id="selectAllConsumer" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from app_supplier
+        from app_consumer
         <if test="offset != null and limit != null">
             limit ${offset}, ${limit}
         </if>
