@@ -23,10 +23,8 @@ import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -43,6 +41,23 @@ public class ConsumerController {
 
   @Autowired
   private ConsumerService consumerService;
+
+  @GetMapping("/consumer/index")
+  public String index() {
+    return "/app/data-maintenance/consumer/index";
+  }
+
+  @GetMapping("/consumer/add")
+  public String add() {
+    return "/app/data-maintenance/consumer/add";
+  }
+
+  @GetMapping("/consumer/edit/{id}")
+  public String edit(@PathVariable("id") String id, Model model) {
+    Consumer find = consumerService.selectByPrimaryKey(id);
+    model.addAttribute("consumer", find);
+    return "/app/data-maintenance/consumer/edit";
+  }
 
   /**
    * 顾客列表
@@ -63,6 +78,33 @@ public class ConsumerController {
   public R save(Consumer consumer) {
     try {
       consumerService.insertConsumer(consumer);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return R.error(1, e.getMessage());
+    }
+    return R.ok();
+  }
+
+  /**
+   * 顾客更新
+   */
+  @PutMapping("/consumer/save")
+  @ResponseBody
+  public R saveUpdate(Consumer consumer) {
+    try {
+      consumerService.updateConsumer(consumer);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return R.error(1, e.getMessage());
+    }
+    return R.ok();
+  }
+
+  @DeleteMapping("/consumer/remove/{id}")
+  @ResponseBody
+  public R remove(@PathVariable("id") String id) {
+    try {
+      consumerService.deleteConsumer(id);
     } catch (Exception e) {
       e.printStackTrace();
       return R.error(1, e.getMessage());

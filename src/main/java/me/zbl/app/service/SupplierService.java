@@ -30,6 +30,8 @@ import java.util.Map;
  */
 public interface SupplierService {
 
+  Supplier selectByPrimaryKey(String id);
+
   List<Supplier> selectAllSupplier(Map<String, Object> params);
 
   int count();

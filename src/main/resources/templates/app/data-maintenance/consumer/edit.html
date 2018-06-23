@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="signupForm">
+                        <!-- HIDDEN -->
+                        <input id="id" name="id" class="form-control" type="hidden" th:value="${consumer.id}">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">姓名：</label>
+                            <div class="col-sm-8">
+                                <input id="name" name="name" th:value="${consumer.name}" class="form-control"
+                                       type="text" maxlength="20" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">联系电话：</label>
+                            <div class="col-sm-8">
+                                <input id="tel" name="tel" th:value="${consumer.tel}" class="form-control" type="text"
+                                       maxlength="11" required>
+                            </div>
+                        </div>
+                        <!-- -->
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-3">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript" src="/js/plugins/laydate/laydate.js"></script>
+<script type="text/javascript" src="/js/appjs/app/consumer/edit.js"></script>
+
+</body>
+</html>

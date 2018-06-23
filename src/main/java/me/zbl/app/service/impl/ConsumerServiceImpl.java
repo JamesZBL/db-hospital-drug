@@ -40,6 +40,11 @@ public class ConsumerServiceImpl implements ConsumerService {
   private ConsumerMapper consumerMapper;
 
   @Override
+  public Consumer selectByPrimaryKey(String id) {
+    return consumerMapper.selectByPrimaryKey(id);
+  }
+
+  @Override
   public List<Consumer> selectAllConsumer(Map<String, Object> params) {
     return consumerMapper.selectAllConsumer(params);
   }

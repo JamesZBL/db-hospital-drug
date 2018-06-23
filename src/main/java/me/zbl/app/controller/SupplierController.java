@@ -23,10 +23,8 @@ import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -43,6 +41,23 @@ public class SupplierController {
 
   @Autowired
   SupplierService supplierService;
+
+  @GetMapping("/supplier/index")
+  public String index() {
+    return "/app/data-maintenance/supplier/index";
+  }
+
+  @GetMapping("/supplier/add")
+  public String add() {
+    return "/app/data-maintenance/supplier/add";
+  }
+
+  @GetMapping("/supplier/edit/{id}")
+  public String edit(@PathVariable("id") String id, Model model) {
+    Supplier find = supplierService.selectByPrimaryKey(id);
+    model.addAttribute("supplier", find);
+    return "/app/data-maintenance/supplier/edit";
+  }
 
   /**
    * 供应商列表
@@ -63,6 +78,30 @@ public class SupplierController {
   public R save(Supplier supplier) {
     try {
       supplierService.insertSupplier(supplier);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return R.error(1, e.getMessage());
+    }
+    return R.ok();
+  }
+
+  @PutMapping("/supplier/save")
+  @ResponseBody
+  public R saveUpdate(Supplier supplier) {
+    try {
+      supplierService.updateSupplier(supplier);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return R.error(1, e.getMessage());
+    }
+    return R.ok();
+  }
+
+  @DeleteMapping("/supplier/remove/{id}")
+  @ResponseBody
+  public R remove(@PathVariable("id") String id) {
+    try {
+      supplierService.deleteSupplier(id);
     } catch (Exception e) {
       e.printStackTrace();
       return R.error(1, e.getMessage());

@@ -37,6 +37,11 @@ public class SupplierServiceImpl implements SupplierService {
   SupplierMapper supplierMapper;
 
   @Override
+  public Supplier selectByPrimaryKey(String id) {
+    return supplierMapper.selectByPrimaryKey(id);
+  }
+
+  @Override
   public List<Supplier> selectAllSupplier(Map<String, Object> params) {
     return supplierMapper.selectAllSupplier(params);
   }
@@ -57,7 +62,7 @@ public class SupplierServiceImpl implements SupplierService {
 
   @Override
   public int deleteSupplier(String id) {
-    return 0;
+    return supplierMapper.deleteByPrimaryKey(id);
   }
 
   @Override
