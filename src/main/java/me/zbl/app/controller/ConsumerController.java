@@ -44,19 +44,19 @@ public class ConsumerController {
 
   @GetMapping("/consumer/index")
   public String index() {
-    return "/app/data-maintenance/consumer/index";
+    return "app/data-maintenance/consumer/index";
   }
 
   @GetMapping("/consumer/add")
   public String add() {
-    return "/app/data-maintenance/consumer/add";
+    return "app/data-maintenance/consumer/add";
   }
 
   @GetMapping("/consumer/edit/{id}")
   public String edit(@PathVariable("id") String id, Model model) {
     Consumer find = consumerService.selectByPrimaryKey(id);
     model.addAttribute("consumer", find);
-    return "/app/data-maintenance/consumer/edit";
+    return "app/data-maintenance/consumer/edit";
   }
 
   /**

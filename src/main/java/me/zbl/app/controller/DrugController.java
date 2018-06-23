@@ -43,19 +43,19 @@ public class DrugController {
 
   @GetMapping("/drug/index")
   public String index() {
-    return "/app/data-maintenance/drug/index";
+    return "app/data-maintenance/drug/index";
   }
 
   @GetMapping("/drug/add")
   public String add() {
-    return "/app/data-maintenance/drug/add";
+    return "app/data-maintenance/drug/add";
   }
 
   @GetMapping("/drug/edit/{id}")
   public String edit(@PathVariable("id") String id, Model model) {
     Drug find = drugService.selectDrugByPrimaryKey(id);
     model.addAttribute("drug", find);
-    return "/app/data-maintenance/drug/edit";
+    return "app/data-maintenance/drug/edit";
   }
 
   @DeleteMapping("/drug/remove/{id}")

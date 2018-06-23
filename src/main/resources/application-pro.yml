@@ -8,9 +8,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://172.17.0.1:3306/hospital-drug?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://47.93.187.44:3306/hospital-drug?useUnicode=true&characterEncoding=utf8
     username: dev
-    password: dev
+    password: 19961120
     initialSize: 1
     minIdle: 3
     maxActive: 20

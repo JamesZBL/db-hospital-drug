@@ -44,19 +44,19 @@ public class SupplierController {
 
   @GetMapping("/supplier/index")
   public String index() {
-    return "/app/data-maintenance/supplier/index";
+    return "app/data-maintenance/supplier/index";
   }
 
   @GetMapping("/supplier/add")
   public String add() {
-    return "/app/data-maintenance/supplier/add";
+    return "app/data-maintenance/supplier/add";
   }
 
   @GetMapping("/supplier/edit/{id}")
   public String edit(@PathVariable("id") String id, Model model) {
     Supplier find = supplierService.selectByPrimaryKey(id);
     model.addAttribute("supplier", find);
-    return "/app/data-maintenance/supplier/edit";
+    return "app/data-maintenance/supplier/edit";
   }
 
   /**
