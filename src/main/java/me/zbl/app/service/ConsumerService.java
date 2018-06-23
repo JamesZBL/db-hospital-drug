@@ -30,6 +30,8 @@ import java.util.Map;
  */
 public interface ConsumerService {
 
+  List<Consumer> searchByName(String name);
+
   Consumer selectByPrimaryKey(String id);
 
   List<Consumer> selectAllConsumer(Map<String, Object> params);

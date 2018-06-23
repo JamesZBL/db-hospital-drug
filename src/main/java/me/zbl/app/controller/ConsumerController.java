@@ -26,6 +26,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,6 +102,9 @@ public class ConsumerController {
     return R.ok();
   }
 
+  /**
+   * 顾客删除
+   */
   @DeleteMapping("/consumer/remove/{id}")
   @ResponseBody
   public R remove(@PathVariable("id") String id) {
@@ -110,5 +115,24 @@ public class ConsumerController {
       return R.error(1, e.getMessage());
     }
     return R.ok();
+  }
+
+  /**
+   * 下拉选择顾客
+   */
+  @GetMapping("/consumer/search")
+  @ResponseBody
+  public Map<String, Object> search(@RequestParam("q") String name) {
+    Map<String, Object> entity = new HashMap<>();
+    List<Consumer> consumers = consumerService.searchByName(name);
+    List<Map<String, Object>> results = new ArrayList<>();
+    consumers.forEach(c -> {
+      Map<String, Object> item = new HashMap<>();
+      item.put("id", c.getId());
+      item.put("text", c.getName() + '-' + c.getTel());
+      results.add(item);
+    });
+    entity.put("results", results);
+    return entity;
   }
 }

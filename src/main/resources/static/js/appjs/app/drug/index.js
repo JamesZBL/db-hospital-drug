@@ -65,6 +65,10 @@ function load() {
                         title: '单价'
                     },
                     {
+                        field: 'quantity',
+                        title: '当前库存'
+                    },
+                    {
                         field: 'lowerLimit',
                         title: '库存阈值'
                     },

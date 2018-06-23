@@ -19,6 +19,7 @@ package me.zbl.app.controller;
 import me.zbl.app.domain.DrugInDO;
 import me.zbl.app.domain.DrugInFormDO;
 import me.zbl.app.service.DrugInService;
+import me.zbl.common.controller.BaseController;
 import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
@@ -40,7 +41,7 @@ import java.util.Map;
  * @date 2018-05-07
  */
 @Controller
-public class DrugInController {
+public class DrugInController extends BaseController {
 
   @Autowired
   private DrugInService service;
@@ -82,6 +83,9 @@ public class DrugInController {
   @ResponseBody
   @PostMapping("/inventory/drugin/save")
   public R save(DrugInFormDO params) {
+    //    经办人姓名取当前用户的用户名
+    String username = getUser().getName();
+    params.setManager(username);
     try {
       service.drugInSave(params);
     } catch (Exception e) {

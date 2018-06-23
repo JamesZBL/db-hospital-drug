@@ -7,6 +7,8 @@ import java.util.Map;
 
 public interface ConsumerMapper {
 
+  List<Consumer> selectByName(String name);
+
   List<Consumer> selectAllConsumer(Map<String, Object> params);
 
   Consumer selectConsumerByTel(String tel);

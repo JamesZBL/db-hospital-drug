@@ -36,6 +36,12 @@
         from app_consumer
         where id = #{id,jdbcType=VARCHAR}
     </select>
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from app_consumer
+        where name like CONCAT(CONCAT('%',#{name},'%'))
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from app_consumer
         where id = #{id,jdbcType=VARCHAR}

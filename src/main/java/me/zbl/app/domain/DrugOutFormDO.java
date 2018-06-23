@@ -37,6 +37,8 @@ public class DrugOutFormDO {
   private String manager;
   //  总金额
   private float ammount;
+  //  顾客 id
+  private String consumer;
 
   public String getDrugId() {
     return drugId;
@@ -84,5 +86,13 @@ public class DrugOutFormDO {
 
   public void setComment(String comment) {
     this.comment = comment;
+  }
+
+  public String getConsumer() {
+    return consumer;
+  }
+
+  public void setConsumer(String consumer) {
+    this.consumer = consumer;
   }
 }

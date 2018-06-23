@@ -18,6 +18,7 @@ package me.zbl.app.service;
 
 import me.zbl.app.domain.DrugOutDO;
 import me.zbl.app.domain.DrugOutFormDO;
+import me.zbl.app.domain.SaleDO;
 
 import java.util.List;
 import java.util.Map;
@@ -33,9 +34,15 @@ public interface DrugOutService {
 
   List<DrugOutDO> list(Map<String, Object> params);
 
+  List<SaleDO> saleList(Map<String, Object> params);
+
   int count();
 
+  int countSale();
+
   int drugOutSave(DrugOutFormDO drugOutFormDO) throws IllegalArgumentException;
+
+  int saleSave(DrugOutFormDO drugOutFormDO);
 
   /**
    * 检查库存下限

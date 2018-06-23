@@ -40,6 +40,22 @@
         <result column="supplierName" jdbcType="VARCHAR" property="supplierName"/>
         <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated"/>
     </resultMap>
+    <resultMap id="SaleResultMap" type="me.zbl.app.domain.SaleDO">
+        <result column="order_id" jdbcType="VARCHAR" property="orderId"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="manager" jdbcType="VARCHAR" property="manager"/>
+        <result column="quantityNow" jdbcType="INTEGER" property="quantityNow"/>
+        <result column="drugId" jdbcType="VARCHAR" property="drugId"/>
+        <result column="drugName" jdbcType="VARCHAR" property="drugName"/>
+        <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="specification" jdbcType="VARCHAR" property="specification"/>
+        <result column="comment" jdbcType="VARCHAR" property="comment"/>
+        <result column="ammount" jdbcType="DECIMAL" property="ammount"/>
+        <result column="supplierName" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="consumer" jdbcType="VARCHAR" property="consumer"/>
+        <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated"/>
+    </resultMap>
     <sql id="Base_Column_List">
         id, consumer_id, drug_id, type, quantity, ammount, comment, manager,
         gmt_created, gmt_modified
@@ -53,6 +69,13 @@
     <!-- countOut -->
     <select id="countOut" resultType="int">
         select count(*) from app_inventory_record where type in ('3','4')
+    </select>
+
+    <!-- countSale -->
+    <select id="countSale" resultType="int">
+        select count(*)
+        from app_inventory_record
+        where type = '3'
     </select>
 
     <!--inList-->
@@ -84,6 +107,28 @@
         where
         i.drug_id = d.id and d.supplier_id = s.id
         and i.type in('3','4')
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by gmt_created desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit ${offset}, ${limit}
+        </if>
+    </select>
+
+    <!--saleList-->
+    <select id="saleList" parameterType="java.util.Map" resultMap="SaleResultMap">
+        select
+        i.id as order_id,i.comment, i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as
+        drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created,c.name as consumer
+        from app_inventory_record i,app_drug d,app_supplier s,app_consumer c
+        where
+        i.drug_id = d.id and d.supplier_id = s.id and i.consumer_id = c.id
+        and i.type = '3'
         <choose>
             <when test="sort != null and sort.trim() != ''">
                 order by ${sort} ${order}
@@ -132,6 +177,19 @@
         values (#{id,jdbcType=VARCHAR},  #{drugId,jdbcType=VARCHAR},
         '4', #{quantity,jdbcType=INTEGER}, #{ammount,jdbcType=INTEGER},
         #{comment,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR})
+    </insert>
+
+    <!-- saleSave -->
+    <insert id="saleSave" parameterType="me.zbl.app.domain.DrugOutFormDO">
+        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into app_inventory_record (id,
+        drug_id, type, quantity,
+        ammount, comment, manager, consumer_id)
+        values (#{id,jdbcType=VARCHAR}, #{drugId,jdbcType=VARCHAR},
+        '3', #{quantity,jdbcType=INTEGER}, #{ammount,jdbcType=INTEGER},
+        #{comment,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR}, #{consumer})
     </insert>
 
     <insert id="insert" parameterType="me.zbl.app.domain.Inventory">
