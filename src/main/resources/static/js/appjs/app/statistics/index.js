@@ -42,6 +42,7 @@ function load() {
         },
         xAxis: {
             type: 'category',
+            boundaryGap: false,
             data: days
         },
         yAxis: {
@@ -50,6 +51,17 @@ function load() {
         series: [{
             name: 'count',
             type: 'line',
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                }
+            },
             data: vSaleCount
         }
         ]
