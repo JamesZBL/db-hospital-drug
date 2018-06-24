@@ -64,6 +64,11 @@ public class SaleController extends BaseController {
     return "app/sale/back";
   }
 
+  @GetMapping("/sta/index")
+  public String statistics() {
+    return "app/statistics/index";
+  }
+
   @GetMapping("/sale/list")
   @ResponseBody
   public PageWrapper list(@RequestParam Map<String, Object> params) {
@@ -96,5 +101,11 @@ public class SaleController extends BaseController {
       return R.error(1, e.getMessage());
     }
     return R.ok();
+  }
+
+  @GetMapping("/sale/sta_sale_day")
+  @ResponseBody
+  public Object staSaleDay() {
+    return drugOutService.staSaleDay();
   }
 }

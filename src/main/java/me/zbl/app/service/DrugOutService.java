@@ -20,6 +20,7 @@ import com.github.pagehelper.Page;
 import me.zbl.app.domain.DrugOutDO;
 import me.zbl.app.domain.DrugOutFormDO;
 import me.zbl.app.domain.SaleDO;
+import me.zbl.app.domain.StaSaleDO;
 
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,8 @@ import java.util.Map;
  * @date 2018-05-08
  */
 public interface DrugOutService {
+
+  List<StaSaleDO> staSaleDay();
 
   List<DrugOutDO> list(Map<String, Object> params);
 

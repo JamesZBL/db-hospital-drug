@@ -13,6 +13,8 @@ public interface InventoryMapper {
 
   int drugInSave(DrugInFormDO drugInFormDO);
 
+  List<StaSaleDO> staSaleDay();
+
   List<DrugInDO> inList(Map<String, Object> param);
 
   List<DrugOutDO> outList(Map<String, Object> param);

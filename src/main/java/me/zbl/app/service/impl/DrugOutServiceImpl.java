@@ -19,10 +19,7 @@ package me.zbl.app.service.impl;
 import com.github.pagehelper.Page;
 import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.dao.InventoryMapper;
-import me.zbl.app.domain.Drug;
-import me.zbl.app.domain.DrugOutDO;
-import me.zbl.app.domain.DrugOutFormDO;
-import me.zbl.app.domain.SaleDO;
+import me.zbl.app.domain.*;
 import me.zbl.app.service.DrugOutService;
 import me.zbl.oa.domain.NotifyDO;
 import me.zbl.oa.service.NotifyService;
@@ -46,7 +43,6 @@ import java.util.Optional;
  * @date 2018-05-08
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class DrugOutServiceImpl implements DrugOutService {
 
   @Autowired
@@ -57,6 +53,11 @@ public class DrugOutServiceImpl implements DrugOutService {
 
   @Autowired
   private NotifyService notifyService;
+
+  @Override
+  public List<StaSaleDO> staSaleDay() {
+    return inventoryMapper.staSaleDay();
+  }
 
   @Override
   public List<DrugOutDO> list(Map<String, Object> params) {

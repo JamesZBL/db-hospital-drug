@@ -56,19 +56,43 @@
         <result column="consumer" jdbcType="VARCHAR" property="consumer"/>
         <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated"/>
     </resultMap>
+    <resultMap id="StaSaleResultMap" type="me.zbl.app.domain.StaSaleDO">
+        <result column="R_DATE_UNIT" jdbcType="VARCHAR" property="dateUnit"/>
+        <result column="R_SUM_QUANTITY" jdbcType="DECIMAL" property="saleCount"/>
+    </resultMap>
     <sql id="Base_Column_List">
         id, consumer_id, drug_id, type, quantity, ammount, comment, manager,
         gmt_created, gmt_modified
     </sql>
 
+    <!-- staSaleDay -->
+    <select id="staSaleDay" resultMap="StaSaleResultMap">
+        SELECT
+            DATE_FORMAT(R.gmt_created, '%c月%e日') AS R_DATE_UNIT,
+            SUM(R.quantity)                      AS R_SUM_QUANTITY
+        FROM
+            app_inventory_record R
+        WHERE
+            DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY) <![CDATA[<=]]> R.gmt_created
+            AND R.type = '3'
+        GROUP BY
+            R_DATE_UNIT
+        ORDER BY
+            R.gmt_created ASC;
+    </select>
+
     <!-- countIn -->
     <select id="countIn" resultType="int">
-        select count(*) from app_inventory_record where type in ('1','2')
+        select count(*)
+        from app_inventory_record
+        where type in ('1', '2')
     </select>
 
     <!-- countOut -->
     <select id="countOut" resultType="int">
-        select count(*) from app_inventory_record where type in ('3','4')
+        select count(*)
+        from app_inventory_record
+        where type in ('3', '4')
     </select>
 
     <!-- countSale -->
@@ -81,7 +105,8 @@
     <!--inList-->
     <select id="inList" parameterType="java.util.Map" resultMap="DrugInResultMap">
         select
-        i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
+        i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as
+        drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
         from app_inventory_record i,app_drug d,app_supplier s
         where
         i.drug_id = d.id and d.supplier_id = s.id
@@ -102,7 +127,8 @@
     <!--outList-->
     <select id="outList" parameterType="java.util.Map" resultMap="DrugOutResultMap">
         select
-        i.comment, i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
+        i.comment, i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as
+        drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
         from app_inventory_record i,app_drug d,app_supplier s
         where
         i.drug_id = d.id and d.supplier_id = s.id
@@ -123,12 +149,25 @@
     <!--saleList-->
     <select id="saleList" parameterType="java.util.Map" resultMap="SaleResultMap">
         select
-        i.id as order_id,i.comment, i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as
-        drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created,c.name as consumer
-        from app_inventory_record i,app_drug d,app_supplier s,app_consumer c
+            i.id       as order_id,
+            i.comment,
+            i.type,
+            i.manager,
+            d.quantity as quantityNow,
+            d.id       as drugId,
+            d.`name`   as
+                          drugName,
+            d.price,
+            d.specification,
+            i.quantity,
+            i.ammount,
+            s.name     as supplierName,
+            i.gmt_created,
+            c.name     as consumer
+        from app_inventory_record i, app_drug d, app_supplier s, app_consumer c
         where
-        i.drug_id = d.id and d.supplier_id = s.id and i.consumer_id = c.id
-        and i.type = '3'
+            i.drug_id = d.id and d.supplier_id = s.id and i.consumer_id = c.id
+            and i.type = '3'
         order by gmt_created desc
     </select>
 
@@ -151,7 +190,7 @@
         insert into app_inventory_record (id,
         drug_id, type, quantity,
         ammount, comment, manager)
-        values (#{id,jdbcType=VARCHAR},  #{drugId,jdbcType=VARCHAR},
+        values (#{id,jdbcType=VARCHAR}, #{drugId,jdbcType=VARCHAR},
         '1', #{quantity,jdbcType=INTEGER}, #{ammount,jdbcType=INTEGER},
         '进货入库', #{manager,jdbcType=VARCHAR})
     </insert>
@@ -164,7 +203,7 @@
         insert into app_inventory_record (id,
         drug_id, type, quantity,
         ammount, comment, manager)
-        values (#{id,jdbcType=VARCHAR},  #{drugId,jdbcType=VARCHAR},
+        values (#{id,jdbcType=VARCHAR}, #{drugId,jdbcType=VARCHAR},
         '4', #{quantity,jdbcType=INTEGER}, #{ammount,jdbcType=INTEGER},
         #{comment,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR})
     </insert>
@@ -296,15 +335,15 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="me.zbl.app.domain.Inventory">
         update app_inventory_record
-        set consumer_id = #{consumerId,jdbcType=VARCHAR},
-        drug_id = #{drugId,jdbcType=VARCHAR},
-        type = #{type,jdbcType=VARCHAR},
-        quantity = #{quantity,jdbcType=INTEGER},
-        ammount = #{ammount,jdbcType=DECIMAL},
-        comment = #{comment,jdbcType=VARCHAR},
-        manager = #{manager,jdbcType=VARCHAR},
-        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+        set consumer_id  = #{consumerId,jdbcType=VARCHAR},
+            drug_id      = #{drugId,jdbcType=VARCHAR},
+            type         = #{type,jdbcType=VARCHAR},
+            quantity     = #{quantity,jdbcType=INTEGER},
+            ammount      = #{ammount,jdbcType=DECIMAL},
+            comment      = #{comment,jdbcType=VARCHAR},
+            manager      = #{manager,jdbcType=VARCHAR},
+            gmt_created  = #{gmtCreated,jdbcType=TIMESTAMP},
+            gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=VARCHAR}
     </update>
 </mapper>
