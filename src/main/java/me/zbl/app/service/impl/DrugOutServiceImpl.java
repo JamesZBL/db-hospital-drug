@@ -16,6 +16,7 @@
  */
 package me.zbl.app.service.impl;
 
+import com.github.pagehelper.Page;
 import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.dao.InventoryMapper;
 import me.zbl.app.domain.Drug;
@@ -25,6 +26,7 @@ import me.zbl.app.domain.SaleDO;
 import me.zbl.app.service.DrugOutService;
 import me.zbl.oa.domain.NotifyDO;
 import me.zbl.oa.service.NotifyService;
+import me.zbl.util.PageUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,8 +64,8 @@ public class DrugOutServiceImpl implements DrugOutService {
   }
 
   @Override
-  public List<SaleDO> saleList(Map<String, Object> params) {
-    return inventoryMapper.saleList(params);
+  public Page<SaleDO> saleList(Map<String, Object> params) {
+    return PageUtil.page(params, () -> inventoryMapper.saleList(params));
   }
 
   @Override

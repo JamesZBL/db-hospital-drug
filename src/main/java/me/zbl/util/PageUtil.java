@@ -14,39 +14,25 @@
  * limitations under the License.
  *
  */
-package me.zbl.app.service;
+package me.zbl.util;
 
+import com.github.pagehelper.ISelect;
 import com.github.pagehelper.Page;
-import me.zbl.app.domain.DrugOutDO;
-import me.zbl.app.domain.DrugOutFormDO;
-import me.zbl.app.domain.SaleDO;
+import com.github.pagehelper.PageHelper;
 
-import java.util.List;
 import java.util.Map;
 
 /**
- * 药品出库业务接口
- *
  * @author JamesZBL
  * @email 1146556298@qq.com
- * @date 2018-05-08
+ * @date 2018-06-24
  */
-public interface DrugOutService {
+public class PageUtil {
 
-  List<DrugOutDO> list(Map<String, Object> params);
 
-  Page<SaleDO> saleList(Map<String, Object> params);
-
-  int count();
-
-  int countSale();
-
-  int drugOutSave(DrugOutFormDO drugOutFormDO) throws IllegalArgumentException;
-
-  int saleSave(DrugOutFormDO drugOutFormDO);
-
-  /**
-   * 检查库存下限
-   */
-  void checkLowerLimit();
+  public static <E> Page<E> page(Map<String, Object> params, ISelect select) {
+    return PageHelper.offsetPage(
+            (Integer) params.get("offset"), (Integer) params.get("limit")).
+            doSelectPage(select);
+  }
 }
