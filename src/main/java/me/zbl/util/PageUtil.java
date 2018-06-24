@@ -21,6 +21,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author JamesZBL
@@ -29,10 +30,12 @@ import java.util.Map;
  */
 public class PageUtil {
 
-
   public static <E> Page<E> page(Map<String, Object> params, ISelect select) {
-    return PageHelper.offsetPage(
-            (Integer) params.get("offset"), (Integer) params.get("limit")).
-            doSelectPage(select);
+    Optional<String> orderby = Optional.ofNullable((String) (params.get("orderby")));
+    Page<Object> page = PageHelper.offsetPage(
+            (Integer) params.get("offset"),
+            (Integer) params.get("limit"));
+    orderby.ifPresent(page::setOrderBy);
+    return page.doSelectPage(select);
   }
 }

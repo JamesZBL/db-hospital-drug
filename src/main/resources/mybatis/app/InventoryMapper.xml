@@ -129,6 +129,7 @@
         where
         i.drug_id = d.id and d.supplier_id = s.id and i.consumer_id = c.id
         and i.type = '3'
+        order by gmt_created desc
     </select>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
