@@ -16,8 +16,10 @@
  */
 package me.zbl.app.controller;
 
+import me.zbl.app.domain.BackFormDO;
 import me.zbl.app.domain.DrugOutFormDO;
 import me.zbl.app.domain.SaleDO;
+import me.zbl.app.service.DrugInService;
 import me.zbl.app.service.DrugOutService;
 import me.zbl.common.controller.BaseController;
 import me.zbl.common.utils.PageWrapper;
@@ -44,6 +46,9 @@ public class SaleController extends BaseController {
   @Autowired
   private DrugOutService drugOutService;
 
+  @Autowired
+  DrugInService drugInService;
+
   @GetMapping("/sale/index")
   public String index() {
     return "app/sale/index";
@@ -52,6 +57,11 @@ public class SaleController extends BaseController {
   @GetMapping("/sale/add")
   public String add() {
     return "app/sale/add";
+  }
+
+  @GetMapping("/sale/back")
+  public String back() {
+    return "app/sale/back";
   }
 
   @GetMapping("/sale/list")
@@ -68,6 +78,19 @@ public class SaleController extends BaseController {
     drugOutFormDO.setManager(getUser().getName());
     try {
       drugOutService.saleSave(drugOutFormDO);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return R.error(1, e.getMessage());
+    }
+    return R.ok();
+  }
+
+  @PostMapping("/sale/back")
+  @ResponseBody
+  public R saleBackSave(BackFormDO backFormDO) {
+    backFormDO.setManager(getUser().getName());
+    try {
+      drugInService.back(backFormDO);
     } catch (Exception e) {
       e.printStackTrace();
       return R.error(1, e.getMessage());

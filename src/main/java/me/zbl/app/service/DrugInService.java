@@ -16,6 +16,7 @@
  */
 package me.zbl.app.service;
 
+import me.zbl.app.domain.BackFormDO;
 import me.zbl.app.domain.DrugInDO;
 import me.zbl.app.domain.DrugInFormDO;
 
@@ -30,6 +31,8 @@ import java.util.Map;
  * @date 2018-05-07
  */
 public interface DrugInService {
+
+  int back(BackFormDO backFormDO);
 
   List<DrugInDO> list(Map<String, Object> params);
 

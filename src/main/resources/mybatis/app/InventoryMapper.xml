@@ -232,9 +232,6 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             #{id,jdbcType=VARCHAR},
-            <if test="supplierId != null">
-                #{supplierId,jdbcType=VARCHAR},
-            </if>
             <if test="consumerId != null">
                 #{consumerId,jdbcType=VARCHAR},
             </if>

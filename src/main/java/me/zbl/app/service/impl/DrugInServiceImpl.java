@@ -19,9 +19,7 @@ package me.zbl.app.service.impl;
 import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.dao.ExpireMapper;
 import me.zbl.app.dao.InventoryMapper;
-import me.zbl.app.domain.DrugInDO;
-import me.zbl.app.domain.DrugInFormDO;
-import me.zbl.app.domain.Expire;
+import me.zbl.app.domain.*;
 import me.zbl.app.service.DrugInService;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +45,41 @@ public class DrugInServiceImpl implements DrugInService {
 
   @Autowired
   private DrugMapper drugMapper;
+
+  @Override
+  public int back(BackFormDO backFormDO) {
+    int result = 0;
+    String orderId = backFormDO.getOrderId();
+    Inventory order = inventoryMapper.selectByPrimaryKey(orderId);
+    if (null == order) {
+      throw new IllegalArgumentException("订单不存在");
+    }
+    order.setManager(backFormDO.getManager());
+    order.setComment(backFormDO.getComment());
+    order.setId(null);
+    order.setGmtCreated(null);
+    order.setGmtModified(null);
+    // 如果没有问题，直接入库
+    if (!backFormDO.isHasProblem()) {
+      order.setType("2");
+      // 保存入库记录
+      result = inventoryMapper.insertSelective(order);
+      // 更新库存
+      Map<String, Object> param = new HashMap<>();
+      param.put("drugId", order.getDrugId());
+      param.put("quantity", order.getQuantity());
+      drugMapper.increaseAndDecreaseQuantity(param);
+    }
+    // 药品存在问题，直接退回供应商
+    else {
+      order.setType("4");
+      // 保存入库记录
+      result = inventoryMapper.insertSelective(order);
+    }
+    // 删除订单
+    inventoryMapper.deleteByPrimaryKey(orderId);
+    return result;
+  }
 
   @Override
   public List<DrugInDO> list(Map<String, Object> params) {
