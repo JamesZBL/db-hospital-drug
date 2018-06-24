@@ -129,7 +129,7 @@ function back() {
         title: '退货登记',
         maxmin: true,
         shadeClose: false, // 点击遮罩关闭层
-        area: ['500px', '350px'],
+        area: ['500px', '450px'],
         content: prefix + '/back' // iframe的url
     });
 }
