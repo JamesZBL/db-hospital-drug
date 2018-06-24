@@ -51,9 +51,10 @@ function load() {
                     {
                         field: 'drugName',
                         title: '药品名称'
-                        // formatter: function(value,row,index){
-                        // 	return '<a href="#" onclick="edit(\''+row.id+'\')">'+row.title+'</a>';
-                        // }
+                    },
+                    {
+                        field: 'specification',
+                        title: '规格'
                     },
                     {
                         field: 'quantity',
@@ -65,40 +66,18 @@ function load() {
                     },
                     {
                         field: 'price',
-                        title: '单价'
-                    },
-                    {
-                        field: 'specification',
-                        title: '规格'
+                        title: '单价',
+                        formatter: function (v) {
+                            return v.toFixed(2);
+                        }
                     },
                     {
                         field: 'ammount',
-                        title: '总金额'
+                        title: '总金额',
+                        formatter: function (v) {
+                            return v.toFixed(2);
+                        }
                     },
-                    // {
-                    // 	field : 'status',
-                    // 	title : '状态',
-                    // 	align :'center',
-                    // 	formatter : function(value, row, index){
-                    // 		if(value==0){
-                    // 			return '<span class="label label-danger">草稿</span>';
-                    // 		}else if(value==1){
-                    // 			return '<span class="label label-primary">发布</span>';
-                    // 		}
-                    // 	}
-                    // },
-                    // {
-                    //     field: 'type',
-                    //     title: '类别',
-                    //     formatter: function (value, row, index) {
-                    //         switch (value) {
-                    //             case '3':
-                    //                 return '销售出库';
-                    //             case '4':
-                    //                 return '退回供应商';
-                    //         }
-                    //     }
-                    // },
                     {
                         field: 'comment',
                         title: '备注'
@@ -114,23 +93,6 @@ function load() {
                         field: 'gmtCreated',
                         title: '出库时间'
                     }
-                    // {
-                    // 	title : '操作',
-                    // 	field : 'operation',
-                    // 	align : 'center',
-                    // 	formatter : function(value, row, index) {
-                    // 		var e = '<a class="btn btn-primary btn-sm ' + s_edit_h + '" href="#" mce_href="#" title="编辑" onclick="edit(\''
-                    // 			+ row.id
-                    // 			+ '\')"><i class="fa fa-edit"></i></a> ';
-                    // 		var d = '<a class="btn btn-warning btn-sm ' + s_remove_h + '" href="#" title="删除"  mce_href="#" onclick="remove(\''
-                    // 			+ row.id
-                    // 			+ '\')"><i class="fa fa-remove"></i></a> ';
-                    // 		var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-                    // 			+ row.id
-                    // 			+ '\')"><i class="fa fa-key"></i></a> ';
-                    // 		return e + d;
-                    // 	}
-                    // }
                 ]
             });
 }

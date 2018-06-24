@@ -62,7 +62,10 @@ function load() {
                     },
                     {
                         field: 'price',
-                        title: '单价'
+                        title: '单价',
+                        formatter: function (v) {
+                            return v.toFixed(2);
+                        }
                     },
                     {
                         field: 'quantity',
