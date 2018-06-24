@@ -48,11 +48,12 @@ function load() {
                         title: '流水号'
                     },
                     {
+                        field: 'drugId',
+                        title: '药品编号'
+                    },
+                    {
                         field: 'drugName',
                         title: '药品名称'
-                        // formatter: function(value,row,index){
-                        // 	return '<a href="#" onclick="edit(\''+row.id+'\')">'+row.title+'</a>';
-                        // }
                     },
                     {
                         field: 'quantity',
