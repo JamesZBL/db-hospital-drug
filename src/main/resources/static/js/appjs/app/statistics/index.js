@@ -34,7 +34,8 @@ function load() {
     // 指定图表的配置项和数据
     var option = {
         title: {
-            text: '日销售统计'
+            text: '近30天日销量统计',
+            left: 'center'
         },
         tooltip: {
             trigger: 'axis',
@@ -51,6 +52,7 @@ function load() {
         series: [{
             name: 'count',
             type: 'line',
+            // smooth: true,
             areaStyle: {
                 normal: {
                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
