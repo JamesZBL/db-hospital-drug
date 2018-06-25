@@ -15,6 +15,10 @@ public interface InventoryMapper {
 
   List<StaSaleDO> staSaleDay();
 
+  List<StaSaleDO> staSaleMonth();
+
+  List<StaSaleDO> staSaleYear();
+
   List<DrugInDO> inList(Map<String, Object> param);
 
   List<DrugOutDO> outList(Map<String, Object> param);

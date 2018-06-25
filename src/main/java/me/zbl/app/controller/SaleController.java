@@ -69,6 +69,11 @@ public class SaleController extends BaseController {
     return "app/statistics/index";
   }
 
+  @GetMapping("/sale_detail/index")
+  public String saleDetail() {
+    return "app/sale-detail/index";
+  }
+
   @GetMapping("/sale/list")
   @ResponseBody
   public PageWrapper list(@RequestParam Map<String, Object> params) {
@@ -107,5 +112,17 @@ public class SaleController extends BaseController {
   @ResponseBody
   public Object staSaleDay() {
     return drugOutService.staSaleDay();
+  }
+
+  @GetMapping("/sale/sta_sale_month")
+  @ResponseBody
+  public Object staSaleMonth() {
+    return drugOutService.staSaleMonth();
+  }
+
+  @GetMapping("/sale/sta_sale_year")
+  @ResponseBody
+  public Object staSaleYear() {
+    return drugOutService.staSaleYear();
   }
 }

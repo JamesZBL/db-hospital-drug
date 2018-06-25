@@ -60,6 +60,16 @@ public class DrugOutServiceImpl implements DrugOutService {
   }
 
   @Override
+  public List<StaSaleDO> staSaleMonth() {
+    return inventoryMapper.staSaleMonth();
+  }
+
+  @Override
+  public List<StaSaleDO> staSaleYear() {
+    return inventoryMapper.staSaleYear();
+  }
+
+  @Override
   public List<DrugOutDO> list(Map<String, Object> params) {
     return inventoryMapper.outList(params);
   }

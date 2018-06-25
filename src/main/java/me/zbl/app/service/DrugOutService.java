@@ -36,6 +36,10 @@ public interface DrugOutService {
 
   List<StaSaleDO> staSaleDay();
 
+  List<StaSaleDO> staSaleMonth();
+
+  List<StaSaleDO> staSaleYear();
+
   List<DrugOutDO> list(Map<String, Object> params);
 
   Page<SaleDO> saleList(Map<String, Object> params);

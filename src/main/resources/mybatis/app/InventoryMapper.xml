@@ -87,6 +87,53 @@
             T_TMP.F_DATE ASC;
     </select>
 
+    <!-- staSaleMonth -->
+    <select id="staSaleMonth" resultMap="StaSaleResultMap">
+        SELECT
+            DATE_FORMAT(T_TMP.F_DATE, '%c月') AS R_DATE_UNIT,
+            IFNULL(SUM(T_INVEN.quantity), 0) AS R_SUM_QUANTITY
+        FROM
+            (
+                SELECT @cdate := DATE_SUB(@cdate, INTERVAL 1 MONTH) AS F_DATE
+                FROM
+                    (SELECT @cdate := DATE_ADD(CURRENT_DATE, INTERVAL 1 MONTH)
+                     FROM app_inventory_record) T_TMP2
+                WHERE YEAR(@cdate) = YEAR(CURRENT_DATE)
+                LIMIT 12
+            ) T_TMP
+            LEFT JOIN app_inventory_record T_INVEN
+                ON YEAR(T_TMP.F_DATE) = YEAR(T_INVEN.gmt_created)
+                   AND MONTH(T_TMP.F_DATE) = MONTH(T_INVEN.gmt_created)
+                   AND T_INVEN.TYPE = '3'
+        WHERE YEAR(T_TMP.F_DATE) = YEAR(CURRENT_DATE)
+        GROUP BY
+            T_TMP.F_DATE
+        ORDER BY
+            T_TMP.F_DATE ASC;
+    </select>
+
+    <!-- staSaleYear -->
+    <select id="staSaleYear" resultMap="StaSaleResultMap">
+        SELECT
+            DATE_FORMAT(T_TMP.F_DATE, '%Y年') AS R_DATE_UNIT,
+            IFNULL(SUM(T_INVEN.quantity), 0) AS R_SUM_QUANTITY
+        FROM
+            (
+                SELECT @cdate := DATE_SUB(@cdate, INTERVAL 1 YEAR) AS F_DATE
+                FROM
+                    (SELECT @cdate := DATE_ADD(CURRENT_DATE, INTERVAL 1 YEAR)
+                     FROM app_inventory_record) T_TMP2
+                LIMIT 5
+            ) T_TMP
+            LEFT JOIN app_inventory_record T_INVEN
+                ON YEAR(T_TMP.F_DATE) = YEAR(T_INVEN.gmt_created)
+                   AND T_INVEN.TYPE = '3'
+        GROUP BY
+            T_TMP.F_DATE
+        ORDER BY
+            T_TMP.F_DATE ASC;
+    </select>
+
     <!-- countIn -->
     <select id="countIn" resultType="int">
         select count(*)
