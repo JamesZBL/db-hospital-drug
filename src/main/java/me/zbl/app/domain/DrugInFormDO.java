@@ -41,7 +41,7 @@ public class DrugInFormDO {
   //  经办人
   private String manager;
   //  总金额
-  private int ammount;
+  private float ammount;
 
   public String getDrugId() {
     return drugId;
@@ -67,11 +67,11 @@ public class DrugInFormDO {
     this.manager = manager;
   }
 
-  public int getAmmount() {
+  public float getAmmount() {
     return ammount;
   }
 
-  public void setAmmount(int ammount) {
+  public void setAmmount(float ammount) {
     this.ammount = ammount;
   }
 

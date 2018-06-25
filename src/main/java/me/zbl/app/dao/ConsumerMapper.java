@@ -2,16 +2,28 @@ package me.zbl.app.dao;
 
 import me.zbl.app.domain.Consumer;
 
+import java.util.List;
+import java.util.Map;
+
 public interface ConsumerMapper {
-    int deleteByPrimaryKey(String id);
 
-    int insert(Consumer record);
+  List<Consumer> selectByName(String name);
 
-    int insertSelective(Consumer record);
+  List<Consumer> selectAllConsumer(Map<String, Object> params);
 
-    Consumer selectByPrimaryKey(String id);
+  Consumer selectConsumerByTel(String tel);
 
-    int updateByPrimaryKeySelective(Consumer record);
+  int count();
 
-    int updateByPrimaryKey(Consumer record);
+  int deleteByPrimaryKey(String id);
+
+  int insert(Consumer record);
+
+  int insertSelective(Consumer record);
+
+  Consumer selectByPrimaryKey(String id);
+
+  int updateByPrimaryKeySelective(Consumer record);
+
+  int updateByPrimaryKey(Consumer record);
 }

@@ -16,19 +16,20 @@
  */
 package me.zbl.app.service.impl;
 
+import com.github.pagehelper.Page;
 import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.dao.InventoryMapper;
-import me.zbl.app.domain.Drug;
-import me.zbl.app.domain.DrugOutDO;
-import me.zbl.app.domain.DrugOutFormDO;
+import me.zbl.app.domain.*;
 import me.zbl.app.service.DrugOutService;
 import me.zbl.oa.domain.NotifyDO;
 import me.zbl.oa.service.NotifyService;
+import me.zbl.util.PageUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,13 +55,38 @@ public class DrugOutServiceImpl implements DrugOutService {
   private NotifyService notifyService;
 
   @Override
+  public List<StaSaleDO> staSaleDay() {
+    return inventoryMapper.staSaleDay();
+  }
+
+  @Override
+  public List<StaSaleDO> staSaleMonth() {
+    return inventoryMapper.staSaleMonth();
+  }
+
+  @Override
+  public List<StaSaleDO> staSaleYear() {
+    return inventoryMapper.staSaleYear();
+  }
+
+  @Override
   public List<DrugOutDO> list(Map<String, Object> params) {
     return inventoryMapper.outList(params);
   }
 
   @Override
+  public Page<SaleDO> saleList(Map<String, Object> params) {
+    return PageUtil.page(params, () -> inventoryMapper.saleList(params));
+  }
+
+  @Override
   public int count() {
     return inventoryMapper.countOut();
+  }
+
+  @Override
+  public int countSale() {
+    return inventoryMapper.countSale();
   }
 
   @Transactional
@@ -83,6 +109,31 @@ public class DrugOutServiceImpl implements DrugOutService {
     }
     // 保存仓储变动记录
     return inventoryMapper.drugOutSave(drugOutFormDO);
+  }
+
+  @Override
+  public int saleSave(DrugOutFormDO drugOutFormDO) {
+    Optional.ofNullable(drugMapper.selectByPrimaryKey(drugOutFormDO.getDrugId())).
+            orElseThrow(() -> new IllegalArgumentException("输入的药品编号不存在"));
+    Map<String, Object> params = new HashMap<>();
+    String drugId = drugOutFormDO.getDrugId();
+    params.put("drugId", drugId);
+    params.put("quantity", 0 - drugOutFormDO.getQuantity());
+    // 更新药品的库存
+    drugMapper.increaseAndDecreaseQuantity(params);
+    Drug post = drugMapper.selectByPrimaryKey(drugId);
+    if (post.getQuantity() < 0) {
+      throw new IllegalArgumentException("库存不足！");
+    }
+    BigDecimal price = post.getPrice();
+    int quantity = drugOutFormDO.getQuantity();
+    float ammount = price.floatValue() * (float) quantity;
+    drugOutFormDO.setAmmount(ammount);
+    if (StringUtils.isEmpty(drugOutFormDO.getComment())) {
+      drugOutFormDO.setComment("销售出库");
+    }
+    // 保存仓储变动记录
+    return inventoryMapper.saleSave(drugOutFormDO);
   }
 
   @Override

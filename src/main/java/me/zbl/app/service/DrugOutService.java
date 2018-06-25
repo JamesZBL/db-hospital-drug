@@ -16,8 +16,11 @@
  */
 package me.zbl.app.service;
 
+import com.github.pagehelper.Page;
 import me.zbl.app.domain.DrugOutDO;
 import me.zbl.app.domain.DrugOutFormDO;
+import me.zbl.app.domain.SaleDO;
+import me.zbl.app.domain.StaSaleDO;
 
 import java.util.List;
 import java.util.Map;
@@ -31,11 +34,23 @@ import java.util.Map;
  */
 public interface DrugOutService {
 
+  List<StaSaleDO> staSaleDay();
+
+  List<StaSaleDO> staSaleMonth();
+
+  List<StaSaleDO> staSaleYear();
+
   List<DrugOutDO> list(Map<String, Object> params);
+
+  Page<SaleDO> saleList(Map<String, Object> params);
 
   int count();
 
+  int countSale();
+
   int drugOutSave(DrugOutFormDO drugOutFormDO) throws IllegalArgumentException;
+
+  int saleSave(DrugOutFormDO drugOutFormDO);
 
   /**
    * 检查库存下限

@@ -36,7 +36,9 @@ public class DrugOutFormDO {
   //  经办人
   private String manager;
   //  总金额
-  private int ammount;
+  private float ammount;
+  //  顾客 id
+  private String consumer;
 
   public String getDrugId() {
     return drugId;
@@ -62,11 +64,11 @@ public class DrugOutFormDO {
     this.manager = manager;
   }
 
-  public int getAmmount() {
+  public float getAmmount() {
     return ammount;
   }
 
-  public void setAmmount(int ammount) {
+  public void setAmmount(float ammount) {
     this.ammount = ammount;
   }
 
@@ -84,5 +86,13 @@ public class DrugOutFormDO {
 
   public void setComment(String comment) {
     this.comment = comment;
+  }
+
+  public String getConsumer() {
+    return consumer;
+  }
+
+  public void setConsumer(String consumer) {
+    this.consumer = consumer;
   }
 }

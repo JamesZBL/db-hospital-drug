@@ -1,5 +1,5 @@
 hospital:
-  uploadPath: /var/uploaded_files/
+  uploadPath: drug-sys/uploaded_files/
 logging:
   level:
     root: error
@@ -8,9 +8,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/hospital-drug?useUnicode=true&characterEncoding=utf8
-    username: root
-    password: root
+    url: jdbc:mysql://47.93.187.44:3306/hospital-drug?useUnicode=true&characterEncoding=utf8
+    username: dev
+    password: 19961120
     initialSize: 1
     minIdle: 3
     maxActive: 20

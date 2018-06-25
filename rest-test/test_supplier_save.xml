@@ -1,0 +1,46 @@
+<RestClientRequest>
+  <option name="biscuits">
+    <list>
+      <Biscuit>
+        <option name="date" value="-1" />
+        <option name="domain" value="localhost" />
+        <option name="name" value="JSESSIONID" />
+        <option name="path" value="/" />
+        <option name="value" value="f7f79774-3660-46d2-913b-d1170962a683" />
+      </Biscuit>
+    </list>
+  </option>
+  <option name="httpMethod" value="POST" />
+  <option name="urlBase" value="http://localhost:8086" />
+  <option name="urlPath" value="/supplier/save" />
+  <option name="headers">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="Accept" />
+        <option name="value" value="*/*" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="Cache-Control" />
+        <option name="value" value="no-cache" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parameters">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="id" />
+        <option name="value" value="HEB-0004" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="name" />
+        <option name="value" value="ASS" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parametersEnabled" value="true" />
+  <option name="haveTextToSend" value="false" />
+  <option name="haveFileToSend" value="false" />
+  <option name="isFileUpload" value="false" />
+  <option name="textToSend" value="" />
+  <option name="filesToSend" value="" />
+</RestClientRequest>

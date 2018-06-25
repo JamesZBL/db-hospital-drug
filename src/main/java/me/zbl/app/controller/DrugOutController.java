@@ -19,6 +19,7 @@ package me.zbl.app.controller;
 import me.zbl.app.domain.DrugOutDO;
 import me.zbl.app.domain.DrugOutFormDO;
 import me.zbl.app.service.DrugOutService;
+import me.zbl.common.controller.BaseController;
 import me.zbl.common.utils.PageWrapper;
 import me.zbl.common.utils.Query;
 import me.zbl.common.utils.R;
@@ -40,7 +41,7 @@ import java.util.Map;
  * @date 2018-05-08
  */
 @Controller
-public class DrugOutController {
+public class DrugOutController extends BaseController {
 
   @Autowired
   private DrugOutService service;
@@ -62,7 +63,7 @@ public class DrugOutController {
   }
 
   /**
-   * 入库记录列表
+   * 出库记录列表
    *
    * @param params 查询参数
    */
@@ -82,6 +83,9 @@ public class DrugOutController {
   @ResponseBody
   @PostMapping("/inventory/drugout/save")
   public R save(DrugOutFormDO params) {
+    //    经办人姓名取当前用户的用户名
+    String username = getUser().getName();
+    params.setManager(username);
     //    保存出库记录
     try {
       service.drugOutSave(params);

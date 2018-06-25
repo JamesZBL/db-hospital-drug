@@ -56,6 +56,10 @@ function load() {
                         // }
                     },
                     {
+                        field: 'specification',
+                        title: '规格'
+                    },
+                    {
                         field: 'quantity',
                         title: '入库数量'
                     },
@@ -65,15 +69,18 @@ function load() {
                     },
                     {
                         field: 'price',
-                        title: '单价'
+                        title: '单价',
+                        formatter: function (v) {
+                            return v.toFixed(2);
+                        }
                     },
-                    {
-                        field: 'specification',
-                        title: '规格'
-                    },
+
                     {
                         field: 'ammount',
-                        title: '总金额'
+                        title: '总金额',
+                        formatter: function (v) {
+                            return v.toFixed(2);
+                        }
                     },
                     // {
                     // 	field : 'status',
