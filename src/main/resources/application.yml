@@ -1,7 +1,6 @@
 server:
   port: 8086
-  session:
-    timeout: 36000
+  session-timeout: 36000
   tomcat:
     uri-encoding: utf-8
     # max-threads: 1000
