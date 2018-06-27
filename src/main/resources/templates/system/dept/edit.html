@@ -34,10 +34,13 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">状态：</label>
+								<label class="col-sm-3 control-label">状态:</label>
 								<div class="col-sm-8">
-									<input id="delFlag" name="delFlag" th:value="${sysDept.delFlag}"
-										class="form-control" type="text">
+									<label class="radio-inline"> <input type="radio" name="delFlag" value="1" checked/>
+										正常
+									</label> <label class="radio-inline"> <input type="radio" name="delFlag" value="0"/>
+									禁用
+								</label>
 								</div>
 							</div>
 							<div class="form-group">
