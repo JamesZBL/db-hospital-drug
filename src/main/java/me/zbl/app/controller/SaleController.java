@@ -92,6 +92,8 @@ public class SaleController extends BaseController {
       e.printStackTrace();
       return R.error(1, e.getMessage());
     }
+    //    检查库存下限
+    drugOutService.checkLowerLimit();
     return R.ok();
   }
 
