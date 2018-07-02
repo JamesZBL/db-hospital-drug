@@ -21,6 +21,14 @@
         select
         <include refid="Base_Column_List"/>
         from app_consumer
+        <where>
+            <if test="name != null">
+                name like concat(concat(#{name},'%'))
+            </if>
+            <if test="tel != null">
+                AND tel like concat(concat(#{tel},'%'))
+            </if>
+        </where>
         <if test="offset != null and limit != null">
             limit ${offset}, ${limit}
         </if>
