@@ -255,9 +255,13 @@
         i.comment, i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as
         drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
         from app_inventory_record i,app_drug d,app_supplier s
-        where
-        i.drug_id = d.id and d.supplier_id = s.id
-        and i.type in('1','4')
+        <where>
+            i.drug_id = d.id and d.supplier_id = s.id
+            and i.type in('1','4')
+            <if test="name != null">
+                and s.name like concat(concat(#{name},'%'))
+            </if>
+        </where>
     </select>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
