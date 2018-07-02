@@ -262,6 +262,7 @@
                 and s.name like concat(concat(#{name},'%'))
             </if>
         </where>
+        order by i.gmt_created desc
     </select>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
