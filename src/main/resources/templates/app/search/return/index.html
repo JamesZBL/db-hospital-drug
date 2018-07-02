@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:shiro="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
@@ -13,10 +13,6 @@
                         <!--class="btn  btn-danger" onclick="batchRemove()">-->
                         <!--<i class="fa fa-trash" aria-hidden="true"></i>删除-->
                         <!--</button>-->
-                        <div class="form-group form-inline">
-                            <input oninput="reLoad()" id="id_q_id" type="text" class="form-control" placeholder="药品编号">
-                            <input oninput="reLoad()" id="id_q_name" type="text" class="form-control" placeholder="药品名称">
-                        </div>
                     </div>
                     <!--<div class="columns pull-right">-->
                     <!--<button class="btn btn-success" onclick="reLoad()">查询</button>-->
@@ -32,7 +28,30 @@
         </div>
     </div>
 </div>
+<!--shiro控制bootstraptable行内按钮看见性 -->
+<div>
+    <script type="text/javascript">
+        var s_edit_h = 'hidden';
+        var s_remove_h = 'hidden';
+        var s_resetPwd_h = 'hidden';
+    </script>
+</div>
+<div shiro:hasPermission="oa:notify:edit">
+    <script type="text/javascript">
+        s_edit_h = '';
+    </script>
+</div>
+<div shiro:hasPermission="oa:notify:remove">
+    <script type="text/javascript">
+        var s_remove_h = '';
+    </script>
+</div>
+<div shiro:hasPermission="oa:notify:resetPwd">
+    <script type="text/javascript">
+        var s_resetPwd_h = '';
+    </script>
+</div>
 <div th:include="include :: footer"></div>
-<script type="text/javascript" src="/js/appjs/app/search/drug/index.js"></script>
+<script type="text/javascript" src="/js/appjs/app/search/return/drugout.js"></script>
 </body>
 </html>

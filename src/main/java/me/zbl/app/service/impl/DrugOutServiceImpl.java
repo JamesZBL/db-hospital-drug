@@ -21,6 +21,7 @@ import me.zbl.app.dao.DrugMapper;
 import me.zbl.app.dao.InventoryMapper;
 import me.zbl.app.domain.*;
 import me.zbl.app.service.DrugOutService;
+import me.zbl.common.utils.PageWrapper;
 import me.zbl.oa.domain.NotifyDO;
 import me.zbl.oa.service.NotifyService;
 import me.zbl.util.PageUtil;
@@ -77,6 +78,16 @@ public class DrugOutServiceImpl implements DrugOutService {
   @Override
   public Page<SaleDO> saleList(Map<String, Object> params) {
     return PageUtil.page(params, () -> inventoryMapper.saleList(params));
+  }
+
+  @Override
+  public PageWrapper returnList(Map<String, Object> params) {
+    return PageUtil.pageWrapper(params,()->inventoryMapper.returnList(params));
+  }
+
+  @Override
+  public PageWrapper accountsList(Map<String, Object> params) {
+    return PageUtil.pageWrapper(params,()->inventoryMapper.accountsList(params));
   }
 
   @Override

@@ -1,4 +1,4 @@
-var prefix = "/supplier";
+var prefix = "/search";
 $(function () {
     load();
 });
@@ -8,7 +8,7 @@ function load() {
         .bootstrapTable(
             {
                 method: 'get', // 服务器数据的请求方式 get or post
-                url: prefix + "/list", // 服务器数据的加载地址
+                url: prefix + "/return", // 服务器数据的加载地址
                 showRefresh: true,
                 // showToggle : true,
                 //	showColumns : true,
@@ -31,9 +31,9 @@ function load() {
                     return {
                         //说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
                         limit: params.limit,
-                        offset: params.offset,
-                        name:$('#id_q_name').val(),
-                        id:$('#id_q_id').val()
+                        offset: params.offset
+                        // name:$('#searchName').val(),
+                        // username:$('#searchName').val()
                     };
                 },
                 // //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -44,26 +44,55 @@ function load() {
                 // 返回false将会终止请求
                 columns: [
                     {
-                        field: 'id',
-                        title: '编号'
+                        field: 'drugId',
+                        title: '药品编号'
                     },
 
                     {
-                        field: 'name',
-                        title: '名称'
+                        field: 'drugName',
+                        title: '药品名称'
                     },
-                    // {
-                    // 	field : 'status',
-                    // 	title : '状态',
-                    // 	align :'center',
-                    // 	formatter : function(value, row, index){
-                    // 		if(value==0){
-                    // 			return '<span class="label label-danger">草稿</span>';
-                    // 		}else if(value==1){
-                    // 			return '<span class="label label-primary">发布</span>';
-                    // 		}
-                    // 	}
-                    // },
+                    {
+                        field: 'specification',
+                        title: '规格'
+                    },
+                    {
+                        field: 'quantity',
+                        title: '出库数量'
+                    },
+                    {
+                        field: 'quantityNow',
+                        title: '实时库存'
+                    },
+                    {
+                        field: 'price',
+                        title: '单价',
+                        formatter: function (v) {
+                            return v.toFixed(2);
+                        }
+                    },
+                    {
+                        field: 'ammount',
+                        title: '总金额',
+                        formatter: function (v) {
+                            return v.toFixed(2);
+                        }
+                    },
+                    {
+                        field: 'comment',
+                        title: '备注'
+                    },
+                    {
+                        field: 'supplierName',
+                        title: '供应商'
+                    }, {
+                        field: 'manager',
+                        title: '经办人'
+                    },
+                    {
+                        field: 'gmtCreated',
+                        title: '出库时间'
+                    }
                 ]
             });
 }

@@ -13,6 +13,14 @@
     select
     <include refid="Base_Column_List" />
     from app_supplier
+    <where>
+      <if test="id!=null">
+        id like concat(concat(#{id},'%'))
+      </if>
+      <if test="name!=null">
+        AND name like concat(concat(#{name},'%'))
+      </if>
+    </where>
     <if test="offset != null and limit != null">
       limit ${offset}, ${limit}
     </if>

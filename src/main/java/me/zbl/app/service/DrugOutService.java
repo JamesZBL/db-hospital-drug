@@ -21,6 +21,7 @@ import me.zbl.app.domain.DrugOutDO;
 import me.zbl.app.domain.DrugOutFormDO;
 import me.zbl.app.domain.SaleDO;
 import me.zbl.app.domain.StaSaleDO;
+import me.zbl.common.utils.PageWrapper;
 
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,10 @@ public interface DrugOutService {
   List<DrugOutDO> list(Map<String, Object> params);
 
   Page<SaleDO> saleList(Map<String, Object> params);
+
+  PageWrapper returnList(Map<String, Object> params);
+
+  PageWrapper accountsList(Map<String, Object> params);
 
   int count();
 

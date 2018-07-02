@@ -19,6 +19,7 @@ package me.zbl.util;
 import com.github.pagehelper.ISelect;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import me.zbl.common.utils.PageWrapper;
 
 import java.util.Map;
 import java.util.Optional;
@@ -30,12 +31,22 @@ import java.util.Optional;
  */
 public class PageUtil {
 
-  public static <E> Page<E> page(Map<String, Object> params, ISelect select) {
-    Optional<String> orderby = Optional.ofNullable((String) (params.get("orderby")));
-    Page<Object> page = PageHelper.offsetPage(
-            (Integer) params.get("offset"),
-            (Integer) params.get("limit"));
-    orderby.ifPresent(page::setOrderBy);
-    return page.doSelectPage(select);
-  }
+    public static <E> Page<E> page(Map<String, Object> params, ISelect select) {
+        Optional<String> orderby = Optional.ofNullable((String) (params.get("orderby")));
+        Page<Object> page = PageHelper.offsetPage(
+                Integer.parseInt(String.valueOf(params.get("offset"))),
+                Integer.parseInt(String.valueOf(params.get("limit"))));
+        orderby.ifPresent(page::setOrderBy);
+        return page.doSelectPage(select);
+    }
+
+    public static PageWrapper pageWrapper(Map<String, Object> params, ISelect select){
+        Optional<String> orderby = Optional.ofNullable((String) (params.get("orderby")));
+        Page<Object> page = PageHelper.offsetPage(
+                Integer.parseInt(String.valueOf(params.get("offset"))),
+                Integer.parseInt(String.valueOf(params.get("limit"))));
+        orderby.ifPresent(page::setOrderBy);
+        page.doSelectPage(select);
+        return new PageWrapper(page, (int) page.getTotal());
+    }
 }

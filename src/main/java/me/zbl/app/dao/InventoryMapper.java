@@ -23,6 +23,10 @@ public interface InventoryMapper {
 
   List<DrugOutDO> outList(Map<String, Object> param);
 
+  List<DrugOutDO> returnList (Map<String, Object> param);
+
+  List<DrugOutDO> accountsList (Map<String, Object> param);
+
   List<SaleDO> saleList(Map<String, Object> param);
 
   int deleteByPrimaryKey(String id);

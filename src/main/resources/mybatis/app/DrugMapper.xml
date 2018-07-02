@@ -37,6 +37,14 @@
     specification,
     s.name as supplier
     from app_drug join app_supplier s on app_drug.supplier_id = s.id
+    <where>
+      <if test="id!=null">
+        app_drug.id like concat(concat(#{id},'%'))
+      </if>
+        <if test="name!=null">
+          AND app_drug.name like concat(concat(#{name},'%'))
+        </if>
+    </where>
     <if test="offset != null and limit != null">
       limit ${offset}, ${limit}
     </if>

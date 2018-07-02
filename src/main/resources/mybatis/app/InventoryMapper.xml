@@ -224,6 +224,42 @@
         order by gmt_created desc
     </select>
 
+    <!--returnList-->
+    <select id="returnList" parameterType="java.util.Map" resultMap="SaleResultMap">
+        select
+        i.id       as order_id,
+        i.comment,
+        i.type,
+        i.manager,
+        d.quantity as quantityNow,
+        d.id       as drugId,
+        d.`name`   as
+        drugName,
+        d.price,
+        d.specification,
+        i.quantity,
+        i.ammount,
+        s.name     as supplierName,
+        i.gmt_created,
+        c.name     as consumer
+        from app_inventory_record i, app_drug d, app_supplier s, app_consumer c
+        where
+        i.drug_id = d.id and d.supplier_id = s.id and i.consumer_id = c.id
+        and i.type = '4'
+        order by gmt_created desc
+    </select>
+
+    <!-- accountsList -->
+    <select id="accountsList" parameterType="java.util.Map" resultMap="DrugOutResultMap">
+        select
+        i.comment, i.type, i.manager, d.quantity as quantityNow, d.id as drugId, d.`name` as
+        drugName,d.price,d.specification,i.quantity,i.ammount,s.name as supplierName,i.gmt_created
+        from app_inventory_record i,app_drug d,app_supplier s
+        where
+        i.drug_id = d.id and d.supplier_id = s.id
+        and i.type in('1','4')
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

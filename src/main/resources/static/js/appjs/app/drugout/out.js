@@ -12,7 +12,7 @@ function save() {
     $.ajax({
         cache: true,
         type: "POST",
-        url: "/inventory/drugout/save",
+        url: "/inventory/return/save",
         data: $('#signupForm').serialize(),
         async: false,
         error: function (request) {
