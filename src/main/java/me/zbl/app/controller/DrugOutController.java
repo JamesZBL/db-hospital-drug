@@ -63,6 +63,22 @@ public class DrugOutController extends BaseController {
   }
 
   /**
+   * 药品退回供应商
+   */
+  @GetMapping("/inventory/return")
+  public String returnPage() {
+    return "app/inventory/return/index";
+  }
+
+  /**
+   * 药品退回供应商登记
+   */
+  @GetMapping("/inventory/returnOut")
+  public String returnOut() {
+    return "app/inventory/return/out";
+  }
+
+  /**
    * 出库记录列表
    *
    * @param params 查询参数
