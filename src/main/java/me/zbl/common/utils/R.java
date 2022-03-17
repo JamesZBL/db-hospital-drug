@@ -21,22 +21,22 @@ public class R extends HashMap<String, Object> {
   }
 
   public static R error(int code, String msg) {
-    R r = new R();
-    r.put("code", code);
-    r.put("msg", msg);
-    return r;
+    R run = new R();
+    run.put("code", code);
+    run.put("msg", msg);
+    return run;
   }
 
   public static R ok(String msg) {
-    R r = new R();
-    r.put("msg", msg);
-    return r;
+    R run = new R();
+    run.put("msg", msg);
+    return run;
   }
 
   public static R ok(Map<String, Object> map) {
-    R r = new R();
-    r.putAll(map);
-    return r;
+    R run = new R();
+    run.putAll(map);
+    return run;
   }
 
   public static R ok() {
