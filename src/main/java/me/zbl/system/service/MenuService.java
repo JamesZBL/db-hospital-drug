@@ -1,8 +1,10 @@
 package me.zbl.system.service;
 
+
 import me.zbl.common.domain.Tree;
 import me.zbl.system.domain.MenuDO;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Map;
@@ -30,4 +32,6 @@ public interface MenuService {
   MenuDO get(Long id);
 
   Set<String> listPerms(Long userId);
+
+  String getMenus(Model model);
 }

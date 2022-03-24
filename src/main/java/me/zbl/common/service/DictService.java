@@ -52,7 +52,7 @@ public interface DictService {
   /**
    * 根据type获取数据
    *
-   * @param map
+   * @parammap
    *
    * @return
    */

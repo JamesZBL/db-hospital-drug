@@ -26,7 +26,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/common/dict")
-public class DictController extends BaseController {
+public abstract class DictController extends DeleteController {
 
   @Autowired
   private DictService dictService;
@@ -96,13 +96,10 @@ public class DictController extends BaseController {
   /**
    * 删除
    */
-  @PostMapping("/remove")
-  @ResponseBody
   @RequiresPermissions("common:dict:remove")
-  public R remove(Long id) {
-    if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
-      return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-    }
+  @Override
+  public R removeRefactor(Long id) {
+
     if (dictService.remove(id) > 0) {
       return R.ok();
     }

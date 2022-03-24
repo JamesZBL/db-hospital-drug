@@ -12,7 +12,6 @@ import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.PvmTransition;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.spring.ProcessEngineFactoryBean;
@@ -31,6 +30,8 @@ import java.util.Map;
 @Service
 public class ActTaskServiceImpl implements ActTaskService {
 
+
+  private final ProcessStartServiceImpl processStartServiceImpl = new ProcessStartServiceImpl(this);
   @Autowired
   TaskService taskService;
   @Autowired
@@ -118,25 +119,16 @@ public class ActTaskServiceImpl implements ActTaskService {
    */
   @Override
   public String startProcess(String procDefKey, String businessTable, String businessId, String title, Map<String, Object> vars) {
-    String userId = ShiroUtils.getUser().getUsername();//ObjectUtils.toString(UserUtils.getUser().getId())
 
     // 用来设置启动流程的人员ID，引擎会自动把用户ID保存到activiti:initiator中
-    identityService.setAuthenticatedUserId(userId);
 
     // 设置流程变量
-    if (vars == null) {
-      vars = new HashMap();
-    }
 
     // 设置流程标题
-    if (StringUtils.isNotBlank(title)) {
-      vars.put("title", title);
-    }
 
     // 启动流程
-    ProcessInstance procIns = runtimeService.startProcessInstanceByKey(procDefKey, businessId, vars);
 
-    return null;
+    return processStartServiceImpl.startProcess(procDefKey, businessTable, businessId, title, vars);
   }
 
   /**
@@ -225,16 +217,14 @@ public class ActTaskServiceImpl implements ActTaskService {
     return null;
   }
 
-
   /**
    * 获取需要高亮的线
    *
    * @param processDefinitionEntity
    * @param historicActivityInstances
-   *
    * @return
    */
-  private List<String> getHighLightedFlows(
+  List<String> getHighLightedFlows(
           ProcessDefinitionEntity processDefinitionEntity,
           List<HistoricActivityInstance> historicActivityInstances) {
     List<String> highFlows = new ArrayList<String>();// 用以保存高亮的线flowId
@@ -278,6 +268,7 @@ public class ActTaskServiceImpl implements ActTaskService {
     }
     return highFlows;
   }
+
 
 }
 

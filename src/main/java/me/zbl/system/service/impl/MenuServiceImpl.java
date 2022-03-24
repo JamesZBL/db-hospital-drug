@@ -1,6 +1,8 @@
 package me.zbl.system.service.impl;
 
+import me.zbl.common.domain.FileDO;
 import me.zbl.common.domain.Tree;
+import me.zbl.common.service.FileService;
 import me.zbl.common.utils.BuildTree;
 import me.zbl.system.dao.MenuDao;
 import me.zbl.system.dao.RoleMenuDao;
@@ -11,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.*;
+
+import static me.zbl.common.utils.ShiroUtils.getUser;
+import static me.zbl.common.utils.ShiroUtils.getUserId;
 
 @SuppressWarnings("AlibabaRemoveCommentedCode")
 @Service
@@ -23,6 +29,9 @@ public class MenuServiceImpl implements MenuService {
   MenuDao menuMapper;
   @Autowired
   RoleMenuDao roleMenuMapper;
+
+  @Autowired
+  FileService fileService;
 
   /**
    * @param
@@ -162,6 +171,27 @@ public class MenuServiceImpl implements MenuService {
     // 默认顶级菜单为０，根据数据库实际情况调整
     List<Tree<MenuDO>> list = BuildTree.buildList(trees, "0");
     return list;
+  }
+
+  @Override
+  public String getMenus(Model model){
+
+    List<Tree<MenuDO>> menus = listMenuTree(getUserId());
+
+    model.addAttribute("menus", menus);
+    model.addAttribute("name", getUser().getName());
+    FileDO fileDO = fileService.get(getUser().getPicId());
+    if (fileDO != null && fileDO.getUrl() != null) {
+      if (fileService.isExist(fileDO.getUrl())) {
+        model.addAttribute("picUrl", fileDO.getUrl());
+      } else {
+        model.addAttribute("picUrl", "/img/photo_s.jpg");
+      }
+    } else {
+      model.addAttribute("picUrl", "/img/photo_s.jpg");
+    }
+    model.addAttribute("username", getUser().getUsername());
+    return "index_v1";
   }
 
 }

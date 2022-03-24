@@ -2,6 +2,7 @@ package me.zbl.oa.controller;
 
 import me.zbl.common.config.Constant;
 import me.zbl.common.controller.BaseController;
+import me.zbl.common.controller.DeleteController;
 import me.zbl.common.domain.DictDO;
 import me.zbl.common.service.DictService;
 import me.zbl.common.utils.PageWrapper;
@@ -32,7 +33,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/oa/notify")
-public class NotifyController extends BaseController {
+public abstract class NotifyController extends DeleteController {
 
   @Autowired
   private NotifyService notifyService;
@@ -115,13 +116,10 @@ public class NotifyController extends BaseController {
   /**
    * 删除
    */
-  @PostMapping("/remove")
-  @ResponseBody
   @RequiresPermissions("oa:notify:remove")
-  public R remove(Long id) {
-    if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
-      return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-    }
+  @Override
+  public R removeRefactor(Long id) {
+
     if (notifyService.remove(id) > 0) {
       return R.ok();
     }

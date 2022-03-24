@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/common/job")
-public class JobController extends BaseController {
+public abstract class JobController extends DeleteController {
 
   @Autowired
   private JobService taskScheduleJobService;
@@ -94,12 +94,9 @@ public class JobController extends BaseController {
   /**
    * 删除
    */
-  @PostMapping("/remove")
-  @ResponseBody
-  public R remove(Long id) {
-    if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
-      return R.error(1, "演示系统不允许修改,完整体验请部署程序");
-    }
+  @Override
+  public R removeRefactor(Long id) {
+
     if (taskScheduleJobService.remove(id) > 0) {
       return R.ok();
     }

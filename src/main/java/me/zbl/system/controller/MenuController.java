@@ -3,7 +3,9 @@ package me.zbl.system.controller;
 import me.zbl.common.annotation.Log;
 import me.zbl.common.config.Constant;
 import me.zbl.common.controller.BaseController;
+import me.zbl.common.domain.FileDO;
 import me.zbl.common.domain.Tree;
+import me.zbl.common.service.FileService;
 import me.zbl.common.utils.R;
 import me.zbl.system.domain.MenuDO;
 import me.zbl.system.service.MenuService;
@@ -26,6 +28,9 @@ public class MenuController extends BaseController {
   String prefix = "system/menu";
   @Autowired
   MenuService menuService;
+
+  @Autowired
+  FileService fileService;
 
   @RequiresPermissions("sys:menu:menu")
   @GetMapping()
@@ -130,4 +135,6 @@ public class MenuController extends BaseController {
     tree = menuService.getTree(roleId);
     return tree;
   }
+
+
 }

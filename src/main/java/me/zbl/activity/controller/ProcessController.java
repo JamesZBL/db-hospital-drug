@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -65,31 +66,17 @@ public class ProcessController extends BaseController {
 
   @PostMapping("/save")
   @Transactional(readOnly = false)
-  public R deploy(String exportDir, String category, MultipartFile file) {
+  public R deploy(String category, MultipartFile file) {
     if (Constant.DEMO_ACCOUNT.equals(getUsername())) {
       return R.error(1, "演示系统不允许修改,完整体验请部署程序");
     }
     String message = "";
-    String fileName = file.getOriginalFilename();
-    try {
-      InputStream fileInputStream = file.getInputStream();
-      Deployment deployment = null;
-      String extension = FilenameUtils.getExtension(fileName);
-      if (extension.equals("zip") || extension.equals("bar")) {
-        ZipInputStream zip = new ZipInputStream(fileInputStream);
-        deployment = repositoryService.createDeployment().addZipInputStream(zip).deploy();
-      } else if (extension.equals("png")) {
-        deployment = repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
-      } else if (fileName.indexOf("bpmn20.xml") != -1) {
-        deployment = repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
-      } else if (extension.equals("bpmn")) { // bpmn扩展名特殊处理，转换为bpmn20.xml
-        String baseName = FilenameUtils.getBaseName(fileName);
-        deployment = repositoryService.createDeployment().addInputStream(baseName + ".bpmn20.xml", fileInputStream).deploy();
-      } else {
-        message = "不支持的文件类型：" + extension;
-      }
 
-      List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().deploymentId(deployment.getId()).list();
+    Deployment deployment = getDeployment(file);
+    if(deployment == null){
+      message = "不支持的文件类型：" + getFileExtension(file);
+    }
+    List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().deploymentId(deployment.getId()).list();
 
       // 设置流程分类
       for (ProcessDefinition processDefinition : list) {
@@ -102,10 +89,41 @@ public class ProcessController extends BaseController {
         message = "部署失败，没有流程。";
       }
 
-    } catch (Exception e) {
-      throw new ActivitiException("部署失败！", e);
-    }
     return R.ok(message);
+  }
+
+  public Deployment getDeployment(MultipartFile file) {
+
+    String fileName = file.getOriginalFilename();
+    InputStream fileInputStream = null;
+    Deployment deployment = null;
+    String extension = getFileExtension(file);;
+   try {
+     fileInputStream = file.getInputStream();
+     if (extension.equals("zip") || extension.equals("bar")) {
+       ZipInputStream zip = new ZipInputStream(fileInputStream);
+       deployment = repositoryService.createDeployment().addZipInputStream(zip).deploy();
+     } else if (extension.equals("png")) {
+       deployment = repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
+     } else if (fileName.indexOf("bpmn20.xml") != -1) {
+       deployment = repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
+     } else if (extension.equals("bpmn")) { // bpmn扩展名特殊处理，转换为bpmn20.xml
+       String baseName = FilenameUtils.getBaseName(fileName);
+       deployment = repositoryService.createDeployment().addInputStream(baseName + ".bpmn20.xml", fileInputStream).deploy();
+     }
+   }
+      catch(Exception e){
+       throw new ActivitiException("部署失败！", e);
+     }
+
+   return deployment;
+   }
+
+  public String getFileExtension(MultipartFile file){
+
+    String fileName = file.getOriginalFilename();
+    String extension = FilenameUtils.getExtension(fileName);
+    return extension;
   }
 
   /**
